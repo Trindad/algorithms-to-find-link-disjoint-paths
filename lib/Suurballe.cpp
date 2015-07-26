@@ -425,6 +425,7 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2)
     // cout<<"---------------------------------\n";
 
 
+
     int source = path1[0];
     int target = path1[ path1.size()-1 ];
     int pair = 0;
@@ -433,17 +434,10 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2)
     this->datas<<p1[0]<<" ";
     for (u = 1; u < p1.size(); u+=2)
     {
-        // if (pair < 1)
-        // {
-            this->datas<<p1[u]<<" ";
-            // pair++;
-        // }
-        // else
-        // {
-        //     this->datas<<p1[u]<<endl;
-        //     pair = 0;
-        // }
+        
+        this->datas<<p1[u]<<" ";
     }
+    
     // cout<<" number of hops "<<p1.size()/2<<endl;
     this->datas<<"\n";
     
@@ -453,17 +447,8 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2)
     this->datas<<p2[0]<<" ";
     for (u = 1; u < p2.size(); u+=2)
     {
-        // if (pair < 1)
-        // {
-            this->datas<<p2[u]<<" ";
-        //     pair++;
-        // }
-        // else
-        // {
-        //     this->datas<<p2[u]<<endl;
-        //     pair = 0;
-        // }
-
+      
+        this->datas<<p2[u]<<" ";
     }
     this->datas<<"\n";
 
@@ -486,6 +471,7 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2)
         this->hopBackup.push_back(secondPath);
         this->hopWorking.push_back(firstPath);
    }
+
    // cout<<" Número de enlaces de "<<source<<" até "<<target<< " = "<<g.getNumberOfEdges()<<endl;
     return makeSubgraphDisjointPaths(g,source,target);
 }
@@ -590,6 +576,7 @@ bool Suurballe::execute(Graph & graph, string nameFile)
                 iterator++;
             }
         }
+
         Suurballe::averageHops();
     }
     return survivor;

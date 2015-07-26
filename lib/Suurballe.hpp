@@ -5,7 +5,8 @@
 #include "Dijkstra.hpp"
 #include "tree.hh"
 #include "tree_util.hh"
-
+#include "TreeNode.hpp"
+ 
 class Suurballe
 {
 public:
@@ -13,7 +14,7 @@ public:
 	Suurballe();
 	~Suurballe();
 
-	bool execute(Graph &, string);								//encontra caminhos disjuntos 
+	bool execute(Graph &, string);										//encontra caminhos disjuntos 
 	bool findPath(Graph &, vector<Node>, int, int);
 	tree<int> makeTree(Graph, vector<int>, int);						//insere nós em uma árvore binária
 	bool makeDisjointPaths(vector<int>, vector<int>);
@@ -24,6 +25,14 @@ public:
 	vector<int> disjointPath(int);
 	bool makeSubgraphDisjointPaths(Graph &, int, int);
 	vector<double> averageHops();										//calculo o número médio de saltos para o caminho principal e o de backup
+	
+	/**
+	 * Métodos para encontrar caminhos balanceados
+	 */
+	vector<int> findPairOfBalancedPaths(Graph,int,int);					//grafo construído a partir dos caminhos mínimos encontrados pelo algoritmo de Suurballe, e a origem e destino
+	vector<int> findAllPaths(Graph,int,int);							//retorna todos os caminhos encontrados da origem ao destino
+	bool isNodeInPath(TreeNode *,int);									//verifica se o nó já existe em um caminho
+	void freeTree(TreeNode *);											//desaloca memória da árvore
 
 private:
 
@@ -33,8 +42,8 @@ private:
 	int numberOfPaths;
 	vector<int> nodeInTree;
 	vector< vector<int> > path; 				//armazena caminho mínimo 
-	vector< double> hopWorking;		//número de saltos(i,j) do principal
-	vector< double> hopBackup;			//número de saltos(i,j) de backup
+	vector< double> hopWorking;					//número de saltos(i,j) do principal
+	vector< double> hopBackup;					//número de saltos(i,j) de backup
 	vector< vector<int> > distance;				//armazena distância entre um par de nós d(u,v)
 	vector< vector<int> > treePath;				//matriz que armazena enlaces da árvore de u a v
 	ofstream datas;								//dados obtidos com o algoritmo de Suurballe

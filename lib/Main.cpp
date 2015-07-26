@@ -1,5 +1,6 @@
 #include "Graph.hpp"
 #include "Suurballe.hpp"
+// #include "TreeNode.hpp"
 #include <sstream>
 
 vector<string> &split(const string &s, char delim, vector<string> &elems);
@@ -73,6 +74,41 @@ int main(int argc, char const *argv[])
 
 	}
 	
+	// TreeNode *t = new TreeNode(5);
+	// TreeNode *n3 = new TreeNode(3);
+	// TreeNode *n6_1 = new TreeNode(6);
+	// TreeNode *n6_2 = new TreeNode(6);
+	// TreeNode *n7_1 = new TreeNode(7);
+	// TreeNode *n7_2 = new TreeNode(7);
+	// TreeNode *n8_1 = new TreeNode(8);
+	// TreeNode *n8_2 = new TreeNode(8);
+	// TreeNode *n8_3 = new TreeNode(8);
+	// TreeNode *n8_4 = new TreeNode(8);
+	// n3->parent = t;
+	// n6_1->parent = t;
+	// n7_1->parent = n6_1;
+	// n8_1->parent = n6_1;
+	// n8_2->parent = n7_1;
+	// n6_2->parent = n3;
+	// n7_2->parent = n6_2;
+	// n8_3->parent = n6_2;
+	// n8_4->parent = n7_2;
+
+	// t->addChild(n6_1);
+	// t->addChild(n3);
+	// n3->addChild(n6_2);
+	// n6_2->addChild(n7_2);
+	// n6_2->addChild(n8_3);
+	// n7_2->addChild(n8_4);
+	// n6_1->addChild(n7_1);
+	// n6_1->addChild(n8_1);
+	// n7_1->addChild(n8_2);
+
+	// TreeNode *temp = n8_4;
+	// while (temp) {
+	// 	printf("%d\n", temp->index);
+	// 	temp = temp->parent;
+	// }
 	
 	return 0;
 }
