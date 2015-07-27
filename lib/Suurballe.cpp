@@ -352,6 +352,117 @@ bool Suurballe::makeSubgraphDisjointPaths(Graph &g, int source, int target)
     return true;
 }
 
+vector< vector<int> > Suurballe::findPairOfBalancedPaths(Graph g,int source,int target)
+{
+    vector< vector<int> > pairOfPaths;
+    pairOfPaths = findAllPaths(g,source,target);
+
+    // for (int i = 0; i < this->numberOfNodes; i++)
+    // {
+    //     g.printAdjacents(i);
+    // }
+    printf("source %d target %d\n",source,target);
+
+    for (int i = 0; i < pairOfPaths.size(); i++)
+    {
+        for (int j = 0; j < pairOfPaths[i].size(); j++)
+        {
+            cout<<pairOfPaths[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+
+    return pairOfPaths;
+}
+
+vector<int> Suurballe::returnPath(TreeNode *child)
+{
+    vector<int> path;
+
+    TreeNode *temp = child;
+
+    while(temp)
+    {
+        path.push_back(temp->index);
+
+        temp = temp->parent;
+    }
+
+    reverse(path.begin(),path.end());
+
+    return path;
+}
+
+void Suurballe::addChildren(Graph g,TreeNode *root,int source,int target, vector< vector<int> > &paths)
+{
+    // cout<<"children "<<root->index<<" pai "<<(root->parent ? root->parent->index : -1)<<endl;
+    Node node;
+    node = g.getNodeAtPosition(root->index);
+
+    vector <int> adjacents = node.getAdjacentsNodes();
+
+    for (int i = 0; i < adjacents.size(); i++)
+    {
+        if (!isNodeInPath(root,adjacents[i]))
+        {
+            TreeNode *child = new TreeNode(adjacents[i]);
+            child->parent = root;
+            root->addChild(child);
+
+            if (adjacents[i] == target)
+            {
+                cout << "chiiild " << child->index << endl;
+                paths.push_back(returnPath(child));
+            }
+            else
+            {
+                addChildren(g,child,source,target,paths);
+            }
+        }
+    }
+
+}
+
+vector< vector<int> > Suurballe::findAllPaths(Graph g,int source,int target)
+{
+    vector< vector<int> > paths;
+
+    TreeNode *root = new TreeNode(source);
+
+    addChildren(g,root,source,target,paths);
+
+    return paths;
+} 
+
+bool Suurballe::isNodeInPath(TreeNode *node,int index)
+{
+    TreeNode *temp = node;
+
+    while(temp)
+    {
+        if (temp->index == index)
+        {
+            return true;
+        }
+
+        temp = temp->parent;
+    }
+
+    return false;
+} 
+
+void Suurballe::freeTree(TreeNode *root)
+{
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        freeTree(root->children[i]);
+    }
+
+    delete root;
+}                                          
+
+
 bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2)
 {
 
@@ -362,7 +473,6 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2)
     makePathVector(path1,p1,temp);
     makePathVector(path2,p2,temp);
 
-   // cout<<"tamanho p1 "<<p1.size()<<" tamanho p2 "<<p2.size()<<endl;
     /**
      * Remover arestas invertidas
      * Dos caminhos mínimos p1 e p2
@@ -423,11 +533,15 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2)
     // 	g.printAdjacents(u);
     // }
     // cout<<"---------------------------------\n";
-
-
-
+    
     int source = path1[0];
     int target = path1[ path1.size()-1 ];
+
+    if( path1.size() != path2.size() ) 
+    {
+        vector< vector<int> > pairOfPaths = findPairOfBalancedPaths(g,source,target);
+    }
+
     int pair = 0;
     // this->datas<<"Working path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p1.size()/2<<endl;
     this->datas<<p1.size()/2<<" ";
@@ -460,7 +574,7 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2)
     // cout<<"tamanho de path1 "<<path1.size()<<" tamanho de path2 "<<path2.size()<<endl;
    double firstPath = (double)(p1.size()/2);
    double secondPath = (double)(p2.size()/2);
-   cout<<" "<<firstPath<<" "<<secondPath<<endl;
+   // cout<<" "<<firstPath<<" "<<secondPath<<endl;
    if (p1.size() > p2.size())
    {
       this->hopBackup.push_back(firstPath);

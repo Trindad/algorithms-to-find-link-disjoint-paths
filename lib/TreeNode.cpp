@@ -2,6 +2,7 @@
 
 TreeNode::TreeNode(int node)
 {
+	this->parent = NULL;
 	this->index = node;
 }
 
