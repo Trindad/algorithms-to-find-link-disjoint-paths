@@ -9,6 +9,7 @@ vector<string> split(const string &s, char delim);
 
 int main(int argc, char const *argv[])
 {
+
 	if (argc <= 1)
 	{
 		return 0;
@@ -72,6 +73,10 @@ int main(int argc, char const *argv[])
 
 		file.close();
 
+	}
+	else
+	{
+		cout<<"ERROR"<<endl;
 	}
 	
 	// TreeNode *t = new TreeNode(5);

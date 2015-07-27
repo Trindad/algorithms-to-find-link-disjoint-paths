@@ -352,28 +352,107 @@ bool Suurballe::makeSubgraphDisjointPaths(Graph &g, int source, int target)
     return true;
 }
 
-vector< vector<int> > Suurballe::findPairOfBalancedPaths(Graph g,int source,int target)
+int Suurballe::compareWithOthers(vector<int> p1, vector<int> p2) 
 {
+
+    vector<int> temp = vector<int> (this->numberOfNodes,-1);
+    vector<int> path1;
+    vector<int> path2;
+
+    makePathVector(p1,path1,temp);
+    makePathVector(p2,path2,temp);
+
+    for (int i = 0; i < path1.size()-1; i+=2)
+    {
+        for (int j = 0; j < path2.size()-1; j+=2)
+        {
+           if (path1[i] == path2[j+1] && path1[i+1] == path2[j])
+           {
+               return -1;
+           }
+        }
+    }
+
+    return abs(p1.size()-p2.size());
+}
+
+vector< vector<int> > Suurballe::findPairOfBalancedPaths(Graph g,int source,int target, int p1, int p2)
+{
+    cout<<"( "<<source<<" , "<<target<<" ) "<<" p1 "<<p1<<" p2 "<<p2<<endl;
     vector< vector<int> > pairOfPaths;
     pairOfPaths = findAllPaths(g,source,target);
+    int sum = p1 + p2;//somatório dos caminhos mínimos encontrados pelo algoritmo
+    int diff = abs( p2 - p1 ), a = 0, b = 0, s = sum+1;
 
-    // for (int i = 0; i < this->numberOfNodes; i++)
-    // {
-    //     g.printAdjacents(i);
-    // }
     printf("source %d target %d\n",source,target);
+
+    // for (int i = 0; i < pairOfPaths.size(); i++)
+    // {
+    //     for (int j = 0; j < pairOfPaths[i].size(); j++)
+    //     {
+    //         cout<<pairOfPaths[i][j]<<" ";
+    //     }
+
+    //     cout<<endl;
+    // }
+    // cout<<endl;
 
     for (int i = 0; i < pairOfPaths.size(); i++)
     {
-        for (int j = 0; j < pairOfPaths[i].size(); j++)
+        for (int j = 0; j < pairOfPaths.size(); j++)
         {
-            cout<<pairOfPaths[i][j]<<" ";
-        }
-        cout<<endl;
-    }
-    cout<<endl;
+            
+            if (i == j)
+            {
+                continue;
+            }
+            else
+            {
+                s = (pairOfPaths[i].size()-1) + (pairOfPaths[j].size()-1);
+            }
 
-    return pairOfPaths;
+            for (int k = 0; k < pairOfPaths[i].size(); k++)
+            {
+                cout<<pairOfPaths[i][k]<<" ";
+            }
+            cout<<endl;
+            
+            for (int k = 0; k < pairOfPaths[j].size(); k++)
+            {
+                cout<<pairOfPaths[j][k]<<" ";
+            }
+            cout<<endl;
+
+            cout<<"( "<<source<<" , "<<target<<" ) "<<" "<<(pairOfPaths[i].size()-1)<<" "<< (pairOfPaths[j].size()-1)<<" s "<<s<<" sum "<<sum<<endl;
+            if ( s == sum )
+            {
+                cout<<"AQUiiiiiii\n";
+                int newDiff = compareWithOthers(pairOfPaths[i],pairOfPaths[j]);
+
+                /**
+                 * Atribui indices dos novos caminhos
+                 */
+                if ( newDiff < diff && newDiff >= 0)
+                {
+                    a = i;
+                    b = j;
+
+                    diff = newDiff;
+                }
+            }
+
+        }
+    }
+
+    vector< vector <int> > pair;
+
+    if (a != b)
+    {
+        pair.push_back( pairOfPaths[a] );
+        pair.push_back( pairOfPaths[b] );
+    }
+
+    return pair;
 }
 
 vector<int> Suurballe::returnPath(TreeNode *child)
@@ -412,7 +491,6 @@ void Suurballe::addChildren(Graph g,TreeNode *root,int source,int target, vector
 
             if (adjacents[i] == target)
             {
-                cout << "chiiild " << child->index << endl;
                 paths.push_back(returnPath(child));
             }
             else
@@ -536,55 +614,104 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2)
     
     int source = path1[0];
     int target = path1[ path1.size()-1 ];
-
-    if( path1.size() != path2.size() ) 
+    vector< vector<int> > pairOfPaths;
+    // cout<<p1.size()<<" "<<p2.size()<<" "<<path1.size()<<" "<<path2.size()<<endl;
+    if( p1.size() != p2.size() ) 
     {
-        vector< vector<int> > pairOfPaths = findPairOfBalancedPaths(g,source,target);
+        pairOfPaths = findPairOfBalancedPaths(g,source,target,p1.size()/2,p2.size()/2);
     }
-
-    int pair = 0;
-    // this->datas<<"Working path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p1.size()/2<<endl;
-    this->datas<<p1.size()/2<<" ";
-    this->datas<<p1[0]<<" ";
-    for (u = 1; u < p1.size(); u+=2)
+    if (pairOfPaths.size() >= 2)
     {
+        int pair = 0;
+        // this->datas<<"Working path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p1.size()/2<<endl;
+        this->datas<<pairOfPaths[0].size()-1<<" ";
+
+        for (u = 0; u < pairOfPaths[0].size(); u++)
+        {
+            
+            this->datas<<pairOfPaths[0][u]<<" ";
+        }
         
-        this->datas<<p1[u]<<" ";
-    }
-    
-    // cout<<" number of hops "<<p1.size()/2<<endl;
-    this->datas<<"\n";
-    
-    
-    // this->datas<<"Backup path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p2.size()/2<<endl;
-    this->datas<<p2.size()/2<<" ";
-    this->datas<<p2[0]<<" ";
-    for (u = 1; u < p2.size(); u+=2)
-    {
-      
-        this->datas<<p2[u]<<" ";
-    }
-    this->datas<<"\n";
+        // cout<<" number of hops "<<p1.size()/2<<endl;
+        this->datas<<"\n";
+        
+        
+        // this->datas<<"Backup path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p2.size()/2<<endl;
+        this->datas<<pairOfPaths[1].size()-1<<" ";
 
-    /**
-     * Verifica se existem duas arestas de saída no source
-     * E duas arestas de entrada no target, além disso deve
-     * haver uma de entrada e uma de saída nos nós restantes
-     */
-    // cout<<"tamanho de path1 "<<path1.size()<<" tamanho de path2 "<<path2.size()<<endl;
-   double firstPath = (double)(p1.size()/2);
-   double secondPath = (double)(p2.size()/2);
-   // cout<<" "<<firstPath<<" "<<secondPath<<endl;
-   if (p1.size() > p2.size())
-   {
-      this->hopBackup.push_back(firstPath);
-      this->hopWorking.push_back(secondPath);
-   }
-   else
-   {
-        this->hopBackup.push_back(secondPath);
-        this->hopWorking.push_back(firstPath);
-   }
+        for (u = 0; u < pairOfPaths[1].size(); u++)
+        {
+          
+            this->datas<<pairOfPaths[1][u]<<" ";
+        }
+        this->datas<<"\n";
+
+        /**
+         * Verifica se existem duas arestas de saída no source
+         * E duas arestas de entrada no target, além disso deve
+         * haver uma de entrada e uma de saída nos nós restantes
+         */
+        // cout<<"tamanho de path1 "<<path1.size()<<" tamanho de path2 "<<path2.size()<<endl;
+       double firstPath = (double)(pairOfPaths[0].size());
+       double secondPath = (double)(pairOfPaths[1].size());
+       // cout<<" "<<firstPath<<" "<<secondPath<<endl;
+       if (pairOfPaths[0].size() > pairOfPaths[1].size())
+       {
+          this->hopBackup.push_back(firstPath);
+          this->hopWorking.push_back(secondPath);
+       }
+       else
+       {
+            this->hopBackup.push_back(secondPath);
+            this->hopWorking.push_back(firstPath);
+       }
+    }
+    else
+    {
+        int pair = 0;
+        // this->datas<<"Working path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p1.size()/2<<endl;
+        this->datas<<p1.size()/2<<" ";
+        this->datas<<p1[0]<<" ";
+        for (u = 1; u < p1.size(); u+=2)
+        {
+            
+            this->datas<<p1[u]<<" ";
+        }
+        
+        // cout<<" number of hops "<<p1.size()/2<<endl;
+        this->datas<<"\n";
+        
+        
+        // this->datas<<"Backup path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p2.size()/2<<endl;
+        this->datas<<p2.size()/2<<" ";
+        this->datas<<p2[0]<<" ";
+        for (u = 1; u < p2.size(); u+=2)
+        {
+          
+            this->datas<<p2[u]<<" ";
+        }
+        this->datas<<"\n";
+
+        /**
+         * Verifica se existem duas arestas de saída no source
+         * E duas arestas de entrada no target, além disso deve
+         * haver uma de entrada e uma de saída nos nós restantes
+         */
+        // cout<<"tamanho de path1 "<<path1.size()<<" tamanho de path2 "<<path2.size()<<endl;
+       double firstPath = (double)(p1.size()/2);
+       double secondPath = (double)(p2.size()/2);
+       // cout<<" "<<firstPath<<" "<<secondPath<<endl;
+       if (p1.size() > p2.size())
+       {
+          this->hopBackup.push_back(firstPath);
+          this->hopWorking.push_back(secondPath);
+       }
+       else
+       {
+            this->hopBackup.push_back(secondPath);
+            this->hopWorking.push_back(firstPath);
+       }
+    }
 
    // cout<<" Número de enlaces de "<<source<<" até "<<target<< " = "<<g.getNumberOfEdges()<<endl;
     return makeSubgraphDisjointPaths(g,source,target);
