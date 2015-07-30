@@ -39,7 +39,8 @@ public:
 	vector<int> disjointPath(int);
 	bool makeSubgraphDisjointPaths(Graph &, int, int);
 	vector<double> averageHops();										//calculo o número médio de saltos para o caminho principal e o de backup
-	
+	void discardCommonEdge(vector<int> &, vector<int> &, int, int, int, int);	//gera dois novos caminhos excluindo os enlaces em comum
+
 	/**
 	 * Métodos para encontrar caminhos balanceados
 	 */

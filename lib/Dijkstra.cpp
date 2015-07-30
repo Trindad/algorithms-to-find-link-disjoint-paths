@@ -70,9 +70,9 @@ int Dijkstra::execute( Graph graph, int source, int target)
     this->parent = vector<int> ( graph.getNumberOfNodes(), -1);
 
     v = source;
-    distance[v] = 0;
+    distance[v] = 0.0f;
 
-    while( inTree[target] == false)
+    while( inTree[target] == false && inTree[v] == false)
     {
         inTree[v] = true;
 
@@ -97,7 +97,7 @@ int Dijkstra::execute( Graph graph, int source, int target)
             /**
              * Verificação de caminho
              */
-            if ( distance[w] > ( distance[v] + weight ) && inTree[w] == false )
+            if ( distance[w] > ( distance[v] + weight ) )
             {
                 distance[w] = distance[v] + weight;
                 this->parent[w] = v;
@@ -119,11 +119,12 @@ int Dijkstra::execute( Graph graph, int source, int target)
             }
         }
 
-        if (inTree[v] == true)
+        if (v == target)
         {
             break;
         }
     }
 
+    // printf("FIM\n");
     return distance[target];//retorna distância
 }
