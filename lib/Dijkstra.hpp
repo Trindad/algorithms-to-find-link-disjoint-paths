@@ -12,6 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#ifndef DIJKSTRA_H
+#define DIJKSTRA_H
 #include "Graph.hpp"
 
 #define MAXV 1000
@@ -30,3 +32,5 @@ private:
 
 	vector<int> parent;
 };
+
+#endif

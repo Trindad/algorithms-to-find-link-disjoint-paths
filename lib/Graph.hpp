@@ -45,7 +45,8 @@ public:
 	void setDistancePairOfNodes(int,int,double);
 	void setEuclideanDistance(int,int,double);
 	void setNodesMeasures(vector<Node> &);
-
+	void setWorkingPath( vector<int> );
+    void setBackupPath( vector<int> );
 
 	/**
 	 * Getters
@@ -77,6 +78,8 @@ private:
 	double avgDegree;				//grau médio da topologia
 	int minDistance; 				//distancia minima entre um par de vertices/nós
 	vector <Node> nodes;			//vetor de informações de um nó do grafo
+	vector<vector<int>> work;		//armazena caminho de trabalho obtido pelo Suurballe
+	vector<vector<int>> backup;		//armazena caminha de backup obtido pelo Suurballe
 };
 
 #endif

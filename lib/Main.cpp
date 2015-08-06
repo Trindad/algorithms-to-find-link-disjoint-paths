@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 #include "Graph.hpp"
+#include "BalancedSuurballe.hpp"
 #include "Suurballe.hpp"
 // #include "TreeNode.hpp"
 #include <sstream>
@@ -38,7 +39,7 @@ int main(int argc, char const *argv[])
 	
 	if (file.is_open())
 	{
-		Graph g;
+		Graph g1,g2;
 
 		string line = " ";
 
@@ -46,9 +47,13 @@ int main(int argc, char const *argv[])
 
 		int n = stoi(line);//obtêm o número de nós
 
-		g.setNumberOfNodes(n);
-		g.setMinimumDegree(2);
-		g.setMaximumDegree(n-1);
+		g1.setNumberOfNodes(n);
+		g1.setMinimumDegree(2);
+		g1.setMaximumDegree(n-1);
+
+		g2.setNumberOfNodes(n);
+		g2.setMinimumDegree(2);
+		g2.setMaximumDegree(n-1);
 
 		// cout<<"Número de nós: "<<n<<endl;
 		vector<string> nodes;
@@ -61,9 +66,13 @@ int main(int argc, char const *argv[])
 			int u = stoi(nodes[0])-1;
 			int v = stoi(nodes[1])-1;
 			// g.setEdgeDirected(u,v);
-			g.setEdge(u,v);
-			g.setWeight(u,v,1.0);
-			g.setWeight(v,u,1.0);
+			g1.setEdge(u,v);
+			g1.setWeight(u,v,1.0);
+			g1.setWeight(v,u,1.0);
+
+			g2.setEdge(u,v);
+			g2.setWeight(u,v,1.0);
+			g2.setWeight(v,u,1.0);
 		}
 		
 		// g.setWeightEdgeDirected(1-1,8-1,2.0f);
@@ -79,9 +88,15 @@ int main(int argc, char const *argv[])
 		// g.setWeightEdgeDirected(8-1,6-1,5.0f);
 		// g.setWeightEdgeDirected(7-1,4-1,1.0f);
 
+		BalancedSuurballe bs;
+
+		bool sobrevivente = bs.execute(g1,pathFile[pathFile.size()-1]);
+
+		cout<<"sobrevivente "<<sobrevivente<<endl;
+
 		Suurballe s;
 
-		bool sobrevivente = s.execute(g,pathFile[pathFile.size()-1]);
+		sobrevivente = s.execute(g2,pathFile[pathFile.size()-1]);
 
 		cout<<"sobrevivente "<<sobrevivente<<endl;
 

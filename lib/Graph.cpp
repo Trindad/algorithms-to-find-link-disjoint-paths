@@ -95,6 +95,16 @@ void Graph::setMinimumDistanceOfNode(int min)
 	this->minDistance = min;
 }
 
+void  Graph::setWorkingPath( vector<int> p)
+{
+	this->work.push_back(p);
+}
+
+void  Graph::setBackupPath( vector<int> p)
+{
+	this->backup.push_back(p);
+}
+
 /**
  * Atribui a distancia eucliana 
  */
