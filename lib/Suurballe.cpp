@@ -475,7 +475,7 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, Graph &g
     // cout<<"tamanho de path1 "<<path1.size()<<" tamanho de path2 "<<path2.size()<<endl;
    double firstPath = (double)(p1.size()/2);
    double secondPath = (double)(p2.size()/2);
-   cout<<" "<<firstPath<<" "<<secondPath<<endl;
+   // cout<<" "<<firstPath<<" "<<secondPath<<endl;
    if (p1.size() > p2.size())
    {
       this->hopBackup.push_back(firstPath);

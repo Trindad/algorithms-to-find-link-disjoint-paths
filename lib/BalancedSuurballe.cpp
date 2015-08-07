@@ -75,11 +75,11 @@ void BalancedSuurballe::insertSubtree(Graph graph, tree<int> &tr, typename tree<
 tree<int> BalancedSuurballe::makeTree(Graph graph, vector<int> nodes, int source)
 {
     // cout<<"makeTree"<<endl;
-    for (unsigned int i = 0; i < nodes.size(); ++i)
-    {
-        cout<<nodes[i]<<" ";
-    }
-    cout<<endl;
+    // for (unsigned int i = 0; i < nodes.size(); ++i)
+    // {
+    //     cout<<nodes[i]<<" ";
+    // }
+    // cout<<endl;
     vector<Node> auxiliar;
     auxiliar = graph.getNodes();
 
@@ -407,8 +407,8 @@ vector< vector<int> > BalancedSuurballe::findPairOfBalancedPaths(Graph g,int sou
     pairOfPaths = findAllPaths(g,source,target);
     // cout<<"AQUI Não deu crepe crepe findPairOfBalancedPaths"<<endl;
     int sum = p1 + p2;//somatório dos caminhos mínimos encontrados pelo algoritmo
-    int diff = abs( p2 - p1 ), a = 0, b = 0, s = sum+1;
-
+    int diff = abs( p2 - p1 ), diffAnt, a = 0, b = 0, s = sum+1;
+    diffAnt = diff;
     // printf("source %d target %d\n",source,target);
 
     // for (int i = 0; i < pairOfPaths.size(); i++)
@@ -449,29 +449,30 @@ vector< vector<int> > BalancedSuurballe::findPairOfBalancedPaths(Graph g,int sou
             // cout<<endl;
 
             // cout<<"( "<<source<<" , "<<target<<" ) "<<" "<<(pairOfPaths[i].size()-1)<<" "<< (pairOfPaths[j].size()-1)<<" s "<<s<<" sum "<<sum<<endl;
-            if ( s == sum )
+            if ( s <= sum )
             {
-                // cout<<"AQUiiiiiii\n";
                 int newDiff = compareWithOthers(pairOfPaths[i],pairOfPaths[j]);
-                // cout<<"AQUI Não deu crepe crepe"<<endl;
                 /**
                  * Atribui indices dos novos caminhos
                  */
-                if ( newDiff < diff && newDiff >= 0)
+                if ( ( newDiff < diff ) && ( newDiff >= 0 ) )
                 {
                     a = i;
                     b = j;
 
                     diff = newDiff;
                 }
+
             }
+            
+            s = sum+1;
 
         }
     }
 
     vector< vector <int> > pair;
 
-    if (a != b)
+    if (a != b && diff < diffAnt)
     {
         pair.push_back( pairOfPaths[a] );
         pair.push_back( pairOfPaths[b] );
@@ -569,9 +570,9 @@ void BalancedSuurballe::discardCommonEdge(vector<int> &p1, vector<int> &p2, int 
 {
     vector<int> t1, t2;
     unsigned int u = 0, v = 0;
-    cout<<"\n-----------D---------------"<<endl;
+    // cout<<"\n-----------D---------------"<<endl;
     
-    cout<<endl;
+    // cout<<endl;
     for (u = 0; u < p1.size(); u += 2)
     {
         if( u == x )
@@ -582,7 +583,7 @@ void BalancedSuurballe::discardCommonEdge(vector<int> &p1, vector<int> &p2, int 
         t1.push_back(p1[u]);
         t1.push_back(p1[u+1]);
     }
-    cout<<"\n"<<endl; v = 0;   
+    // cout<<"\n"<<endl; v = 0;   
     for (u = 0; u < p2.size(); u += 2)
     {
         if( u == y ) {
@@ -594,7 +595,7 @@ void BalancedSuurballe::discardCommonEdge(vector<int> &p1, vector<int> &p2, int 
     }
 
     v = 0;
-    cout<<"\nsegunda parte "<<u<<" "<<v<<"\n"<<endl;
+    // cout<<"\nsegunda parte "<<u<<" "<<v<<"\n"<<endl;
     for (u = y+2; u < p2.size(); u += 2)
     {
         if (p2[u] == t1[t1.size() - 1] && p2[u+1] == t1[t1.size() - 2])
@@ -624,18 +625,18 @@ void BalancedSuurballe::discardCommonEdge(vector<int> &p1, vector<int> &p2, int 
         v = t2.size();
     }
 
-    for (u = 0; u < t1.size(); u++)
-    {
-        cout<<" "<<t1[u];
-    }
-    cout<<endl;
-    for (u = 0; u < t2.size(); u++)
-    {
-        cout<<" "<<t2[u];
-    }
-    cout<<endl;
+    // for (u = 0; u < t1.size(); u++)
+    // {
+    //     cout<<" "<<t1[u];
+    // }
+    // cout<<endl;
+    // for (u = 0; u < t2.size(); u++)
+    // {
+    //     cout<<" "<<t2[u];
+    // }
+    // cout<<endl;
 
-    cout<<"\n---------------------------"<<endl;
+    // cout<<"\n---------------------------"<<endl;
     p1.clear();
     p2.clear();
 
@@ -696,10 +697,7 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
             //exclui arestas em comum mas invertidas
             if (p1[u] == p2[v+1] && p1[u+1] == p2[v])
             {
-                cout<<" ( "<<p1[u]<<" , "<<p1[u+1]<<" )"<<endl;
-                
-                
-
+                // cout<<" ( "<<p1[u]<<" , "<<p1[u+1]<<" )"<<endl;
                 discardCommonEdge(p1,p2,u,v);
             }
 
@@ -745,27 +743,27 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
     // }
     // cout<<"---------------------------------\n";
     
-    // cout<<p1.size()/2<<" ";
-    // cout<<p1[0]<<" ";
-    // for (u = 1; u < p1.size(); u+=2)
-    // {
+    cout<<"tamanho p1 "<<p1.size()/2<<" ";
+    cout<<p1[0]<<" ";
+    for (u = 1; u < p1.size(); u+=2)
+    {
         
-    //     cout<<p1[u]<<" ";
-    // }
-    
+        cout<<p1[u]<<" ";
+    }
+    cout<<endl;
     // // cout<<" number of hops "<<p1.size()/2<<endl;
     // cout<<"\n";
     
     
     // // cout<<"Backup path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p2.size()/2<<endl;
-    // cout<<p2.size()/2<<" ";
-    // cout<<p2[0]<<" ";
-    // for (u = 1; u < p2.size(); u+=2)
-    // {
+    cout<<"tamanho p2 "<<p2.size()/2<<" ";
+    cout<<p2[0]<<" ";
+    for (u = 1; u < p2.size(); u+=2)
+    {
       
-    //     cout<<p2[u]<<" ";
-    // }
-    // cout<<"\n";
+        cout<<p2[u]<<" ";
+    }
+    cout<<"\n";
 
 
     int source = path1[0];
@@ -778,7 +776,13 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
         // cout<<"AQUI DEU crepe"<<endl;
         pairOfPaths = findPairOfBalancedPaths(g,source,target,p1.size()/2,p2.size()/2);
         // cout<<"AQUI Não deu crepe crepe"<<endl;
-        if (pairOfPaths.size() >= 2)
+        unsigned sum = (p1.size()/2)+(p2.size()/2), sum2 = (p1.size()/2)+(p2.size()/2)+1;
+        if( pairOfPaths.size() == 2) 
+        {
+            sum = (p1.size()/2)+(p2.size()/2);
+            sum2 = (pairOfPaths[0].size()-1)+(pairOfPaths[1].size()-1);
+        }
+        if ( (pairOfPaths.size() == 2) && (sum == sum2 ))
         {
             int pair = 0;
             // this->datas<<"Working path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p1.size()/2<<endl;
@@ -809,9 +813,9 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
              * E duas arestas de entrada no target, além disso deve
              * haver uma de entrada e uma de saída nos nós restantes
              */
-        // cout<<"tamanho de path1 "<<path1.size()<<" tamanho de path2 "<<path2.size()<<endl;
-           double firstPath = (double)(pairOfPaths[0].size());
-           double secondPath = (double)(pairOfPaths[1].size());
+        //cout<<"tamanho de path1 "<<path1.size()<<" tamanho de path2 "<<path2.size()<<endl;
+           double firstPath = (double)(pairOfPaths[0].size()-1);
+           double secondPath = (double)(pairOfPaths[1].size()-1);
            // cout<<" "<<firstPath<<" "<<secondPath<<endl;
            if (pairOfPaths[0].size() > pairOfPaths[1].size())
            {
@@ -831,7 +835,7 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
         else
         {
             int pair = 0;
-            cout<<"Working path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p1.size()/2<<endl;
+            //cout<<"Working path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p1.size()/2<<endl;
             this->datas<<p1.size()/2<<" ";
             this->datas<<p1[0]<<" ";
             for (u = 1; u < p1.size(); u+=2)
@@ -883,7 +887,7 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
     else
     {
         int pair = 0;
-        cout<<"Working path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p1.size()/2<<endl;
+        // cout<<"Working path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p1.size()/2<<endl;
         this->datas<<p1.size()/2<<" ";
         this->datas<<p1[0]<<" ";
         for (u = 1; u < p1.size(); u+=2)
