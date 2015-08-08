@@ -49,6 +49,16 @@ void Graph::setEdge(int u,int v)
 	}
 }
 
+void Graph::setUseEdgeWeight(bool use)
+{
+	this->useEdgeWeight = use;
+}
+
+bool Graph::getUseEdgeWeight()
+{
+	return this->useEdgeWeight;
+}
+
 /**
  * Atribui distancia euclidiana entre dois nós
  */

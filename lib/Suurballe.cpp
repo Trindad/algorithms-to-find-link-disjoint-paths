@@ -352,6 +352,79 @@ bool Suurballe::makeSubgraphDisjointPaths(Graph &g, int source, int target)
     return true;
 }
 
+void Suurballe::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, int y)
+{
+    vector<int> t1, t2;
+    unsigned int u = 0, v = 0;
+    // cout<<"\n-----------D---------------"<<endl;
+    
+    // cout<<endl;
+    for (u = 0; u < p1.size(); u += 2)
+    {
+        if( u == x )
+        {
+            break;
+        }
+
+        t1.push_back(p1[u]);
+        t1.push_back(p1[u+1]);
+    }
+    // cout<<"\n"<<endl; v = 0;   
+    for (u = 0; u < p2.size(); u += 2)
+    {
+        if( u == y ) {
+            break;
+        }
+        
+        t2.push_back(p2[u]);
+        t2.push_back(p2[u+1]);
+    }
+
+    v = 0;
+    // cout<<"\nsegunda parte "<<u<<" "<<v<<"\n"<<endl;
+    for (u = y+2; u < p2.size(); u += 2)
+    {
+        if (p2[u] == t1[t1.size() - 1] && p2[u+1] == t1[t1.size() - 2])
+        {
+            t1.erase( t2.begin() + t1.size() - 1 );
+            t1.erase( t2.begin() + t1.size() - 1 );
+            continue;
+        }
+
+        t1.push_back(p2[u]);
+        t1.push_back(p2[u+1]);
+    }
+  
+    v = 0;
+    for (u = x+2; u < p1.size(); u += 2)
+    {
+        if (p1[u] == t2[t2.size() - 1] && p1[u+1] == t2[t2.size() - 2])
+        {
+            t2.erase( t2.begin() + t2.size() - 1 );
+            t2.erase( t2.begin() + t2.size() - 1 );
+            continue;
+        }
+
+        t2.push_back(p1[u]);
+        t2.push_back(p1[u+1]);
+
+        v = t2.size();
+    }
+
+    p1.clear();
+    p2.clear();
+
+    for (u = 0; u < t1.size(); u++)
+    {
+        p1.push_back(t1[u]);
+    }
+
+    for (u = 0; u < t2.size(); u++)
+    {
+        p2.push_back(t2[u]);
+    }
+}
+
 bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, Graph &graph)
 {
 
@@ -372,15 +445,13 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, Graph &g
     {
         for (unsigned int v = 0; v < p2.size()-1; v+=2)
         {
-            //exclui aresta
+            //exclui arestas em comum mas invertidas
             if (p1[u] == p2[v+1] && p1[u+1] == p2[v])
             {
-                p1.erase( p1.begin() + u );
-                p1.erase( p1.begin() + ( u + 1 ) );
-
-                p2.erase( p2.begin() + v );
-                p2.erase( p2.begin() + ( v + 1 ) );
+                // cout<<" ( "<<p1[u]<<" , "<<p1[u+1]<<" )"<<endl;
+                discardCommonEdge(p1,p2,u,v);
             }
+
         }
     }
 

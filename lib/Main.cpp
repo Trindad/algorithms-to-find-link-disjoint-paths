@@ -41,6 +41,9 @@ int main(int argc, char const *argv[])
 	{
 		Graph g1,g2;
 
+		g1.setUseEdgeWeight(false);
+		g2.setUseEdgeWeight(false);
+
 		string line = " ";
 
 		getline (file,line);

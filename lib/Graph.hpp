@@ -47,6 +47,7 @@ public:
 	void setNodesMeasures(vector<Node> &);
 	void setWorkingPath( vector<int> );
     void setBackupPath( vector<int> );
+    void setUseEdgeWeight(bool);
 
 	/**
 	 * Getters
@@ -63,6 +64,7 @@ public:
 	int getMinimumDistanceOfNode();
 	int getMinimumNumberOfEdges();
 	int getMaximumNumberOfEdges();
+	bool getUseEdgeWeight();
 
 	void memsetGraph();
 	void limitDegree(); 
@@ -80,6 +82,7 @@ private:
 	vector <Node> nodes;			//vetor de informações de um nó do grafo
 	vector<vector<int>> work;		//armazena caminho de trabalho obtido pelo Suurballe
 	vector<vector<int>> backup;		//armazena caminha de backup obtido pelo Suurballe
+	bool useEdgeWeight;
 };
 
 #endif

@@ -31,8 +31,9 @@ public:
 	bool execute(Graph &, string);										//encontra caminhos disjuntos 
 	bool findPath(Graph &, vector<Node>, int, int);
 	tree<int> makeTree(Graph, vector<int>, int);						//insere nós em uma árvore binária
-	bool makeDisjointPaths(vector<int>, vector<int>, Graph &);
-	void changeEdgesWeights(Graph &, tree<int>, vector<int>);			//atualiza peso dos nós da árvore
+	bool makeDisjointPaths(vector<int>, vector<int>, Graph &,bool);
+	void changeEdgesWeights(Graph &, tree<int>, vector<int>);
+	void changeEdgesWeightsAll(Graph &, tree<int>, vector<int>);			//atualiza peso dos nós da árvore
 	void makePathVector(vector<int>,vector<int> &,vector<int> &inPath);
 	void insertSubtree(Graph, tree<int> &, typename tree<int>::iterator, vector<int>, vector<int> &, int);
 	void updateEdgesWeight(const tree<int>& , typename tree<int>::iterator,vector<int>, Graph &, int); 
@@ -51,6 +52,8 @@ public:
 	void addChildren(Graph,TreeNode *,int,int,vector< vector<int> > &); //Adiciona recursivamente os filhos do nó root passado como parâmetro
 	void freeTree(TreeNode *);											//desaloca memória da árvore
 	int compareWithOthers(vector<int>, vector<int>);					//compara dois caminhos, verificando se existe arestas iguais
+	void printPaths(vector<int>, vector<int>,Graph &);
+	void choiceNewPath(Graph,int,int,int,bool);
 
 private:
 
@@ -65,4 +68,9 @@ private:
 	vector< vector<int> > distance;				//armazena distância entre um par de nós d(u,v)
 	vector< vector<int> > treePath;				//matriz que armazena enlaces da árvore de u a v
 	ofstream datas;								//dados obtidos com o algoritmo de BalancedSuurballe
+
+	vector<int> pathTwo_;
+	vector<int> pathOne_;
+	vector<int> pathTwo;
+	vector<int> pathOne;
 };
