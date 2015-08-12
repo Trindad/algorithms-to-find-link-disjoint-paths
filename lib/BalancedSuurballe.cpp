@@ -472,11 +472,10 @@ int BalancedSuurballe::compareWithOthers(vector<int> p1, vector<int> p2)
 
 vector< vector<int> > BalancedSuurballe::findPairOfBalancedPaths(Graph g,int source,int target, int p1, int p2)
 {
-    // cout<<"( "<<source<<" , "<<target<<" ) "<<" p1 "<<p1<<" p2 "<<p2<<endl;
     vector< vector<int> > pairOfPaths;
-    // cout<<"AQUI deu crepe crepe"<<endl;
+    
     pairOfPaths = findAllPaths(g,source,target);
-    // cout<<"AQUI Não deu crepe crepe findPairOfBalancedPaths"<<endl;
+    
     int sum = p1 + p2;//somatório dos caminhos mínimos encontrados pelo algoritmo
     int diff = abs( p2 - p1 ), diffAnt, a = 0, b = 0, s = sum+1;
     diffAnt = diff;
