@@ -95,7 +95,7 @@ int main(int argc, char const *argv[])
 
 		bool sobrevivente = bs.execute(g1,pathFile[pathFile.size()-1]);
 
-		cout<<"sobrevivente "<<sobrevivente<<endl;
+		cout<<"sobrevivente "<<sobrevivente<<"\n\n"<<endl;
 
 		Suurballe s;
 
@@ -104,7 +104,6 @@ int main(int argc, char const *argv[])
 		cout<<"sobrevivente "<<sobrevivente<<endl;
 
 		file.close();
-
 	}
 	else
 	{

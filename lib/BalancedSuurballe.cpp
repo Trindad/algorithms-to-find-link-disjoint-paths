@@ -776,20 +776,20 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
     makePathVector(path1,p1,temp);
     makePathVector(path2,p2,temp);
 
-    cout<<p1.size()/2<<" ";
+    // cout<<p1.size()/2<<" ";
     cout<<p1[0]<<" ";
     for (u = 1; u < p1.size(); u+=2)
     {
         
         cout<<p1[u]<<" ";
     }
+    cout<<endl;
+    // // cout<<" number of hops "<<p1.size()/2<<endl;
+    // cout<<"\n";
     
-    // cout<<" number of hops "<<p1.size()/2<<endl;
-    cout<<"\n";
     
-    
-    // cout<<"Backup path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p2.size()/2<<endl;
-    cout<<p2.size()/2<<" ";
+    // // cout<<"Backup path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p2.size()/2<<endl;
+    // cout<<p2.size()/2<<" ";
     cout<<p2[0]<<" ";
     for (u = 1; u < p2.size(); u+=2)
     {
@@ -801,9 +801,6 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
      * Remover arestas invertidas
      * Dos caminhos mínimos p1 e p2
      */
-
-    int x = -1, y = -1;
-
     for ( unsigned int u = 0; u < p1.size()-1; u+=2)
     {
         for (unsigned int v = 0; v < p2.size()-1; v+=2)
@@ -811,7 +808,6 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
             //exclui arestas em comum mas invertidas
             if (p1[u] == p2[v+1] && p1[u+1] == p2[v])
             {
-                // cout<<" ( "<<p1[u]<<" , "<<p1[u+1]<<" )"<<endl;
                 discardCommonEdge(p1,p2,u,v);
             }
 
@@ -849,27 +845,27 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
 
     }
     
-    cout<<"tamanho p1 "<<p1.size()/2<<" ";
-    cout<<p1[0]<<" ";
-    for (u = 1; u < p1.size(); u+=2)
-    {
+    // cout<<"tamanho p1 "<<p1.size()/2<<" ";
+    // cout<<p1[0]<<" ";
+    // for (u = 1; u < p1.size(); u+=2)
+    // {
         
-        cout<<p1[u]<<" ";
-    }
-    cout<<endl;
-    // // cout<<" number of hops "<<p1.size()/2<<endl;
-    // cout<<"\n";
+    //     cout<<p1[u]<<" ";
+    // }
+    // cout<<endl;
+    // // // cout<<" number of hops "<<p1.size()/2<<endl;
+    // // cout<<"\n";
     
     
-    // // cout<<"Backup path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p2.size()/2<<endl;
-    cout<<"tamanho p2 "<<p2.size()/2<<" ";
-    cout<<p2[0]<<" ";
-    for (u = 1; u < p2.size(); u+=2)
-    {
+    // // // cout<<"Backup path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p2.size()/2<<endl;
+    // cout<<"tamanho p2 "<<p2.size()/2<<" ";
+    // cout<<p2[0]<<" ";
+    // for (u = 1; u < p2.size(); u+=2)
+    // {
       
-        cout<<p2[u]<<" ";
-    }
-    cout<<"\n";
+    //     cout<<p2[u]<<" ";
+    // }
+    // cout<<"\n";
 
 
     int source = path1[0];
@@ -1073,7 +1069,8 @@ bool BalancedSuurballe::execute(Graph & graph, string nameFile)
                 }
                 else if ((this->pathTwo_.size()+this->pathOne_.size()) == (this->pathTwo.size()+this->pathOne.size()))
                 {
-                    int diff1 = abs(this->pathTwo.size()-this->pathOne.size()),diff2 =  abs(this->pathTwo_.size()-this->pathOne_.size());
+                    int diff1 = abs(this->pathTwo.size()-this->pathOne.size());
+                    int diff2 =  abs(this->pathTwo_.size()-this->pathOne_.size());
                     
                     if (diff1 <= diff2)
                     {
@@ -1101,7 +1098,7 @@ bool BalancedSuurballe::execute(Graph & graph, string nameFile)
         BalancedSuurballe::averageHops();
     }
 
-    return survivor;
+    return true;
 }
 
 /**
@@ -1127,10 +1124,10 @@ vector<double> BalancedSuurballe::averageHops()
     }
 
     this->datas<<"sum Working = "<<sumWorkingHops<<endl;
-    this->datas<<"sum Working = "<<sumBackupHops<<endl;
+    this->datas<<"sum Backup = "<<sumBackupHops<<endl;
     int N = this->numberOfNodes;
 
-    cout<<"sumBackupHops "<<sumBackupHops<<" sumWorkingHops "<<sumWorkingHops<<" N = "<<this->numberOfNodes<<endl;
+    cout<<"sumBackupHops "<<sumBackupHops<<" sumWorkingHops "<<sumWorkingHops<<" diff = "<<abs(sumWorkingHops-sumBackupHops)<<endl;
     double avgWorkingHops = ( 2* sumWorkingHops )/ ( N*(N-1) );
     double averageBackupHops = (2 *sumBackupHops )/ ( N*(N-1) );
 

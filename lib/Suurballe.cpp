@@ -1,5 +1,16 @@
 /**
- * Algoritmo de roteamento
+ * Copyright 2015 Silvana Trindade
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #include "Suurballe.hpp"
@@ -435,6 +446,22 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, Graph &g
     makePathVector(path1,p1,temp);
     makePathVector(path2,p2,temp);
 
+    cout<<p1[0]<<" ";
+    for (unsigned int u = 1; u < p1.size(); u+=2)
+    {
+        
+        cout<<p1[u]<<" ";
+    }
+    cout<<endl;
+
+    cout<<p2[0]<<" ";
+    for (unsigned int u = 1; u < p2.size(); u+=2)
+    {
+      
+        cout<<p2[u]<<" ";
+    }
+    cout<<"\n";
+
    // cout<<"tamanho p1 "<<p1.size()<<" tamanho p2 "<<p2.size()<<endl;
     /**
      * Remover arestas invertidas
@@ -448,12 +475,27 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, Graph &g
             //exclui arestas em comum mas invertidas
             if (p1[u] == p2[v+1] && p1[u+1] == p2[v])
             {
-                // cout<<" ( "<<p1[u]<<" , "<<p1[u+1]<<" )"<<endl;
                 discardCommonEdge(p1,p2,u,v);
             }
 
         }
     }
+
+    cout<<p1[0]<<" ";
+    for (unsigned int u = 1; u < p1.size(); u+=2)
+    {
+        
+        cout<<p1[u]<<" ";
+    }
+    cout<<endl;
+
+    cout<<p2[0]<<" ";
+    for (unsigned int u = 1; u < p2.size(); u+=2)
+    {
+      
+        cout<<p2[u]<<" ";
+    }
+    cout<<"\n";
 
     /**
      * Contruir sub-grafo
@@ -631,7 +673,7 @@ bool Suurballe::execute(Graph & graph, string nameFile)
                  * Monta árvore a partir do nó u
                  */
                 // cout<<"----------------------------\n"<<endl;
-                // cout<<"U "<<u<<" V "<<v<<endl;
+                cout<<"U "<<u<<" V "<<v<<endl;
                 this->treePath = vector<vector<int>> (this->numberOfNodes,vector<int>(this->numberOfNodes,0)); 
                 tree<int> tr = makeTree(auxiliar, this->path[iterator], u);
                 // cout<<"------------------------ "<<u+1<<" "<<v+1<<"------------------"<<endl;
@@ -696,8 +738,8 @@ vector<double> Suurballe::averageHops()
     int N = this->numberOfNodes;
 
     this->datas<<"sum Working = "<<sumWorkingHops<<endl;
-    this->datas<<"sum Working = "<<sumBackupHops<<endl;
-    // cout<<"sumBackupHops "<<sumBackupHops<<" sumWorkingHops "<<sumWorkingHops<<" N = "<<this->numberOfNodes<<endl;
+    this->datas<<"sum Backup = "<<sumBackupHops<<endl;
+    cout<<"sumBackupHops "<<sumBackupHops<<" sumWorkingHops "<<sumWorkingHops<<" diff = "<<abs(sumWorkingHops-sumBackupHops)<<endl;
     double avgWorkingHops = ( 2* sumWorkingHops )/ ( N*(N-1) );
     double averageBackupHops = (2 *sumBackupHops )/ ( N*(N-1) );
 
