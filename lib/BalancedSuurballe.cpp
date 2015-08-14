@@ -467,7 +467,7 @@ int BalancedSuurballe::compareWithOthers(vector<int> p1, vector<int> p2)
         }
     }
 
-    return abs(p1.size()-p2.size());
+    return abs((int)p1.size()-(int)p2.size());
 }
 
 vector< vector<int> > BalancedSuurballe::findPairOfBalancedPaths(Graph g,int source,int target, int p1, int p2)
@@ -503,7 +503,7 @@ vector< vector<int> > BalancedSuurballe::findPairOfBalancedPaths(Graph g,int sou
             }
             else
             {
-                s = (pairOfPaths[i].size()-1) + (pairOfPaths[j].size()-1);
+                s = ((int)pairOfPaths[i].size()-1) + ((int)pairOfPaths[j].size()-1);
             }
 
             // for (int k = 0; k < pairOfPaths[i].size(); k++)
@@ -874,14 +874,14 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
     // cout<<p1.size()<<" "<<p2.size()<<" "<<path1.size()<<" "<<path2.size()<<endl;
     if( p1.size() != p2.size() && abs(path2.size()-path1.size()) >= 2) 
     {
-        pairOfPaths = findPairOfBalancedPaths(g,source,target,p1.size()/2,p2.size()/2);
+        pairOfPaths = findPairOfBalancedPaths(g,source,target,(int)(p1.size())/2,(int)(p2.size())/2);
         
         unsigned sum = (p1.size()/2)+(p2.size()/2), sum2 = (p1.size()/2)+(p2.size()/2)+1;
         
         if( pairOfPaths.size() == 2) 
         {
-            sum = (p1.size()/2)+(p2.size()/2);
-            sum2 = (pairOfPaths[0].size()-1)+(pairOfPaths[1].size()-1);
+            sum = ((int)p1.size()/2)+((int)p2.size()/2);
+            sum2 = ((int)pairOfPaths[0].size()-1)+((int)pairOfPaths[1].size()-1);
         }
         if ( (pairOfPaths.size() == 2) && (sum == sum2 ))
         {

@@ -27,6 +27,7 @@
 #include <random>
 #include <string>
 #include <fstream>//manipulação de arquivos
+#include <cmath>
 #include <iostream>
 
 using namespace std;

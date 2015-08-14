@@ -15,6 +15,10 @@
 
 #include "BalancedTree.hpp"
 
+
+BalancedTree::BalancedTree(){}
+BalancedTree::~BalancedTree(){}
+
 void BalancedTree::averageHops(Graph g)
 {
     vector<double> avgHops;
@@ -47,28 +51,42 @@ void BalancedTree::averageHops(Graph g)
     avgHops.clear();
 }
 
-int BalancedTree::compareWithOthers(Graph g,vector<int> p1, vector<int> p2) 
+ vector< vector<int> > BalancedTree::compareWithOthers(Graph g,vector<int> &p1, vector<int> &p2) 
 {
-
     vector<int> temp = vector<int> (g.getNumberOfNodes(),-1);
     vector<int> path1;
     vector<int> path2;
+    vector<vector<int>> paths;
 
     makePathVector(p1,path1,temp);
     makePathVector(p2,path2,temp);
 
-    for (int i = 0; i < path1.size()-1; i+=2)
+    /**
+     * Remover arestas invertidas
+     * Dos caminhos mínimos p1 e p2
+     */
+    for ( unsigned int u = 0; u < path1.size()-1; u+=2)
     {
-        for (int j = 0; j < path2.size()-1; j+=2)
+        for (unsigned int v = 0; v < path2.size()-1; v+=2)
         {
-           if (path1[i] == path2[j+1] && path1[i+1] == path2[j])
-           {
-               return -1;
-           }
+            //exclui arestas em comum mas invertidas
+            if (path1[u] == path2[v+1] && path1[u+1] == path2[v])
+            {
+                discardCommonEdge(path1,path2,u,v);
+            }
+
+            if (path1[u] == path2[v] && path1[u+1] == path2[v+1])
+            {
+                return paths;
+            }
+
         }
     }
 
-    return abs(p1.size()-p2.size());
+    paths.push_back(path1);
+    paths.push_back(path2);
+
+    return paths;
 }
 
 bool BalancedTree::isNodeInPath(TreeNode *node,int index)
@@ -88,6 +106,47 @@ bool BalancedTree::isNodeInPath(TreeNode *node,int index)
     return false;
 } 
 
+bool BalancedTree::searchPath(vector< vector<int> > paths, vector<int> path)
+{
+    bool eq = false;
+
+    for (int u = 0; u < paths.size(); u++)
+    {
+        if (paths[u].size() != path.size() )
+        {
+            continue;
+        }
+
+        for (int i = 0; i < paths[u].size(); i++)
+        {
+            for (int v = 0; v < path.size(); v++)
+            {
+                if (paths[u][i] != path[v])
+                {
+                    eq = false;
+                    break;
+                }
+                else
+                {
+                    eq = true;
+                }
+            }
+
+            if (eq == false)
+            {
+                break;
+            }
+        }
+
+        if (eq == true)
+        {
+            return eq;
+        }
+    }
+
+    return eq;
+}
+
 void BalancedTree::addChildren(Graph g,TreeNode *root,int source,int target, vector< vector<int> > &paths)
 {
     Node node;
@@ -105,7 +164,12 @@ void BalancedTree::addChildren(Graph g,TreeNode *root,int source,int target, vec
 
             if (adjacents[i] == target)
             {
-                paths.push_back(returnPath(child));
+                vector<int> temp = returnPath(child);
+
+                if (!searchPath(paths,temp))
+                {
+                    paths.push_back(temp);
+                }
             }
             else
             {
@@ -127,62 +191,73 @@ vector< vector<int> > BalancedTree::findAllPaths(Graph g,int source,int target)
     return paths;
 } 
 
-vector< vector<int> > BalancedTree::findPairOfBalancedPaths(Graph g,int source,int target)
+void BalancedTree::findPairOfBalancedPaths(Graph g,int source,int target)
 {
     vector< vector<int> > pairOfPaths;
     
     pairOfPaths = findAllPaths(g,source,target);
     
-    int sum = g.getNumberOfNodes();//somatório dos caminhos mínimos encontrados pelo algoritmo
-    int diff = sum+1, diffAnt, a = 0, b = 0, s = sum+1;
-    diffAnt = diff;
+    int sum = g.getNumberOfNodes()+1;//somatório dos caminhos mínimos encontrados pelo algoritmo
+    int diff = sum+1; //iniciando com número infinito
+    int a = 0, b = 0;
 
-    for (int i = 0; i < pairOfPaths.size(); i++)
+    for (unsigned int i = 0; i < pairOfPaths.size()-1; i++)
     {
-        for (int j = 0; j < pairOfPaths.size(); j++)
+    	// for (unsigned int k = 0; k < pairOfPaths[i].size(); k++) cout<<" "<<pairOfPaths[i][k];
+    	// cout<<endl;
+        
+        for (unsigned int j = i+1; j < pairOfPaths.size(); j++)
         {
-            
-            if (i == j)
+            if (pairOfPaths[i][1] == pairOfPaths[j][1] || pairOfPaths[i][(int)pairOfPaths[i].size()-2] == pairOfPaths[j][(int)pairOfPaths[j].size()-2])
             {
                 continue;
             }
-            else
+            
+            vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[i],pairOfPaths[j]);
+            
+            if ((int)paths.size() <= 0)
             {
-                s = (pairOfPaths[i].size()-1) + (pairOfPaths[j].size()-1);
+               continue;
             }
 
-       
-            if ( s <= sum )
+            int newDiff = abs( (int)paths[0].size() - (int)paths[1].size() );
+            int s = ( (int)paths[0].size() + (int)paths[1].size() )/2;
+            
+            // cout<<"s "<<s<<" sum "<< sum<<" path1 "<< paths[0].size()<<" path2 "<<paths[1].size()<<" diff "<<diff<<" size "<<paths.size()<<endl;      
+            if ( s < sum )
+            {  
+                a = i;
+                b = j;
+
+                diff = newDiff;
+                sum = s;
+            }
+            else if (s == sum)
             {
-                int newDiff = compareWithOthers(g,pairOfPaths[i],pairOfPaths[j]);
-                
-                /**
-                 * Atribui indices dos novos caminhos
-                 */
-                if ( ( newDiff < diff ) && ( newDiff >= 0 ) )
+                if (newDiff < diff)
                 {
                     a = i;
                     b = j;
 
                     diff = newDiff;
+                    sum = s;
                 }
-
             }
-            
-            s = sum+1;
-
         }
     }
+    // cout<<"--------------------------------\n\n";
 
-    vector< vector <int> > pair;
-
-    if (a != b && diff < diffAnt)
+    if (a != b)
     {
-        pair.push_back( pairOfPaths[a] );
-        pair.push_back( pairOfPaths[b] );
-    }
+        vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[a],pairOfPaths[b]);
 
-    return pair;
+    	printPaths(paths[0],paths[1], g);
+    }
+    else
+    {
+        cout<<"Topologia não sobrevivente."<<endl;
+        exit(1);
+    }
 }
 
 vector<int> BalancedTree::returnPath(TreeNode *child)
@@ -325,15 +400,15 @@ void BalancedTree::printPaths(vector<int> p1,vector<int> p2, Graph &graph)
    {
       this->hopBackup.push_back(p1.size()/2);
       this->hopWorking.push_back( p2.size()/2);
-      graph.setWorkingPath(p2);
-      graph.setBackupPath(p1);
+      // graph.setWorkingPath(p2);
+      // graph.setBackupPath(p1);
    }
    else
    {
         this->hopBackup.push_back( p2.size()/2);
         this->hopWorking.push_back( p1.size()/2);
-        graph.setWorkingPath(p1);
-        graph.setBackupPath(p2);
+        // graph.setWorkingPath(p1);
+        // graph.setBackupPath(p2);
    }
 }
 
@@ -342,6 +417,8 @@ void BalancedTree::execute(Graph &graph, string file)
 	file = "output_balanced_"+file;
 
 	this->datas.open(file);
+    vector<thread> t;
+
 	/**
 	 * Encontra o par de caminhos disjuntos menores e com diferença de hops menor
 	 * em relação aos demais caminhos.
@@ -350,7 +427,14 @@ void BalancedTree::execute(Graph &graph, string file)
 	{
 		for (int j = i+1; j < graph.getNumberOfNodes(); j++)
 		{
-			findPairOfBalancedPaths(graph,i,j);
+			t.push_back(thread( [this, graph, i, j] { this->findPairOfBalancedPaths(graph,i,j); }));
 		}
 	}
+
+    for (unsigned int i = 0; i < t.size(); i++)
+    {
+        t[i].join();
+    }
+
+    averageHops(graph);
 }

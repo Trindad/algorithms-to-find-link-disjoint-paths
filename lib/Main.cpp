@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 #include "Graph.hpp"
-#include "BalancedSuurballe.hpp"
-#include "Suurballe.hpp"
-// #include "TreeNode.hpp"
+// #include "BalancedSuurballe.hpp"
+// #include "Suurballe.hpp"
+#include "BalancedTree.hpp"
 #include <sstream>
 
 vector<string> &split(const string &s, char delim, vector<string> &elems);
@@ -64,18 +64,18 @@ int main(int argc, char const *argv[])
 		while( getline (file,line) )
 		{
 			nodes = split(line.c_str(),' ');
-			// cout<<" "<<nodes[0]<<" "<<nodes[1]<<endl;
 
 			int u = stoi(nodes[0])-1;
 			int v = stoi(nodes[1])-1;
+			
 			// g.setEdgeDirected(u,v);
 			g1.setEdge(u,v);
 			g1.setWeight(u,v,1.0);
 			g1.setWeight(v,u,1.0);
 
-			g2.setEdge(u,v);
-			g2.setWeight(u,v,1.0);
-			g2.setWeight(v,u,1.0);
+			// g2.setEdge(u,v);
+			// g2.setWeight(u,v,1.0);
+			// g2.setWeight(v,u,1.0);
 		}
 		
 		// g.setWeightEdgeDirected(1-1,8-1,2.0f);
@@ -91,17 +91,22 @@ int main(int argc, char const *argv[])
 		// g.setWeightEdgeDirected(8-1,6-1,5.0f);
 		// g.setWeightEdgeDirected(7-1,4-1,1.0f);
 
-		BalancedSuurballe bs;
+		// BalancedSuurballe bs;
 
-		bool sobrevivente = bs.execute(g1,pathFile[pathFile.size()-1]);
+		// bool sobrevivente = bs.execute(g1,pathFile[pathFile.size()-1]);
 
-		cout<<"sobrevivente "<<sobrevivente<<"\n\n"<<endl;
+		// cout<<"sobrevivente "<<sobrevivente<<"\n\n"<<endl;
 
-		Suurballe s;
+		// Suurballe s;
 
-		sobrevivente = s.execute(g2,pathFile[pathFile.size()-1]);
+		// sobrevivente = s.execute(g2,pathFile[pathFile.size()-1]);
 
-		cout<<"sobrevivente "<<sobrevivente<<endl;
+		// cout<<"sobrevivente "<<sobrevivente<<endl;
+		// 
+		
+		BalancedTree b;
+
+		b.execute(g1,pathFile[pathFile.size()-1]);
 
 		file.close();
 	}
