@@ -772,26 +772,26 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
     makePathVector(path2,p2,temp);
 
     // cout<<p1.size()/2<<" ";
-    cout<<p1[0]<<" ";
-    for (u = 1; u < p1.size(); u+=2)
-    {
+    // cout<<p1[0]<<" ";
+    // for (u = 1; u < p1.size(); u+=2)
+    // {
         
-        cout<<p1[u]<<" ";
-    }
-    cout<<endl;
+    //     cout<<p1[u]<<" ";
+    // }
+    // cout<<endl;
     // // cout<<" number of hops "<<p1.size()/2<<endl;
     // cout<<"\n";
     
     
     // // cout<<"Backup path ["<<source<<" , "<<target<<" ]"<<" number of hops = "<<p2.size()/2<<endl;
     // cout<<p2.size()/2<<" ";
-    cout<<p2[0]<<" ";
-    for (u = 1; u < p2.size(); u+=2)
-    {
+    // cout<<p2[0]<<" ";
+    // for (u = 1; u < p2.size(); u+=2)
+    // {
       
-        cout<<p2[u]<<" ";
-    }
-    cout<<"\n";
+    //     cout<<p2[u]<<" ";
+    // }
+    // cout<<"\n";
     /**
      * Remover arestas invertidas
      * Dos caminhos mínimos p1 e p2
@@ -959,7 +959,7 @@ void BalancedSuurballe::choiceNewPath(Graph graph,int iterator,int u,int v,bool 
      * Monta árvore a partir do nó u
      */
     
-    cout<<"\nU "<<u<<" V "<<v<<endl;
+    // cout<<"\nU "<<u<<" V "<<v<<endl;
     this->treePath = vector<vector<int>> (this->numberOfNodes,vector<int>(this->numberOfNodes,0)); 
     tree<int> tr = makeTree(auxiliar, this->path[iterator], u);
     

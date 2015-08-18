@@ -169,6 +169,13 @@ void BalancedTree::addChildren(Graph g,TreeNode *root,int source,int target, vec
                 if (!searchPath(paths,temp))
                 {
                     paths.push_back(temp);
+
+                    int n = (int)paths.size();
+                    int h = paths[n-1].size()-1;//número de hops
+
+                    this->dic.lock();
+                    this->distance.push_back( pair<int, int>(n-1,h) );
+                    this->dic.unlock();
                 }
             }
             else
@@ -189,6 +196,14 @@ vector< vector<int> > BalancedTree::findAllPaths(Graph g,int source,int target)
 
     addChildren(g,root,source,target,paths);//adiciona filhos na árvore
 
+    /**
+     * Ordena vetor de pares
+     */
+    this->dic.lock();
+    sort(this->distance.begin(),this->distance.end(),[](const pair<int,int> &left,const pair<int,int> &right){
+        return left.second > right.second;
+    });
+    this->dic.unlock();
     return paths;
 } 
 
