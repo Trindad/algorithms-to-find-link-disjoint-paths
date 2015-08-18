@@ -178,6 +178,7 @@ void BalancedTree::addChildren(Graph g,TreeNode *root,int source,int target, vec
         }
     }
 
+    adjacents.clear();
 }
 
 vector< vector<int> > BalancedTree::findAllPaths(Graph g,int source,int target)
@@ -203,8 +204,6 @@ void BalancedTree::findPairOfBalancedPaths(Graph g,int source,int target)
 
     for (unsigned int i = 0; i < pairOfPaths.size()-1; i++)
     {
-    	// for (unsigned int k = 0; k < pairOfPaths[i].size(); k++) cout<<" "<<pairOfPaths[i][k];
-    	// cout<<endl;
         
         for (unsigned int j = i+1; j < pairOfPaths.size(); j++)
         {
@@ -245,7 +244,6 @@ void BalancedTree::findPairOfBalancedPaths(Graph g,int source,int target)
             }
         }
     }
-    // cout<<"--------------------------------\n\n";
 
     if (a != b)
     {
@@ -258,6 +256,8 @@ void BalancedTree::findPairOfBalancedPaths(Graph g,int source,int target)
         cout<<"Topologia não sobrevivente."<<endl;
         exit(1);
     }
+
+    pairOfPaths.clear();
 }
 
 vector<int> BalancedTree::returnPath(TreeNode *child)
@@ -393,23 +393,23 @@ void BalancedTree::printPaths(vector<int> p1,vector<int> p2, Graph &graph)
 
    if (p1.size() > p2.size())
    {
-      this->hopBackup.push_back(p1.size()/2);
-      this->hopWorking.push_back( p2.size()/2);
-      // graph.setWorkingPath(p2);
-      // graph.setBackupPath(p1);
+        this->m.lock();
+        this->hopBackup.push_back( (double)p1.size()/2);
+        this->hopWorking.push_back(  (double)p2.size()/2);
+        this->m.unlock();
    }
    else
    {
-        this->hopBackup.push_back( p2.size()/2);
-        this->hopWorking.push_back( p1.size()/2);
-        // graph.setWorkingPath(p1);
-        // graph.setBackupPath(p2);
+        this->m.lock();
+        this->hopBackup.push_back(  (double)p2.size()/2);
+        this->hopWorking.push_back(  (double)p1.size()/2);
+        this->m.unlock();
    }
 }
 
 void BalancedTree::execute(Graph &graph, string file)
 {
-	file = "output_balanced_"+file;
+	file = "output_best_balanced_"+file;
 
 	this->datas.open(file);
     vector<thread> t;

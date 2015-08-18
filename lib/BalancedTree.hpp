@@ -15,7 +15,8 @@
 #include "Graph.hpp"
 #include "TreeNode.hpp"
 #include <thread>
-
+#include <mutex>
+ 
 class BalancedTree
 {
 public:
@@ -43,10 +44,9 @@ public:
 
 private:
 
+	mutex m;
 	vector< double> hopWorking;					//número de saltos(i,j) do principal
 	vector< double> hopBackup;					//número de saltos(i,j) de backup
-	
-	vector< vector<int> > treePath;				//matriz que armazena enlaces da árvore de u a v
-	
+
 	ofstream datas;//arquivo para armazenar caminhos de trabalho e backup	
 };
