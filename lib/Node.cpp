@@ -183,7 +183,7 @@ void Node::addNodePath(int newNode)
 {
 	int position = this->numberOfPaths;
 
-	if (paths.size() < position)
+	if ((int)paths.size() < position)
 	{
 		vector<int> i;
 		paths.push_back(i);
@@ -207,9 +207,8 @@ void Node::removeNode(int node)
 {
 	int n = this->degree;
 
-	for (int i = 0; i < degree; i++)
+	for (int i = 0; i < n; i++)
 	{
-	
 		if (this->adjacents[i] == node)
 		{
 			this->adjacents.erase(this->adjacents.begin()+i);

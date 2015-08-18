@@ -110,16 +110,16 @@ bool BalancedTree::searchPath(vector< vector<int> > paths, vector<int> path)
 {
     bool eq = false;
 
-    for (int u = 0; u < paths.size(); u++)
+    for (unsigned int u = 0; u < paths.size(); u++)
     {
         if (paths[u].size() != path.size() )
         {
             continue;
         }
 
-        for (int i = 0; i < paths[u].size(); i++)
+        for (unsigned int i = 0; i < paths[u].size(); i++)
         {
-            for (int v = 0; v < path.size(); v++)
+            for (unsigned int v = 0; v < path.size(); v++)
             {
                 if (paths[u][i] != path[v])
                 {
@@ -154,7 +154,7 @@ void BalancedTree::addChildren(Graph g,TreeNode *root,int source,int target, vec
 
     vector <int> adjacents = node.getAdjacentsNodes();
 
-    for (int i = 0; i < adjacents.size(); i++)
+    for (unsigned int i = 0; i < adjacents.size(); i++)
     {
         if (!isNodeInPath(root,adjacents[i]))
         {
@@ -293,7 +293,7 @@ void BalancedTree::makePathVector(vector<int> p1,vector<int> &p2, vector<int> &i
 
 void BalancedTree::freeTree(TreeNode *root)
 {
-    for (int i = 0; i < root->children.size(); i++)
+    for (unsigned int i = 0; i < root->children.size(); i++)
     {
         freeTree(root->children[i]);
     }
@@ -304,11 +304,11 @@ void BalancedTree::freeTree(TreeNode *root)
 void BalancedTree::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, int y)
 {
     vector<int> t1, t2;
-    unsigned int u = 0, v = 0;
+    unsigned int u = 0;
   
     for (u = 0; u < p1.size(); u += 2)
     {
-        if( u == x )
+        if( (int)u == x )
         {
             break;
         }
@@ -319,15 +319,13 @@ void BalancedTree::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, in
    
     for (u = 0; u < p2.size(); u += 2)
     {
-        if( u == y ) {
+        if( (int)u == y ) {
             break;
         }
         
         t2.push_back(p2[u]);
         t2.push_back(p2[u+1]);
     }
-
-    v = 0;
 
     for (u = y+2; u < p2.size(); u += 2)
     {
@@ -342,7 +340,6 @@ void BalancedTree::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, in
         t1.push_back(p2[u+1]);
     }
   
-    v = 0;
     for (u = x+2; u < p1.size(); u += 2)
     {
         if (p1[u] == t2[t2.size() - 1] && p1[u+1] == t2[t2.size() - 2])
@@ -354,8 +351,6 @@ void BalancedTree::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, in
 
         t2.push_back(p1[u]);
         t2.push_back(p1[u+1]);
-
-        v = t2.size();
     }
 
     p1.clear();
@@ -374,7 +369,7 @@ void BalancedTree::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, in
 
 void BalancedTree::printPaths(vector<int> p1,vector<int> p2, Graph &graph)
 {
-    int u = 0;
+    unsigned int u = 0;
 
     this->datas<<p1.size()/2<<" ";
     this->datas<<p1[0]<<" ";

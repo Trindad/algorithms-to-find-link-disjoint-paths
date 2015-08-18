@@ -38,7 +38,7 @@ void BalancedSuurballe::insertSubtree(Graph graph, tree<int> &tr, typename tree<
 
     int it = 0;
 
-    while( adjacents.size() > it )
+    while( (int)adjacents.size() > it )
     {
         if (controller[ adjacents[it] ] == -1)
         {
@@ -128,8 +128,8 @@ void BalancedSuurballe::updateEdgesWeight(const tree<int>& t, typename tree<int>
     else
     {
         // child1, ..., childn
-        int siblingCount = t.number_of_siblings( t.begin(iRoot) );
-        int siblingNum;
+        // int siblingCount = t.number_of_siblings( t.begin(iRoot) );
+        int siblingNum = 0;
 
         typename tree<int>::sibling_iterator iChildren;
         double weight = 0.0f ;//w'(u,v) = w (w,u) - d(s,v) + d(s,u)
@@ -215,7 +215,7 @@ void BalancedSuurballe::changeEdgesWeights(Graph & graph, tree<int> tr, vector<i
      * 		w'(u,v) = w (u,v) - d(s,v) + d(s,u)
      */
 
-    int headCount = tr.number_of_siblings(tr.begin());//número de cabeças da árvore
+    // int headCount = tr.number_of_siblings(tr.begin());//número de cabeças da árvore
 
     typename tree<int>::sibling_iterator iRoot = tr.begin();
 
@@ -282,7 +282,7 @@ void BalancedSuurballe::changeEdgesWeightsAll(Graph & graph, tree<int> tr, vecto
      *      w'(u,v) = w (u,v) - d(s,v) + d(s,u)
      */
 
-    int headCount = tr.number_of_siblings(tr.begin());//número de cabeças da árvore
+    // int headCount = tr.number_of_siblings(tr.begin());//número de cabeças da árvore
 
     typename tree<int>::sibling_iterator iRoot = tr.begin();
 
@@ -456,9 +456,9 @@ int BalancedSuurballe::compareWithOthers(vector<int> p1, vector<int> p2)
     makePathVector(p1,path1,temp);
     makePathVector(p2,path2,temp);
 
-    for (int i = 0; i < path1.size()-1; i+=2)
+    for (unsigned int i = 0; i < path1.size()-1; i+=2)
     {
-        for (int j = 0; j < path2.size()-1; j+=2)
+        for (unsigned int j = 0; j < path2.size()-1; j+=2)
         {
            if (path1[i] == path2[j+1] && path1[i+1] == path2[j])
            {
@@ -477,7 +477,7 @@ vector< vector<int> > BalancedSuurballe::findPairOfBalancedPaths(Graph g,int sou
     pairOfPaths = findAllPaths(g,source,target);
     
     int sum = p1 + p2;//somatório dos caminhos mínimos encontrados pelo algoritmo
-    int diff = abs( p2 - p1 ), diffAnt, a = 0, b = 0, s = sum+1;
+    int diff = abs( (int)p2 - (int)p1 ), diffAnt, a = 0, b = 0, s = sum+1;
     diffAnt = diff;
     // printf("source %d target %d\n",source,target);
 
@@ -492,9 +492,9 @@ vector< vector<int> > BalancedSuurballe::findPairOfBalancedPaths(Graph g,int sou
     // }
     // cout<<endl;
     // cout<<"number of paths "<<pairOfPaths.size()<<endl;
-    for (int i = 0; i < pairOfPaths.size(); i++)
+    for (unsigned int i = 0; i < pairOfPaths.size(); i++)
     {
-        for (int j = 0; j < pairOfPaths.size(); j++)
+        for (unsigned int j = 0; j < pairOfPaths.size(); j++)
         {
             
             if (i == j)
@@ -577,7 +577,7 @@ void BalancedSuurballe::addChildren(Graph g,TreeNode *root,int source,int target
 
     vector <int> adjacents = node.getAdjacentsNodes();
 
-    for (int i = 0; i < adjacents.size(); i++)
+    for (unsigned int i = 0; i < adjacents.size(); i++)
     {
         if (!isNodeInPath(root,adjacents[i]))
         {
@@ -628,7 +628,7 @@ bool BalancedSuurballe::isNodeInPath(TreeNode *node,int index)
 
 void BalancedSuurballe::freeTree(TreeNode *root)
 {
-    for (int i = 0; i < root->children.size(); i++)
+    for (unsigned int i = 0; i < root->children.size(); i++)
     {
         freeTree(root->children[i]);
     }
@@ -639,13 +639,13 @@ void BalancedSuurballe::freeTree(TreeNode *root)
 void BalancedSuurballe::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, int y)
 {
     vector<int> t1, t2;
-    unsigned int u = 0, v = 0;
+    unsigned int u = 0;
     // cout<<"\n-----------D---------------"<<endl;
     
     // cout<<endl;
     for (u = 0; u < p1.size(); u += 2)
     {
-        if( u == x )
+        if( (int)u == x )
         {
             break;
         }
@@ -656,7 +656,7 @@ void BalancedSuurballe::discardCommonEdge(vector<int> &p1, vector<int> &p2, int 
     // cout<<"\n"<<endl; v = 0;   
     for (u = 0; u < p2.size(); u += 2)
     {
-        if( u == y ) {
+        if( (int)u == y ) {
             break;
         }
         
@@ -664,7 +664,6 @@ void BalancedSuurballe::discardCommonEdge(vector<int> &p1, vector<int> &p2, int 
         t2.push_back(p2[u+1]);
     }
 
-    v = 0;
     // cout<<"\nsegunda parte "<<u<<" "<<v<<"\n"<<endl;
     for (u = y+2; u < p2.size(); u += 2)
     {
@@ -679,7 +678,6 @@ void BalancedSuurballe::discardCommonEdge(vector<int> &p1, vector<int> &p2, int 
         t1.push_back(p2[u+1]);
     }
   
-    v = 0;
     for (u = x+2; u < p1.size(); u += 2)
     {
         if (p1[u] == t2[t2.size() - 1] && p1[u+1] == t2[t2.size() - 2])
@@ -691,8 +689,6 @@ void BalancedSuurballe::discardCommonEdge(vector<int> &p1, vector<int> &p2, int 
 
         t2.push_back(p1[u]);
         t2.push_back(p1[u+1]);
-
-        v = t2.size();
     }
 
     // for (u = 0; u < t1.size(); u++)
@@ -723,7 +719,7 @@ void BalancedSuurballe::discardCommonEdge(vector<int> &p1, vector<int> &p2, int 
 
 void BalancedSuurballe::printPaths(vector<int> p1,vector<int> p2, Graph &graph)
 {
-    int u = 0;
+    unsigned int u = 0;
 
     this->datas<<p1.size()/2<<" ";
     this->datas<<p1[0]<<" ";
@@ -750,15 +746,15 @@ void BalancedSuurballe::printPaths(vector<int> p1,vector<int> p2, Graph &graph)
 
    if (p1.size() > p2.size())
    {
-      this->hopBackup.push_back(p1.size()/2);
-      this->hopWorking.push_back( p2.size()/2);
+      this->hopBackup.push_back((double)p1.size()/2);
+      this->hopWorking.push_back( (double)p2.size()/2);
       graph.setWorkingPath(p2);
       graph.setBackupPath(p1);
    }
    else
    {
-        this->hopBackup.push_back( p2.size()/2);
-        this->hopWorking.push_back( p1.size()/2);
+        this->hopBackup.push_back( (double)p2.size()/2);
+        this->hopWorking.push_back( (double)p1.size()/2);
         graph.setWorkingPath(p1);
         graph.setBackupPath(p2);
    }
@@ -768,7 +764,7 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
 {
 
     vector<int> p1,p2;
-    int u = 0;
+    unsigned int u = 0;
 
     vector<int> temp = vector<int> (this->numberOfNodes,-1);
 
@@ -876,7 +872,7 @@ bool BalancedSuurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, 
     {
         pairOfPaths = findPairOfBalancedPaths(g,source,target,(int)(p1.size())/2,(int)(p2.size())/2);
         
-        unsigned sum = (p1.size()/2)+(p2.size()/2), sum2 = (p1.size()/2)+(p2.size()/2)+1;
+        int sum = ((int)p1.size()/2)+((int)p2.size()/2), sum2 = ((int)p1.size()/2)+((int)p2.size()/2)+1;
         
         if( pairOfPaths.size() == 2) 
         {
@@ -1035,9 +1031,9 @@ bool BalancedSuurballe::execute(Graph & graph, string nameFile)
          * Para cada par de nós (u,v)
          * Obtêm caminho mínimo
          */
-        for (unsigned int u = 0; u < this->numberOfNodes-1; u++)
+        for (int u = 0; u < this->numberOfNodes-1; u++)
         {
-            for(unsigned int v = u+1; v < this->numberOfNodes; v++)
+            for(int v = u+1; v < this->numberOfNodes; v++)
             {
                 this->distance[u][v] = this->distance[v][u] = dijkstra.execute(graph,u,v);
                 // cout<<"distance entre "<<u<<" e "<<v<<" = "<<this->distance[u][v]<<endl;
@@ -1054,9 +1050,9 @@ bool BalancedSuurballe::execute(Graph & graph, string nameFile)
 
         int iterator = 0;
 
-        for (unsigned int u = 0; u < this->numberOfNodes-1; u++)
+        for (int u = 0; u < this->numberOfNodes-1; u++)
         {
-            for (unsigned int v = u+1; v < this->numberOfNodes; v++)
+            for (int v = u+1; v < this->numberOfNodes; v++)
             {
 
                 choiceNewPath(graph,iterator,u,v,false);
