@@ -147,7 +147,7 @@ bool BalancedTree::searchPath(vector< vector<int> > paths, vector<int> path)
     return eq;
 }
 
-void BalancedTree::addChildren(Graph g,TreeNode *root,int source,int target, vector< vector<int> > &paths)
+void BalancedTree::addChildren(vector<pair<int,int>> &distance,Graph g,TreeNode *root,int source,int target, vector< vector<int> > &paths)
 {
     Node node;
     node = g.getNodeAtPosition(root->index);
@@ -170,17 +170,15 @@ void BalancedTree::addChildren(Graph g,TreeNode *root,int source,int target, vec
                 {
                     paths.push_back(temp);
 
-                    int n = (int)paths.size();
-                    int h = paths[n-1].size()-1;//número de hops
+                    int n = (int)paths.size()-1;
+                    int h = (int)temp.size();//número de hops
 
-                    this->dic.lock();
-                    this->distance.push_back( pair<int, int>(n-1,h) );
-                    this->dic.unlock();
+                    distance.push_back( pair<int, int>(n,h-1) );
                 }
             }
             else
             {
-                addChildren(g,child,source,target,paths);
+                addChildren(distance,g,child,source,target,paths);
             }
         }
     }
@@ -188,46 +186,61 @@ void BalancedTree::addChildren(Graph g,TreeNode *root,int source,int target, vec
     adjacents.clear();
 }
 
-vector< vector<int> > BalancedTree::findAllPaths(Graph g,int source,int target)
+vector< vector<int> > BalancedTree::findAllPaths(vector<pair<int,int>> &distance,Graph g,int source,int target)
 {
     vector< vector<int> > paths;
 
     TreeNode *root = new TreeNode(source);//a raíz inicia pela origem do caminho e as folhas serão sempre o destino
 
-    addChildren(g,root,source,target,paths);//adiciona filhos na árvore
+    addChildren(distance,g,root,source,target,paths);//adiciona filhos na árvore
 
-    /**
-     * Ordena vetor de pares
-     */
-    this->dic.lock();
-    sort(this->distance.begin(),this->distance.end(),[](const pair<int,int> &left,const pair<int,int> &right){
-        return left.second > right.second;
-    });
-    this->dic.unlock();
+
     return paths;
 } 
+
+/**
+ * Ordena vetor de pares
+ */
+void BalancedTree::sortDatas(vector<pair<int,int>> &distance)
+{
+    sort(distance.begin(),distance.end(),[](const pair<int,int> &left,const pair<int,int> &right){
+        // cout<<" "<<left.second<<" "<<right.second<<endl;
+        return left.second < right.second;
+    });
+}
 
 void BalancedTree::findPairOfBalancedPaths(Graph g,int source,int target)
 {
     vector< vector<int> > pairOfPaths;
+    vector<pair<int,int>> distance;
     
-    pairOfPaths = findAllPaths(g,source,target);
+
+    pairOfPaths = findAllPaths(distance,g,source,target);
+    
+    sortDatas(distance);//ordena vetor de pares
     
     int sum = g.getNumberOfNodes()+1;//somatório dos caminhos mínimos encontrados pelo algoritmo
     int diff = sum+1; //iniciando com número infinito
     int a = 0, b = 0;
 
-    for (unsigned int i = 0; i < pairOfPaths.size()-1; i++)
+    for (unsigned int i = 0; i < distance.size()-1; i++)
     {
-        
-        for (unsigned int j = i+1; j < pairOfPaths.size(); j++)
+        for (unsigned int j = i+1; j < distance.size(); j++)
         {
-            if (pairOfPaths[i][1] == pairOfPaths[j][1] || pairOfPaths[i][(int)pairOfPaths[i].size()-2] == pairOfPaths[j][(int)pairOfPaths[j].size()-2])
+            int u = distance[i].first;
+            int v = distance[j].first;
+
+            if (pairOfPaths[u][1] == pairOfPaths[v][1])
+            {
+                continue;
+            }
+
+            if (pairOfPaths[u][(int)pairOfPaths[u].size()-2] == pairOfPaths[v][(int)pairOfPaths[v].size()-2])
             {
                 continue;
             }
             
-            vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[i],pairOfPaths[j]);
+            vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[u],pairOfPaths[v]);
             
             if ((int)paths.size() <= 0)
             {
@@ -237,11 +250,14 @@ void BalancedTree::findPairOfBalancedPaths(Graph g,int source,int target)
             int newDiff = abs( (int)paths[0].size() - (int)paths[1].size() );
             int s = ( (int)paths[0].size() + (int)paths[1].size() )/2;
             
-            // cout<<"s "<<s<<" sum "<< sum<<" path1 "<< paths[0].size()<<" path2 "<<paths[1].size()<<" diff "<<diff<<" size "<<paths.size()<<endl;      
-            if ( s < sum )
+            if ( s > sum && (a != b) )
+            {
+                break;
+            }
+            else if ( s < sum )
             {  
-                a = i;
-                b = j;
+                a = u;
+                b = v;
 
                 diff = newDiff;
                 sum = s;
@@ -250,8 +266,8 @@ void BalancedTree::findPairOfBalancedPaths(Graph g,int source,int target)
             {
                 if (newDiff < diff)
                 {
-                    a = i;
-                    b = j;
+                    a = u;
+                    b = v;
 
                     diff = newDiff;
                     sum = s;
@@ -272,6 +288,7 @@ void BalancedTree::findPairOfBalancedPaths(Graph g,int source,int target)
         exit(1);
     }
 
+    distance.clear();
     pairOfPaths.clear();
 }
 
@@ -437,8 +454,8 @@ void BalancedTree::execute(Graph &graph, string file)
 	{
 		for (int j = i+1; j < graph.getNumberOfNodes(); j++)
 		{
-			t.push_back(thread( [this, graph, i, j] { this->findPairOfBalancedPaths(graph,i,j); }));
-		}
+			t.push_back(thread( [this, graph, i, j] { this->findPairOfBalancedPaths(graph,i,j); })); 
+        }
 	}
 
     for (unsigned int i = 0; i < t.size(); i++)
