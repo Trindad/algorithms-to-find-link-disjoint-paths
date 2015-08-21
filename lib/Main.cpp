@@ -13,9 +13,8 @@
  * limitations under the License.
  */
 #include "Graph.hpp"
-#include "BalancedSuurballe.hpp"
-// #include "Suurballe.hpp"
-#include "BalancedTree.hpp"
+#include "BestBalancedPathEdge.hpp"
+#include "Suurballe.hpp"
 #include <sstream>
 
 vector<string> &split(const string &s, char delim, vector<string> &elems);
@@ -91,7 +90,7 @@ int main(int argc, char const *argv[])
 		// g.setWeightEdgeDirected(8-1,6-1,5.0f);
 		// g.setWeightEdgeDirected(7-1,4-1,1.0f);
 
-		BalancedSuurballe bs;
+		Suurballe bs;
 
 		bool sobrevivente = bs.execute(g2,pathFile[pathFile.size()-1]);
 
@@ -104,7 +103,7 @@ int main(int argc, char const *argv[])
 		// cout<<"sobrevivente "<<sobrevivente<<endl;
 		// 
 		
-		BalancedTree b;
+		Suurballe b;
 
 		b.execute(g1,pathFile[pathFile.size()-1]);
 

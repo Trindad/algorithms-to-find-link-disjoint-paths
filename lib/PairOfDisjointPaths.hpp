@@ -18,12 +18,12 @@
 #include <mutex>
 #include <utility>
 
-class BalancedTree
+class PairOfDisjointPaths 
 {
 public:
 
-	BalancedTree();
-	~BalancedTree();
+	PairOfDisjointPaths();
+	~PairOfDisjointPaths();
 
 
 	void execute(Graph &,string);
@@ -33,7 +33,7 @@ public:
 	 * Métodos para encontrar caminhos balanceados
 	 */
 	bool searchPath(vector< vector<int> >, vector<int> );
-	void findPairOfBalancedPaths(Graph,int,int);		//grafo construído a partir dos caminhos mínimos encontrados pelo algoritmo de BalancedSuurballe, e a origem e destino
+	virtual void findPairOfBalancedPaths(Graph,int,int) = 0;		//grafo construído a partir dos caminhos mínimos encontrados pelo algoritmo de BalancedSuurballe, e a origem e destino
 	vector< vector<int> > findAllPaths(vector<pair<int,int>> &,Graph,int,int);					//retorna todos os caminhos encontrados da origem ao destino
 	vector<int> returnPath(TreeNode *);									//retorna novo caminho, sobe do filho até o pai construindo o caminho
 	bool isNodeInPath(TreeNode *,int);									//verifica se o nó já existe em um caminho
@@ -43,8 +43,6 @@ public:
 	vector< vector<int> > compareWithOthers(Graph g,vector<int> &, vector<int> &);					//compara dois caminhos, verificando se existe arestas iguais
 	void printPaths(vector<int>, vector<int>,Graph &);
 	void sortDatas(vector<pair<int,int>> &distance);
-
-private:
 
 	mutex m;
 	vector< double> hopWorking;					//número de saltos(i,j) do principal
