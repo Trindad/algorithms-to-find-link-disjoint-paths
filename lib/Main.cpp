@@ -14,6 +14,7 @@
  */
 #include "Graph.hpp"
 #include "BestBalancedPathEdge.hpp"
+#include "BestBalancedPathNode.hpp"
 #include "Suurballe.hpp"
 #include <sstream>
 
@@ -21,6 +22,10 @@ vector<string> &split(const string &s, char delim, vector<string> &elems);
 
 vector<string> split(const string &s, char delim);
 
+/**
+ * Compilar : g++ *.cpp  -o b -g -std=c++11 -pthread -Wall
+ * Executar : ./b <arquivo>
+ */
 int main(int argc, char const *argv[])
 {
 
@@ -94,7 +99,13 @@ int main(int argc, char const *argv[])
 
 		bool sobrevivente = bs.execute(g2,pathFile[pathFile.size()-1]);
 
-		cout<<"sobrevivente "<<sobrevivente<<"\n\n"<<endl;
+		if (!sobrevivente)
+		{
+			cout<<"Topologia não sobrevivente "<<endl;
+			return 0;
+		}
+
+		// cout<<"sobrevivente "<<sobrevivente<<"\n\n"<<endl;
 
 		// Suurballe s;
 
@@ -103,9 +114,13 @@ int main(int argc, char const *argv[])
 		// cout<<"sobrevivente "<<sobrevivente<<endl;
 		// 
 		
-		Suurballe b;
+		BestBalancedPathEdge be;
 
-		b.execute(g1,pathFile[pathFile.size()-1]);
+		be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
+
+		BestBalancedPathNode bn;
+
+		bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
 
 		file.close();
 	}

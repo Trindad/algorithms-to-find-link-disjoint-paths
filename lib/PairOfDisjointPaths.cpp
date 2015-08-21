@@ -48,6 +48,7 @@ void PairOfDisjointPaths::averageHops(Graph g)
     cout<<"Kp  = "<<kp<<endl;
     this->datas.close();
 
+    cout<<endl;
     avgHops.clear();
 }
 
@@ -256,7 +257,7 @@ void PairOfDisjointPaths::execute(Graph &graph, string file)
 	// file = "output_best_balanced_node_"+file;
 
 	this->datas.open(file);
-    vector<thread> t;
+    // vector<thread> t;
 
 	/**
 	 * Encontra o par de caminhos disjuntos menores e com diferença de hops menor
@@ -266,15 +267,15 @@ void PairOfDisjointPaths::execute(Graph &graph, string file)
 	{
 		for (int j = i+1; j < graph.getNumberOfNodes(); j++)
 		{
-			t.push_back(thread( [this, graph, i, j] { this->findPairOfBalancedPaths(graph,i,j); })); 
-            // findPairOfBalancedPaths(graph,i,j);
+			// t.push_back(thread( [this, graph, i, j] { this->findPairOfBalancedPaths(graph,i,j); })); 
+            findPairOfBalancedPaths(graph,i,j);
         }
 	}
 
-    for (unsigned int i = 0; i < t.size(); i++)
-    {
-        t[i].join();
-    }
+    // for (unsigned int i = 0; i < t.size(); i++)
+    // {
+    //     t[i].join();
+    // }
 
     averageHops(graph);
 }

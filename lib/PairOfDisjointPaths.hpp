@@ -1,3 +1,5 @@
+#ifndef PAIROFDISJOINTPATHS_H
+#define PAIROFDISJOINTPATHS_H
 /**
  * Copyright 2015 Silvana Trindade
  * 
@@ -49,3 +51,4 @@ public:
 	vector< double> hopBackup;					//número de saltos(i,j) de backup
 	ofstream datas;//arquivo para armazenar caminhos de trabalho e backup	
 };
+#endif

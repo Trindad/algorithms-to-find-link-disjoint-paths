@@ -65,16 +65,16 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
 
     pairOfPaths = findAllPaths(distance,g,source,target);
 
-    cout<<"------------------------------------"<<endl;
-    for (unsigned int i = 0; i < pairOfPaths.size(); i++)
-    {
-        for (unsigned int j = 0; j < pairOfPaths[i].size(); j++)
-        {
-            cout<<" "<<pairOfPaths[i][j];
-        }
-        cout<<endl;
-    }
-    cout<<"\n------------------------------------"<<endl;
+    // cout<<"------------------------------------"<<endl;
+    // for (unsigned int i = 0; i < pairOfPaths.size(); i++)
+    // {
+    //     for (unsigned int j = 0; j < pairOfPaths[i].size(); j++)
+    //     {
+    //         cout<<" "<<pairOfPaths[i][j];
+    //     }
+    //     cout<<endl;
+    // }
+    // cout<<"\n------------------------------------"<<endl;
     
     sortDatas(distance);//ordena vetor de pares
     

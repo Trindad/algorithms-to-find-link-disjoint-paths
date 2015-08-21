@@ -442,21 +442,21 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, Graph &g
     makePathVector(path1,p1,temp);
     makePathVector(path2,p2,temp);
 
-    cout<<p1[0]<<" ";
-    for (unsigned int u = 1; u < p1.size(); u+=2)
-    {
+    // cout<<p1[0]<<" ";
+    // for (unsigned int u = 1; u < p1.size(); u+=2)
+    // {
         
-        cout<<p1[u]<<" ";
-    }
-    cout<<endl;
+    //     cout<<p1[u]<<" ";
+    // }
+    // cout<<endl;
 
-    cout<<p2[0]<<" ";
-    for (unsigned int u = 1; u < p2.size(); u+=2)
-    {
+    // cout<<p2[0]<<" ";
+    // for (unsigned int u = 1; u < p2.size(); u+=2)
+    // {
       
-        cout<<p2[u]<<" ";
-    }
-    cout<<"\n";
+    //     cout<<p2[u]<<" ";
+    // }
+    // cout<<"\n";
 
    // cout<<"tamanho p1 "<<p1.size()<<" tamanho p2 "<<p2.size()<<endl;
     /**
@@ -477,21 +477,21 @@ bool Suurballe::makeDisjointPaths(vector<int> path1, vector<int> path2, Graph &g
         }
     }
 
-    cout<<p1[0]<<" ";
-    for (unsigned int u = 1; u < p1.size(); u+=2)
-    {
+    // cout<<p1[0]<<" ";
+    // for (unsigned int u = 1; u < p1.size(); u+=2)
+    // {
         
-        cout<<p1[u]<<" ";
-    }
-    cout<<endl;
+    //     cout<<p1[u]<<" ";
+    // }
+    // cout<<endl;
 
-    cout<<p2[0]<<" ";
-    for (unsigned int u = 1; u < p2.size(); u+=2)
-    {
+    // cout<<p2[0]<<" ";
+    // for (unsigned int u = 1; u < p2.size(); u+=2)
+    // {
       
-        cout<<p2[u]<<" ";
-    }
-    cout<<"\n";
+    //     cout<<p2[u]<<" ";
+    // }
+    // cout<<"\n";
 
     /**
      * Contruir sub-grafo
@@ -668,7 +668,7 @@ bool Suurballe::execute(Graph & graph, string nameFile)
                  * Monta árvore a partir do nó u
                  */
                 // cout<<"----------------------------\n"<<endl;
-                cout<<"U "<<u<<" V "<<v<<endl;
+                // cout<<"U "<<u<<" V "<<v<<endl;
                 this->treePath = vector<vector<int>> (this->numberOfNodes,vector<int>(this->numberOfNodes,0)); 
                 tree<int> tr = makeTree(auxiliar, this->path[iterator], u);
                 // cout<<"------------------------ "<<u+1<<" "<<v+1<<"------------------"<<endl;
@@ -745,5 +745,6 @@ vector<double> Suurballe::averageHops()
     this->datas<<"protection coefficient = "<<kp<<endl;
     cout<<"Kp  = "<<kp<<endl;
     this->datas.close();
+    cout<<endl;
     return avgHops;
 }
