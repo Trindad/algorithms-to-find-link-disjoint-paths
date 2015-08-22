@@ -95,15 +95,15 @@ int main(int argc, char const *argv[])
 		// g.setWeightEdgeDirected(8-1,6-1,5.0f);
 		// g.setWeightEdgeDirected(7-1,4-1,1.0f);
 
-		Suurballe bs;
+		// Suurballe bs;
 
-		bool sobrevivente = bs.execute(g2,pathFile[pathFile.size()-1]);
+		// bool sobrevivente = bs.execute(g2,pathFile[pathFile.size()-1]);
 
-		if (!sobrevivente)
-		{
-			cout<<"Topologia não sobrevivente "<<endl;
-			return 0;
-		}
+		// if (!sobrevivente)
+		// {
+		// 	cout<<"Topologia não sobrevivente "<<endl;
+		// 	return 0;
+		// }
 
 		// cout<<"sobrevivente "<<sobrevivente<<"\n\n"<<endl;
 
@@ -118,11 +118,11 @@ int main(int argc, char const *argv[])
 
 		be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
 
-		BestBalancedPathNode bn;
+		// BestBalancedPathNode bn;
 
-		bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
+		// bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
 
-		file.close();
+		// file.close();
 	}
 	else
 	{

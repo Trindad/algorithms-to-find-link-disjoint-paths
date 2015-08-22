@@ -19,6 +19,37 @@
 PairOfDisjointPaths::PairOfDisjointPaths(){}
 PairOfDisjointPaths::~PairOfDisjointPaths(){}
 
+void PairOfDisjointPaths::removeUnnecessaryPaths(vector<int> p1,vector<int> p2, vector<pair<int,int>> &distance)
+{
+    int t = 0;
+
+    if ((int)p1.size() > (int)p2.size())
+    {
+       t = (int) p1.size();
+    }
+    else
+    {
+        t = (int) p2.size();
+    }
+
+    int n = (int) distance.size();
+    /**
+     * Exclui caminhos desnecessários
+     * Ou seja, que são maiores que o maior caminho do ciclo
+     */
+    for (int i = n-1; i >= 0; i--)
+    {
+        if (distance[i].second > t)
+        {
+            distance.erase(distance.begin()+i);
+        }
+        else
+        {
+            break;
+        }
+    }
+}
+
 void PairOfDisjointPaths::averageHops(Graph g)
 {
     vector<double> avgHops;

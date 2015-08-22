@@ -65,18 +65,18 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
 
     pairOfPaths = findAllPaths(distance,g,source,target);
 
+    
+    sortDatas(distance);//ordena vetor de pares
     // cout<<"------------------------------------"<<endl;
-    // for (unsigned int i = 0; i < pairOfPaths.size(); i++)
+    // for (unsigned int i = 0; i < distance.size(); i++)
     // {
-    //     for (unsigned int j = 0; j < pairOfPaths[i].size(); j++)
+    //     for (unsigned int j = 0; j < pairOfPaths[distance[i].first].size(); j++)
     //     {
-    //         cout<<" "<<pairOfPaths[i][j];
+    //         cout<<" "<<pairOfPaths[distance[i].first][j];
     //     }
     //     cout<<endl;
     // }
     // cout<<"\n------------------------------------"<<endl;
-    
-    sortDatas(distance);//ordena vetor de pares
     
     int sum = g.getNumberOfNodes()+1;//somatório dos caminhos mínimos encontrados pelo algoritmo
     int diff = sum+1; //iniciando com número infinito
@@ -84,6 +84,11 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
 
     for (unsigned int i = 0; i < distance.size()-1; i++)
     {
+        if (a != b)
+        {
+            removeUnnecessaryPaths(pairOfPaths[a],pairOfPaths[b],distance);
+        }
+
         for (unsigned int j = i+1; j < distance.size(); j++)
         {
             int u = distance[i].first;
@@ -132,8 +137,10 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
                     sum = s;
                 }
             }
+
         }
     }
+    // cout<<"\n------------------------------------"<<endl;
 
     if (a != b)
     {

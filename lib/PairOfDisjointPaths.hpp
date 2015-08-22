@@ -45,6 +45,7 @@ public:
 	vector< vector<int> > compareWithOthers(Graph g,vector<int> &, vector<int> &);					//compara dois caminhos, verificando se existe arestas iguais
 	void printPaths(vector<int>, vector<int>,Graph &);
 	void sortDatas(vector<pair<int,int>> &distance);
+	void removeUnnecessaryPaths(vector<int>,vector<int>, vector<pair<int,int>> &);
 
 	mutex m;
 	vector< double> hopWorking;					//número de saltos(i,j) do principal
