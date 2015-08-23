@@ -109,10 +109,10 @@ int main(int argc, char const *argv[])
 
 		// Suurballe s;
 
-		// sobrevivente = s.execute(g2,pathFile[pathFile.size()-1]);
+		// bool sobrevivente = s.execute(g2,pathFile[pathFile.size()-1]);
 
 		// cout<<"sobrevivente "<<sobrevivente<<endl;
-		// 
+		
 		
 		BestBalancedPathEdge be;
 
@@ -122,7 +122,7 @@ int main(int argc, char const *argv[])
 
 		// bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
 
-		// file.close();
+		file.close();
 	}
 	else
 	{

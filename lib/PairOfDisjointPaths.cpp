@@ -39,7 +39,7 @@ void PairOfDisjointPaths::removeUnnecessaryPaths(vector<int> p1,vector<int> p2, 
      */
     for (int i = n-1; i >= 0; i--)
     {
-        if (distance[i].second > t)
+        if (distance[i].second >= t)
         {
             distance.erase(distance.begin()+i);
         }
@@ -188,6 +188,7 @@ vector< vector<int> > PairOfDisjointPaths::findAllPaths(vector<pair<int,int>> &d
 
     addChildren(distance,g,root,source,target,paths);//adiciona filhos na árvore
 
+    freeTree(root);
 
     return paths;
 } 
@@ -245,26 +246,35 @@ void PairOfDisjointPaths::freeTree(TreeNode *root)
 
 void PairOfDisjointPaths::printPaths(vector<int> p1,vector<int> p2, Graph &graph)
 {
-    unsigned int u = 0;
 
-    this->datas<<p1.size()/2<<" ";
-    this->datas<<p1[0]<<" ";
-    for (u = 1; u < p1.size(); u+=2)
-    {
+    vector<vector<int>> paths;
+
+    paths.push_back(p1);
+    paths.push_back(p2);
+
+    this->ap.lock();
+    this->allPaths.push_back(paths);
+    this->ap.unlock();
+
+    // this->datas<<p1.size()/2<<" ";
+    // this->datas<<p1[0]<<" ";
+
+    // for (u = 1; u < p1.size(); u+=2)
+    // {
         
-        this->datas<<p1[u]<<" ";
-    }
+    //     this->datas<<p1[u]<<" ";
+    // }
 
-    this->datas<<"\n";
+    // this->datas<<"\n";
     
-    this->datas<<p2.size()/2<<" ";
-    this->datas<<p2[0]<<" ";
-    for (u = 1; u < p2.size(); u+=2)
-    {
+    // this->datas<<p2.size()/2<<" ";
+    // this->datas<<p2[0]<<" ";
+    // for (u = 1; u < p2.size(); u+=2)
+    // {
       
-        this->datas<<p2[u]<<" ";
-    }
-    this->datas<<"\n";
+    //     this->datas<<p2[u]<<" ";
+    // }
+    // this->datas<<"\n";
 
 
    if (p1.size() > p2.size())
@@ -283,12 +293,13 @@ void PairOfDisjointPaths::printPaths(vector<int> p1,vector<int> p2, Graph &graph
    }
 }
 
+
 void PairOfDisjointPaths::execute(Graph &graph, string file)
 {
 	// file = "output_best_balanced_node_"+file;
 
 	this->datas.open(file);
-    // vector<thread> t;
+    vector<thread> t;
 
 	/**
 	 * Encontra o par de caminhos disjuntos menores e com diferença de hops menor
@@ -296,17 +307,42 @@ void PairOfDisjointPaths::execute(Graph &graph, string file)
 	 */
 	for (int i = 0; i < graph.getNumberOfNodes()-1; i++)
 	{
-		for (int j = i+1; j < graph.getNumberOfNodes(); j++)
-		{
-			// t.push_back(thread( [this, graph, i, j] { this->findPairOfBalancedPaths(graph,i,j); })); 
-            findPairOfBalancedPaths(graph,i,j);
-        }
+		
+		t.push_back(thread( [this, &graph, i] {
+            for (int j = i+1; j < graph.getNumberOfNodes(); j++)
+            { 
+                this->findPairOfBalancedPaths(graph,i,j); 
+            }
+        })); 
+            // findPairOfBalancedPaths(graph,i,j);
 	}
 
-    // for (unsigned int i = 0; i < t.size(); i++)
-    // {
-    //     t[i].join();
-    // }
+    for (unsigned int i = 0; i < t.size(); i++)
+    {
+        t[i].join();
+    }
 
+    writeFile();
     averageHops(graph);
+}
+
+void PairOfDisjointPaths::writeFile()
+{
+    for (unsigned int i = 0; i < this->allPaths.size(); i++)
+    {
+        this->datas<<(int)this->allPaths[i][0].size()/2<<" ";
+        this->datas<<this->allPaths[i][0][0]<<" ";
+        for (unsigned int j = 1; j < this->allPaths[i][0].size(); j+=2)
+        {
+            this->datas<<this->allPaths[i][0][j]<<" ";
+        }
+        this->datas<<endl;
+        this->datas<<(int)this->allPaths[i][1].size()/2<<" ";
+        this->datas<<this->allPaths[i][1][0]<<" ";
+        for (unsigned int j = 1; j < this->allPaths[i][1].size(); j+=2)
+        {
+            this->datas<<this->allPaths[i][1][j]<<" ";
+        }
+        this->datas<<endl;
+    }
 }

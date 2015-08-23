@@ -31,6 +31,7 @@ public:
 	void execute(Graph &,string);
 	void averageHops(Graph);
 	void discardCommonEdge(vector<int> &, vector<int> &, int, int);	//gera dois novos caminhos excluindo os enlaces em comum
+	void writeFile();
 	/**
 	 * Métodos para encontrar caminhos balanceados
 	 */
@@ -48,6 +49,8 @@ public:
 	void removeUnnecessaryPaths(vector<int>,vector<int>, vector<pair<int,int>> &);
 
 	mutex m;
+	mutex ap;
+	vector< vector< vector<int> > > allPaths;
 	vector< double> hopWorking;					//número de saltos(i,j) do principal
 	vector< double> hopBackup;					//número de saltos(i,j) de backup
 	ofstream datas;//arquivo para armazenar caminhos de trabalho e backup	

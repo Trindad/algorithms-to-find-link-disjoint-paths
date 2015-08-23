@@ -75,10 +75,21 @@ void BestBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target
     
     int sum = g.getNumberOfNodes()*2;//somatório dos caminhos mínimos encontrados pelo algoritmo
     int diff = sum+1; //iniciando com número infinito
-    int a = 0, b = 0;
+    int a = 0, b = 0, m = 0, p = 0;
 
     for (unsigned int i = 0; i < distance.size()-1; i++)
     {
+         /**
+         * Encontrou um caminho de par disjuntos
+         * E pelo menos um dos caminhos é menor que o novo
+         */
+        if (a != b && (a != m || b != p) )
+        {
+            removeUnnecessaryPaths(pairOfPaths[a],pairOfPaths[b],distance);
+            m = a;
+            p = b;
+        }
+
         for (unsigned int j = i+1; j < distance.size(); j++)
         {
             int u = distance[i].first;
@@ -147,7 +158,7 @@ void BestBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target
     }
     else
     {
-        cout<<"Topologia não sobrevivente."<<endl;
+        cout<<"Topologia não sobrevivente."<<" "<<source<<" "<<target<<endl;
         exit(1);
     }
 
