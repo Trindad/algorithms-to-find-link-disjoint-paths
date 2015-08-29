@@ -293,10 +293,52 @@ void PairOfDisjointPaths::printPaths(vector<int> p1,vector<int> p2, Graph &graph
    }
 }
 
+void PairOfDisjointPaths::dfs(vector<pair<int,int>> &distance,Graph &graph, int start, int end, vector< vector<int> > &paths, vector<int> &path)
+{
+    Node n;
+    n = graph.getNodeAtPosition(start);
+
+    vector <int> adjacents = n.getAdjacentsNodes();
+
+    for (unsigned int i = 0; i < adjacents.size(); i++)
+    {
+        int node = adjacents[i];
+
+        vector<int>::iterator it;
+        it = find (path.begin(), path.end(), node);
+        
+        if (it == path.end())
+        {
+            path.push_back(start);
+
+            if (node == end)
+            {
+                for (unsigned int i = 0; i < path.size(); i++)
+                {
+                    cout<<" "<<path[i];
+                }
+                cout<<endl;
+                paths.push_back(path);
+
+                int index = (int)paths.size()-1;
+                int h = (int)path.size()-1;//número de hops
+                
+                distance.push_back( pair<int, int>(index,h) );
+
+                path.clear();
+            }
+            else
+            {
+                adjacents.clear();
+                dfs(distance,graph,node,end,paths,path);
+            }   
+        }
+    }
+}
+
 
 void PairOfDisjointPaths::execute(Graph &graph, string file)
 {
-	// file = "output_best_balanced_node_"+file;
 
 	this->datas.open(file);
     vector<thread> t;
@@ -314,7 +356,11 @@ void PairOfDisjointPaths::execute(Graph &graph, string file)
                 this->findPairOfBalancedPaths(graph,i,j); 
             }
         })); 
-            // findPairOfBalancedPaths(graph,i,j);
+        // for (int j = i+1; j < graph.getNumberOfNodes(); j++)
+        // {
+            
+        //     findPairOfBalancedPaths(graph,i,j);
+        // }
 	}
 
     for (unsigned int i = 0; i < t.size(); i++)

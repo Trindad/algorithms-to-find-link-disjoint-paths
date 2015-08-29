@@ -30,6 +30,7 @@ public:
 
 	void execute(Graph &,string);
 	void averageHops(Graph);
+	void dfs(vector<pair<int,int>> &,Graph &, int, int, vector< vector<int> > &, vector<int> &);
 	void discardCommonEdge(vector<int> &, vector<int> &, int, int);	//gera dois novos caminhos excluindo os enlaces em comum
 	void writeFile();
 	/**
