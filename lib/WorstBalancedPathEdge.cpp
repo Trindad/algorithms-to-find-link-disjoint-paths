@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-#include "BestBalancedPathEdge.hpp"
+#include "WorstBalancedPathEdge.hpp"
 
 
-BestBalancedPathEdge::BestBalancedPathEdge(){}
-BestBalancedPathEdge::~BestBalancedPathEdge(){}
+WorstBalancedPathEdge::WorstBalancedPathEdge(){}
+WorstBalancedPathEdge::~WorstBalancedPathEdge(){}
 
-vector< vector<int> > BestBalancedPathEdge::compareWithOthers(Graph g,vector<int> &p1, vector<int> &p2) 
+vector< vector<int> > WorstBalancedPathEdge::compareWithOthers(Graph g,vector<int> &p1, vector<int> &p2) 
 {
     vector<int> temp = vector<int> (g.getNumberOfNodes(),-1);
     vector<int> path1;
@@ -57,7 +57,7 @@ vector< vector<int> > BestBalancedPathEdge::compareWithOthers(Graph g,vector<int
     return paths;
 }
 
-void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target)
+void WorstBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target)
 {
    // cout<<" source "<<source<<" target "<<target<<endl;
     vector< vector<int> > pairOfPaths;
@@ -151,7 +151,7 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
             }
             else if (s == sum)
             {
-                if (newDiff < diff)
+                if (newDiff > diff)
                 {
 
                     a = u;
@@ -185,7 +185,7 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
 }
                                      
 
-void BestBalancedPathEdge::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, int y)
+void WorstBalancedPathEdge::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, int y)
 {
     vector<int> t1, t2;
     unsigned int u = 0;

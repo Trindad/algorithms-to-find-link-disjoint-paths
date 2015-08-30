@@ -13,37 +13,25 @@
  * limitations under the License.
  */
 
-#include "BestBalancedPathEdge.hpp"
+#include "WorstBalancedPathNode.hpp"
 
 
-BestBalancedPathEdge::BestBalancedPathEdge(){}
-BestBalancedPathEdge::~BestBalancedPathEdge(){}
+WorstBalancedPathNode::WorstBalancedPathNode(){}
+WorstBalancedPathNode::~WorstBalancedPathNode(){}
 
-vector< vector<int> > BestBalancedPathEdge::compareWithOthers(Graph g,vector<int> &p1, vector<int> &p2) 
+ vector< vector<int> > WorstBalancedPathNode::compareWithOthers(Graph g,vector<int> &p1, vector<int> &p2) 
 {
-    vector<int> temp = vector<int> (g.getNumberOfNodes(),-1);
-    vector<int> path1;
-    vector<int> path2;
     vector<vector<int>> paths;
-
-    makePathVector(p1,path1,temp);
-    makePathVector(p2,path2,temp);
 
     /**
      * Remover arestas invertidas
      * Dos caminhos mínimos p1 e p2
      */
-    for ( unsigned int u = 0; u < path1.size()-1; u+=2)
+    for ( unsigned int u = 1; u < p1.size()-1; u++)
     {
-        for (unsigned int v = 0; v < path2.size()-1; v+=2)
+        for (unsigned int v = 1; v < p2.size()-1; v++)
         {
-            //exclui arestas em comum mas invertidas
-            if (path1[u] == path2[v+1] && path1[u+1] == path2[v])
-            {
-                discardCommonEdge(path1,path2,u,v);
-            }
-
-            if (path1[u] == path2[v] && path1[u+1] == path2[v+1])
+            if (find(p2.begin(),p2.end(),p1[u]) != p2.end())
             {
                 return paths;
             }
@@ -51,51 +39,48 @@ vector< vector<int> > BestBalancedPathEdge::compareWithOthers(Graph g,vector<int
         }
     }
 
+    vector<int> temp = vector<int> (g.getNumberOfNodes(),-1);
+    vector<int> path1;
+    vector<int> path2;
+
+    makePathVector(p1,path1,temp);
+    makePathVector(p2,path2,temp);
+
     paths.push_back(path1);
     paths.push_back(path2);
 
     return paths;
 }
 
-void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target)
+void WorstBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target)
 {
-   // cout<<" source "<<source<<" target "<<target<<endl;
     vector< vector<int> > pairOfPaths;
     vector<pair<int,int>> distance;
-    vector<int> path;
+    
 
     pairOfPaths = findAllPaths(distance,g,source,target);
-    // Graph graph = g;
-    // dfs(distance,graph,source,target,pairOfPaths,path);//encontra todos os caminhos
-    // cout<<" "<<source<<" "<<target<<endl;
 
-    sortDatas(distance);//ordena vetor de pares
-    
     // cout<<"------------------------------------"<<endl;
-    // for (unsigned int i = 0; i < distance.size(); i++)
+    // for (unsigned int i = 0; i < pairOfPaths.size(); i++)
     // {
-    //     for (unsigned int j = 0; j < pairOfPaths[distance[i].first].size(); j++)
+    //     for (unsigned int j = 0; j < pairOfPaths[i].size(); j++)
     //     {
-    //         cout<<" "<<pairOfPaths[distance[i].first][j]+1;
+    //         cout<<" "<<pairOfPaths[i][j];
     //     }
     //     cout<<endl;
     // }
     // cout<<"\n------------------------------------"<<endl;
     
-    int sum = g.getNumberOfNodes()+1;//somatório dos caminhos mínimos encontrados pelo algoritmo
+    sortDatas(distance);//ordena vetor de pares
+    
+    int sum = g.getNumberOfNodes()*2;//somatório dos caminhos mínimos encontrados pelo algoritmo
     int diff = sum+1; //iniciando com número infinito
     int a = 0, b = 0, m = 0, p = 0;
-
     unsigned int n = distance.size();
 
     for (unsigned int i = 0; i < n-1; i++)
     {
-        /**
-         * Encontrou um caminho de par disjuntos
-         * E pelo menos um dos caminhos é menor que o novo
-         */
-        // if(a != b && ( m != a && p != b))
-        if ( ( a != b) && (m != p) )
+         if ( ( a != b) && (m != p) )
         {
             //removeUnnecessaryPaths(pairOfPaths[a],pairOfPaths[b],distance);
             
@@ -109,9 +94,9 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
                 n = p;
             }
         }
+
         for (unsigned int j = i+1; j < n; j++)
         {
-
             int u = distance[i].first;
             int v = distance[j].first;
 
@@ -151,32 +136,38 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
             }
             else if (s == sum)
             {
-                if (newDiff < diff)
+                if (newDiff > diff)
                 {
-
                     a = u;
                     b = v;
 
                     diff = newDiff;
                     sum = s;
+
                     m = i; p = j;
                 }
             }
         }
     }
-    // cout<<"\n------------------------------------"<<endl;
 
     if (a != b)
     {
-        vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[a],pairOfPaths[b]);
+        vector<int> temp = vector<int> (g.getNumberOfNodes(),-1);
+        vector<int> path1;
+        vector<int> path2;
+        vector<vector<int>> paths;
 
-    	printPaths(paths[0],paths[1], g);
+        makePathVector(pairOfPaths[a],path1,temp);
+        makePathVector(pairOfPaths[b],path2,temp);
 
-        paths[0].clear();paths[1].clear();paths.clear();
+        paths.push_back(path1);
+        paths.push_back(path2);
+
+        printPaths(paths[0],paths[1], g);
     }
     else
     {
-        cout<<"Topologia não sobrevivente."<<endl;
+        cout<<"Topologia não sobrevivente."<<" "<<source<<" "<<target<<endl;
         exit(1);
     }
 
@@ -185,7 +176,7 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
 }
                                      
 
-void BestBalancedPathEdge::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, int y)
+void WorstBalancedPathNode::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, int y)
 {
     vector<int> t1, t2;
     unsigned int u = 0;

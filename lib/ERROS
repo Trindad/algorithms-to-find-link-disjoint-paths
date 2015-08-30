@@ -1,0 +1,450 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 50.00      0.01     0.01       61   163.94   163.94  PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&)
+ 50.00      0.02     0.01       59   169.50   169.50  PairOfDisjointPaths::freeTree(TreeNode*)
+  0.00      0.02     0.00   129274     0.00     0.00  Node::~Node()
+  0.00      0.02     0.00    18453     0.00     0.00  std::vector<double, std::allocator<double> >::operator=(std::vector<double, std::allocator<double> > const&)
+  0.00      0.02     0.00    11386     0.00     0.00  TreeNode::~TreeNode()
+  0.00      0.02     0.00    11199     0.00     0.00  TreeNode::TreeNode(int)
+  0.00      0.02     0.00    10978     0.00     0.00  TreeNode::addChild(TreeNode*)
+  0.00      0.02     0.00    10422     0.00     0.00  void std::vector<TreeNode*, std::allocator<TreeNode*> >::_M_emplace_back_aux<TreeNode* const&>(TreeNode* const&)
+  0.00      0.02     0.00     9952     0.00     0.00  _ZNSt6vectorIiSaIiEE19_M_emplace_back_auxIJRKiEEEvDpOT_
+  0.00      0.02     0.00     9332     0.00     0.00  std::vector<int, std::allocator<int> >::operator=(std::vector<int, std::allocator<int> > const&)
+  0.00      0.02     0.00     9258     0.00     0.00  Graph::~Graph()
+  0.00      0.02     0.00     9173     0.00     0.00  Node::Node()
+  0.00      0.02     0.00     9132     0.00     0.00  Node::getAdjacentsNodes()
+  0.00      0.02     0.00     9093     0.00     0.00  std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::operator=(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&)
+  0.00      0.02     0.00     9050     0.00     0.00  Graph::getNodeAtPosition(int)
+  0.00      0.02     0.00     1951     0.00     0.00  PairOfDisjointPaths::searchPath(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >, std::vector<int, std::allocator<int> >)
+  0.00      0.02     0.00     1907     0.00     0.00  PairOfDisjointPaths::returnPath(TreeNode*)
+  0.00      0.02     0.00      980     0.00     0.00  _ZNSt6vectorIS_IiSaIiEESaIS1_EE19_M_emplace_back_auxIJRKS1_EEEvDpOT_
+  0.00      0.02     0.00      517     0.00     0.00  PairOfDisjointPaths::makePathVector(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&)
+  0.00      0.02     0.00      391     0.00     0.00  Graph::getNumberOfNodes()
+  0.00      0.02     0.00      369     0.00     0.00  void std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::_M_emplace_back_aux<std::pair<int, int> >(std::pair<int, int>&&)
+  0.00      0.02     0.00      270     0.00     0.00  BestBalancedPathEdge::compareWithOthers(Graph, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&)
+  0.00      0.02     0.00      117     0.00     0.00  void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&)
+  0.00      0.02     0.00       79     0.00     0.00  void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&)
+  0.00      0.02     0.00       76     0.00     0.00  PairOfDisjointPaths::removeUnnecessaryPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)
+  0.00      0.02     0.00       76     0.00     0.00  Node::setEdgeNode(int)
+  0.00      0.02     0.00       76     0.00     0.00  Node::getDegree()
+  0.00      0.02     0.00       76     0.00     0.00  Node::setWeight(int, double)
+  0.00      0.02     0.00       76     0.00     0.00  Graph::getDegree(int)
+  0.00      0.02     0.00       62     0.00     0.00  PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)
+  0.00      0.02     0.00       62     0.00   322.59  BestBalancedPathEdge::findPairOfBalancedPaths(Graph, int, int)
+  0.00      0.02     0.00       59     0.00   338.99  PairOfDisjointPaths::findAllPaths(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, int, int)
+  0.00      0.02     0.00       59     0.00     0.00  void std::__introsort_loop<__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}>(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1})
+  0.00      0.02     0.00       58     0.00     0.00  PairOfDisjointPaths::printPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, Graph&)
+  0.00      0.02     0.00       57     0.00     0.00  void std::__insertion_sort<__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}>(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1})
+  0.00      0.02     0.00       44     0.00     0.00  std::vector<Node, std::allocator<Node> >::operator=(std::vector<Node, std::allocator<Node> > const&)
+  0.00      0.02     0.00       40     0.00     0.00  _ZNSt6vectorISsSaISsEE19_M_emplace_back_auxIJRKSsEEEvDpOT_
+  0.00      0.02     0.00       20     0.00     0.00  split(std::string const&, char, std::vector<std::string, std::allocator<std::string> >&)
+  0.00      0.02     0.00       11     0.00     0.00  std::_Sp_counted_ptr_inplace<std::thread::_Impl<std::_Bind_simple<PairOfDisjointPaths::execute(Graph&, std::string)::{lambda()#1} ()> >, std::allocator<std::_Bind_simple<PairOfDisjointPaths::execute(Graph&, std::string)::{lambda()#1} ()> >, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+  0.00      0.02     0.00        8     0.00     0.00  void std::vector<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >, std::allocator<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > > >::_M_emplace_back_aux<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&>(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&)
+  0.00      0.02     0.00        4     0.00     0.00  _ZNSt6vectorISt6threadSaIS0_EE19_M_emplace_back_auxIJS0_EEEvDpOT_
+  0.00      0.02     0.00        2     0.00     0.00  Graph::memsetGraph()
+  0.00      0.02     0.00        2     0.00     0.00  void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double const&>(double const&)
+  0.00      0.02     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN17BalancedSuurballeC2Ev
+  0.00      0.02     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN19PairOfDisjointPathsC2Ev
+  0.00      0.02     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN20BestBalancedPathEdgeC2Ev
+  0.00      0.02     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN20BestBalancedPathNodeC2Ev
+  0.00      0.02     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN4NodeC2Ev
+  0.00      0.02     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN5GraphC2Ev
+  0.00      0.02     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8DijkstraC2Ev
+  0.00      0.02     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8TreeNodeC2Ei
+  0.00      0.02     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN9SuurballeC2Ev
+  0.00      0.02     0.00        1     0.00     0.00  _GLOBAL__sub_I_main
+  0.00      0.02     0.00        1     0.00     0.00  PairOfDisjointPaths::averageHops(Graph)
+  0.00      0.02     0.00        1     0.00     0.00  PairOfDisjointPaths::writeFile()
+  0.00      0.02     0.00        1     0.00     0.00  PairOfDisjointPaths::PairOfDisjointPaths()
+  0.00      0.02     0.00        1     0.00     0.00  BestBalancedPathEdge::discardCommonEdge(std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&, int, int)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 50.00% of 0.02 seconds
+
+index % time    self  children    called     name
+                0.00    0.02      62/62          std::thread::_Impl<std::_Bind_simple<PairOfDisjointPaths::execute(Graph&, std::string)::{lambda()#1} ()> >::_M_run() [3]
+[1]    100.0    0.00    0.02      62         BestBalancedPathEdge::findPairOfBalancedPaths(Graph, int, int) [1]
+                0.00    0.02      59/59          PairOfDisjointPaths::findAllPaths(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, int, int) [2]
+                0.00    0.00     322/9258        Graph::~Graph() [20]
+                0.00    0.00     270/270         BestBalancedPathEdge::compareWithOthers(Graph, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&) [31]
+                0.00    0.00      76/76          PairOfDisjointPaths::removeUnnecessaryPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&) [34]
+                0.00    0.00      62/62          PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&) [39]
+                0.00    0.00      58/58          PairOfDisjointPaths::printPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, Graph&) [41]
+                0.00    0.00      54/391         Graph::getNumberOfNodes() [29]
+-----------------------------------------------
+                0.00    0.02      59/59          BestBalancedPathEdge::findPairOfBalancedPaths(Graph, int, int) [1]
+[2]    100.0    0.00    0.02      59         PairOfDisjointPaths::findAllPaths(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, int, int) [2]
+                0.01    0.00      61/61          PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+                0.01    0.00      59/59          PairOfDisjointPaths::freeTree(TreeNode*) [5]
+                0.00    0.00      60/11199       TreeNode::TreeNode(int) [15]
+                0.00    0.00      58/9258        Graph::~Graph() [20]
+-----------------------------------------------
+                                                 <spontaneous>
+[3]    100.0    0.00    0.02                 std::thread::_Impl<std::_Bind_simple<PairOfDisjointPaths::execute(Graph&, std::string)::{lambda()#1} ()> >::_M_run() [3]
+                0.00    0.02      62/62          BestBalancedPathEdge::findPairOfBalancedPaths(Graph, int, int) [1]
+                0.00    0.00      66/391         Graph::getNumberOfNodes() [29]
+                0.00    0.00      60/9258        Graph::~Graph() [20]
+-----------------------------------------------
+                                9285             PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+                0.01    0.00      61/61          PairOfDisjointPaths::findAllPaths(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, int, int) [2]
+[4]     50.0    0.01    0.00      61+9285    PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+                0.00    0.00   18453/18453       std::vector<double, std::allocator<double> >::operator=(std::vector<double, std::allocator<double> > const&) [13]
+                0.00    0.00   18290/129274      Node::~Node() [12]
+                0.00    0.00   11139/11199       TreeNode::TreeNode(int) [15]
+                0.00    0.00   10978/10978       TreeNode::addChild(TreeNode*) [16]
+                0.00    0.00    9332/9332        std::vector<int, std::allocator<int> >::operator=(std::vector<int, std::allocator<int> > const&) [19]
+                0.00    0.00    9149/9173        Node::Node() [21]
+                0.00    0.00    9132/9132        Node::getAdjacentsNodes() [22]
+                0.00    0.00    9093/9093        std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::operator=(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&) [23]
+                0.00    0.00    9050/9050        Graph::getNodeAtPosition(int) [24]
+                0.00    0.00    8817/9258        Graph::~Graph() [20]
+                0.00    0.00    1951/1951        PairOfDisjointPaths::searchPath(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >, std::vector<int, std::allocator<int> >) [25]
+                0.00    0.00    1907/1907        PairOfDisjointPaths::returnPath(TreeNode*) [26]
+                0.00    0.00     369/369         void std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::_M_emplace_back_aux<std::pair<int, int> >(std::pair<int, int>&&) [30]
+                0.00    0.00     361/980         _ZNSt6vectorIS_IiSaIiEESaIS1_EE19_M_emplace_back_auxIJRKS1_EEEvDpOT_ [27]
+                                9285             PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+-----------------------------------------------
+                               11321             PairOfDisjointPaths::freeTree(TreeNode*) [5]
+                0.01    0.00      59/59          PairOfDisjointPaths::findAllPaths(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, int, int) [2]
+[5]     50.0    0.01    0.00      59+11321   PairOfDisjointPaths::freeTree(TreeNode*) [5]
+                0.00    0.00   11386/11386       TreeNode::~TreeNode() [14]
+                               11321             PairOfDisjointPaths::freeTree(TreeNode*) [5]
+-----------------------------------------------
+                0.00    0.00   18290/129274      PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+                0.00    0.00  110984/129274      Graph::~Graph() [20]
+[12]     0.0    0.00    0.00  129274         Node::~Node() [12]
+-----------------------------------------------
+                0.00    0.00   18453/18453       PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[13]     0.0    0.00    0.00   18453         std::vector<double, std::allocator<double> >::operator=(std::vector<double, std::allocator<double> > const&) [13]
+-----------------------------------------------
+                0.00    0.00   11386/11386       PairOfDisjointPaths::freeTree(TreeNode*) [5]
+[14]     0.0    0.00    0.00   11386         TreeNode::~TreeNode() [14]
+-----------------------------------------------
+                0.00    0.00      60/11199       PairOfDisjointPaths::findAllPaths(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, int, int) [2]
+                0.00    0.00   11139/11199       PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[15]     0.0    0.00    0.00   11199         TreeNode::TreeNode(int) [15]
+-----------------------------------------------
+                0.00    0.00   10978/10978       PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[16]     0.0    0.00    0.00   10978         TreeNode::addChild(TreeNode*) [16]
+                0.00    0.00   10422/10422       void std::vector<TreeNode*, std::allocator<TreeNode*> >::_M_emplace_back_aux<TreeNode* const&>(TreeNode* const&) [17]
+-----------------------------------------------
+                0.00    0.00   10422/10422       TreeNode::addChild(TreeNode*) [16]
+[17]     0.0    0.00    0.00   10422         void std::vector<TreeNode*, std::allocator<TreeNode*> >::_M_emplace_back_aux<TreeNode* const&>(TreeNode* const&) [17]
+-----------------------------------------------
+                0.00    0.00       9/9952        BestBalancedPathEdge::discardCommonEdge(std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&, int, int) [64]
+                0.00    0.00      64/9952        Node::setEdgeNode(int) [35]
+                0.00    0.00    1859/9952        PairOfDisjointPaths::makePathVector(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&) [28]
+                0.00    0.00    8020/9952        PairOfDisjointPaths::returnPath(TreeNode*) [26]
+[18]     0.0    0.00    0.00    9952         _ZNSt6vectorIiSaIiEE19_M_emplace_back_auxIJRKiEEEvDpOT_ [18]
+-----------------------------------------------
+                0.00    0.00    9332/9332        PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[19]     0.0    0.00    0.00    9332         std::vector<int, std::allocator<int> >::operator=(std::vector<int, std::allocator<int> > const&) [19]
+-----------------------------------------------
+                0.00    0.00       1/9258        PairOfDisjointPaths::execute(Graph&, std::string) [91]
+                0.00    0.00      58/9258        PairOfDisjointPaths::findAllPaths(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, int, int) [2]
+                0.00    0.00      60/9258        std::thread::_Impl<std::_Bind_simple<PairOfDisjointPaths::execute(Graph&, std::string)::{lambda()#1} ()> >::_M_run() [3]
+                0.00    0.00     322/9258        BestBalancedPathEdge::findPairOfBalancedPaths(Graph, int, int) [1]
+                0.00    0.00    8817/9258        PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[20]     0.0    0.00    0.00    9258         Graph::~Graph() [20]
+                0.00    0.00  110984/129274      Node::~Node() [12]
+-----------------------------------------------
+                0.00    0.00      24/9173        Graph::memsetGraph() [49]
+                0.00    0.00    9149/9173        PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[21]     0.0    0.00    0.00    9173         Node::Node() [21]
+-----------------------------------------------
+                0.00    0.00    9132/9132        PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[22]     0.0    0.00    0.00    9132         Node::getAdjacentsNodes() [22]
+-----------------------------------------------
+                0.00    0.00    9093/9093        PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[23]     0.0    0.00    0.00    9093         std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::operator=(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&) [23]
+-----------------------------------------------
+                0.00    0.00    9050/9050        PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[24]     0.0    0.00    0.00    9050         Graph::getNodeAtPosition(int) [24]
+-----------------------------------------------
+                0.00    0.00    1951/1951        PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[25]     0.0    0.00    0.00    1951         PairOfDisjointPaths::searchPath(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >, std::vector<int, std::allocator<int> >) [25]
+-----------------------------------------------
+                0.00    0.00    1907/1907        PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[26]     0.0    0.00    0.00    1907         PairOfDisjointPaths::returnPath(TreeNode*) [26]
+                0.00    0.00    8020/9952        _ZNSt6vectorIiSaIiEE19_M_emplace_back_auxIJRKiEEEvDpOT_ [18]
+-----------------------------------------------
+                0.00    0.00     119/980         PairOfDisjointPaths::printPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, Graph&) [41]
+                0.00    0.00     361/980         PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+                0.00    0.00     500/980         BestBalancedPathEdge::compareWithOthers(Graph, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&) [31]
+[27]     0.0    0.00    0.00     980         _ZNSt6vectorIS_IiSaIiEESaIS1_EE19_M_emplace_back_auxIJRKS1_EEEvDpOT_ [27]
+-----------------------------------------------
+                0.00    0.00     517/517         BestBalancedPathEdge::compareWithOthers(Graph, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&) [31]
+[28]     0.0    0.00    0.00     517         PairOfDisjointPaths::makePathVector(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&) [28]
+                0.00    0.00    1859/9952        _ZNSt6vectorIiSaIiEE19_M_emplace_back_auxIJRKiEEEvDpOT_ [18]
+-----------------------------------------------
+                0.00    0.00       1/391         PairOfDisjointPaths::averageHops(Graph) [61]
+                0.00    0.00      12/391         PairOfDisjointPaths::execute(Graph&, std::string) [91]
+                0.00    0.00      54/391         BestBalancedPathEdge::findPairOfBalancedPaths(Graph, int, int) [1]
+                0.00    0.00      66/391         std::thread::_Impl<std::_Bind_simple<PairOfDisjointPaths::execute(Graph&, std::string)::{lambda()#1} ()> >::_M_run() [3]
+                0.00    0.00     258/391         BestBalancedPathEdge::compareWithOthers(Graph, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&) [31]
+[29]     0.0    0.00    0.00     391         Graph::getNumberOfNodes() [29]
+-----------------------------------------------
+                0.00    0.00     369/369         PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [4]
+[30]     0.0    0.00    0.00     369         void std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::_M_emplace_back_aux<std::pair<int, int> >(std::pair<int, int>&&) [30]
+-----------------------------------------------
+                0.00    0.00     270/270         BestBalancedPathEdge::findPairOfBalancedPaths(Graph, int, int) [1]
+[31]     0.0    0.00    0.00     270         BestBalancedPathEdge::compareWithOthers(Graph, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&) [31]
+                0.00    0.00     517/517         PairOfDisjointPaths::makePathVector(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&) [28]
+                0.00    0.00     500/980         _ZNSt6vectorIS_IiSaIiEESaIS1_EE19_M_emplace_back_auxIJRKS1_EEEvDpOT_ [27]
+                0.00    0.00     258/391         Graph::getNumberOfNodes() [29]
+                0.00    0.00       1/1           BestBalancedPathEdge::discardCommonEdge(std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&, int, int) [64]
+-----------------------------------------------
+                0.00    0.00     117/117         PairOfDisjointPaths::printPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, Graph&) [41]
+[32]     0.0    0.00    0.00     117         void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [32]
+-----------------------------------------------
+                0.00    0.00      15/79          PairOfDisjointPaths::printPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, Graph&) [41]
+                0.00    0.00      64/79          Node::setEdgeNode(int) [35]
+[33]     0.0    0.00    0.00      79         void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [33]
+-----------------------------------------------
+                0.00    0.00      76/76          BestBalancedPathEdge::findPairOfBalancedPaths(Graph, int, int) [1]
+[34]     0.0    0.00    0.00      76         PairOfDisjointPaths::removeUnnecessaryPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&) [34]
+-----------------------------------------------
+                0.00    0.00      76/76          Graph::setEdge(int, int) [158]
+[35]     0.0    0.00    0.00      76         Node::setEdgeNode(int) [35]
+                0.00    0.00      64/9952        _ZNSt6vectorIiSaIiEE19_M_emplace_back_auxIJRKiEEEvDpOT_ [18]
+                0.00    0.00      64/79          void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [33]
+-----------------------------------------------
+                0.00    0.00      76/76          Graph::setEdge(int, int) [158]
+[36]     0.0    0.00    0.00      76         Node::getDegree() [36]
+-----------------------------------------------
+                0.00    0.00      76/76          Graph::setWeight(int, int, double) [160]
+[37]     0.0    0.00    0.00      76         Node::setWeight(int, double) [37]
+-----------------------------------------------
+                0.00    0.00      76/76          Graph::setEdge(int, int) [158]
+[38]     0.0    0.00    0.00      76         Graph::getDegree(int) [38]
+-----------------------------------------------
+                0.00    0.00      62/62          BestBalancedPathEdge::findPairOfBalancedPaths(Graph, int, int) [1]
+[39]     0.0    0.00    0.00      62         PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&) [39]
+                0.00    0.00      59/59          void std::__introsort_loop<__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}>(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}) [40]
+                0.00    0.00      57/57          void std::__insertion_sort<__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}>(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}) [42]
+-----------------------------------------------
+                                 144             void std::__introsort_loop<__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}>(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}) [40]
+                0.00    0.00      59/59          PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&) [39]
+[40]     0.0    0.00    0.00      59+144     void std::__introsort_loop<__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}>(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}) [40]
+                                 144             void std::__introsort_loop<__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}>(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}) [40]
+-----------------------------------------------
+                0.00    0.00      58/58          BestBalancedPathEdge::findPairOfBalancedPaths(Graph, int, int) [1]
+[41]     0.0    0.00    0.00      58         PairOfDisjointPaths::printPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, Graph&) [41]
+                0.00    0.00     119/980         _ZNSt6vectorIS_IiSaIiEESaIS1_EE19_M_emplace_back_auxIJRKS1_EEEvDpOT_ [27]
+                0.00    0.00     117/117         void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [32]
+                0.00    0.00      15/79          void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&) [33]
+                0.00    0.00       8/8           void std::vector<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >, std::allocator<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > > >::_M_emplace_back_aux<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&>(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&) [47]
+-----------------------------------------------
+                0.00    0.00      57/57          PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&) [39]
+[42]     0.0    0.00    0.00      57         void std::__insertion_sort<__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}>(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}) [42]
+-----------------------------------------------
+                0.00    0.00       4/44          std::vector<std::string, std::allocator<std::string> >::~vector() [206]
+                0.00    0.00      40/44          split(std::string const&, char, std::vector<std::string, std::allocator<std::string> >&) [45]
+[43]     0.0    0.00    0.00      44         std::vector<Node, std::allocator<Node> >::operator=(std::vector<Node, std::allocator<Node> > const&) [43]
+-----------------------------------------------
+                0.00    0.00      40/40          split(std::string const&, char, std::vector<std::string, std::allocator<std::string> >&) [45]
+[44]     0.0    0.00    0.00      40         _ZNSt6vectorISsSaISsEE19_M_emplace_back_auxIJRKSsEEEvDpOT_ [44]
+-----------------------------------------------
+                0.00    0.00      20/20          split(std::string const&, char) [65]
+[45]     0.0    0.00    0.00      20         split(std::string const&, char, std::vector<std::string, std::allocator<std::string> >&) [45]
+                0.00    0.00      40/40          _ZNSt6vectorISsSaISsEE19_M_emplace_back_auxIJRKSsEEEvDpOT_ [44]
+                0.00    0.00      40/44          std::vector<Node, std::allocator<Node> >::operator=(std::vector<Node, std::allocator<Node> > const&) [43]
+-----------------------------------------------
+                0.00    0.00      11/11          PairOfDisjointPaths::execute(Graph&, std::string) [91]
+[46]     0.0    0.00    0.00      11         std::_Sp_counted_ptr_inplace<std::thread::_Impl<std::_Bind_simple<PairOfDisjointPaths::execute(Graph&, std::string)::{lambda()#1} ()> >, std::allocator<std::_Bind_simple<PairOfDisjointPaths::execute(Graph&, std::string)::{lambda()#1} ()> >, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&) [46]
+-----------------------------------------------
+                0.00    0.00       8/8           PairOfDisjointPaths::printPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, Graph&) [41]
+[47]     0.0    0.00    0.00       8         void std::vector<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >, std::allocator<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > > >::_M_emplace_back_aux<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&>(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&) [47]
+-----------------------------------------------
+                0.00    0.00       4/4           PairOfDisjointPaths::execute(Graph&, std::string) [91]
+[48]     0.0    0.00    0.00       4         _ZNSt6vectorISt6threadSaIS0_EE19_M_emplace_back_auxIJS0_EEEvDpOT_ [48]
+-----------------------------------------------
+                0.00    0.00       2/2           Graph::Graph() [161]
+[49]     0.0    0.00    0.00       2         Graph::memsetGraph() [49]
+                0.00    0.00      24/9173        Node::Node() [21]
+-----------------------------------------------
+                0.00    0.00       2/2           PairOfDisjointPaths::averageHops(Graph) [61]
+[50]     0.0    0.00    0.00       2         void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double const&>(double const&) [50]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [218]
+[51]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN17BalancedSuurballeC2Ev [51]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [218]
+[52]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN19PairOfDisjointPathsC2Ev [52]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [218]
+[53]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN20BestBalancedPathEdgeC2Ev [53]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [218]
+[54]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN20BestBalancedPathNodeC2Ev [54]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [218]
+[55]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN4NodeC2Ev [55]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [218]
+[56]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN5GraphC2Ev [56]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [218]
+[57]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8DijkstraC2Ev [57]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [218]
+[58]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8TreeNodeC2Ei [58]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [218]
+[59]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN9SuurballeC2Ev [59]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [218]
+[60]     0.0    0.00    0.00       1         _GLOBAL__sub_I_main [60]
+-----------------------------------------------
+                0.00    0.00       1/1           PairOfDisjointPaths::execute(Graph&, std::string) [91]
+[61]     0.0    0.00    0.00       1         PairOfDisjointPaths::averageHops(Graph) [61]
+                0.00    0.00       2/2           void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double const&>(double const&) [50]
+                0.00    0.00       1/391         Graph::getNumberOfNodes() [29]
+-----------------------------------------------
+                0.00    0.00       1/1           PairOfDisjointPaths::execute(Graph&, std::string) [91]
+[62]     0.0    0.00    0.00       1         PairOfDisjointPaths::writeFile() [62]
+-----------------------------------------------
+                0.00    0.00       1/1           BestBalancedPathEdge::BestBalancedPathEdge() [93]
+[63]     0.0    0.00    0.00       1         PairOfDisjointPaths::PairOfDisjointPaths() [63]
+-----------------------------------------------
+                0.00    0.00       1/1           BestBalancedPathEdge::compareWithOthers(Graph, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&) [31]
+[64]     0.0    0.00    0.00       1         BestBalancedPathEdge::discardCommonEdge(std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&, int, int) [64]
+                0.00    0.00       9/9952        _ZNSt6vectorIiSaIiEE19_M_emplace_back_auxIJRKiEEEvDpOT_ [18]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Index by function name
+
+  [51] _GLOBAL__sub_I__ZN17BalancedSuurballeC2Ev [5] PairOfDisjointPaths::freeTree(TreeNode*) [15] TreeNode::TreeNode(int)
+  [52] _GLOBAL__sub_I__ZN19PairOfDisjointPathsC2Ev [39] PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&) [14] TreeNode::~TreeNode()
+  [53] _GLOBAL__sub_I__ZN20BestBalancedPathEdgeC2Ev [62] PairOfDisjointPaths::writeFile() [46] std::_Sp_counted_ptr_inplace<std::thread::_Impl<std::_Bind_simple<PairOfDisjointPaths::execute(Graph&, std::string)::{lambda()#1} ()> >, std::allocator<std::_Bind_simple<PairOfDisjointPaths::execute(Graph&, std::string)::{lambda()#1} ()> >, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)
+  [54] _GLOBAL__sub_I__ZN20BestBalancedPathNodeC2Ev [63] PairOfDisjointPaths::PairOfDisjointPaths() [43] std::vector<Node, std::allocator<Node> >::operator=(std::vector<Node, std::allocator<Node> > const&)
+  [55] _GLOBAL__sub_I__ZN4NodeC2Ev [31] BestBalancedPathEdge::compareWithOthers(Graph, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&) [17] void std::vector<TreeNode*, std::allocator<TreeNode*> >::_M_emplace_back_aux<TreeNode* const&>(TreeNode* const&)
+  [56] _GLOBAL__sub_I__ZN5GraphC2Ev [64] BestBalancedPathEdge::discardCommonEdge(std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&, int, int) [47] void std::vector<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >, std::allocator<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > > >::_M_emplace_back_aux<std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&>(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&)
+  [57] _GLOBAL__sub_I__ZN8DijkstraC2Ev [1] BestBalancedPathEdge::findPairOfBalancedPaths(Graph, int, int) [27] _ZNSt6vectorIS_IiSaIiEESaIS1_EE19_M_emplace_back_auxIJRKS1_EEEvDpOT_
+  [58] _GLOBAL__sub_I__ZN8TreeNodeC2Ei [35] Node::setEdgeNode(int) [23] std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::operator=(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&)
+  [59] _GLOBAL__sub_I__ZN9SuurballeC2Ev [22] Node::getAdjacentsNodes() [44] _ZNSt6vectorISsSaISsEE19_M_emplace_back_auxIJRKSsEEEvDpOT_
+  [60] _GLOBAL__sub_I_main    [36] Node::getDegree()      [30] void std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >::_M_emplace_back_aux<std::pair<int, int> >(std::pair<int, int>&&)
+  [45] split(std::string const&, char, std::vector<std::string, std::allocator<std::string> >&) [37] Node::setWeight(int, double) [48] _ZNSt6vectorISt6threadSaIS0_EE19_M_emplace_back_auxIJS0_EEEvDpOT_
+  [41] PairOfDisjointPaths::printPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, Graph&) [21] Node::Node() [32] void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&)
+  [26] PairOfDisjointPaths::returnPath(TreeNode*) [12] Node::~Node() [50] void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double const&>(double const&)
+  [25] PairOfDisjointPaths::searchPath(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >, std::vector<int, std::allocator<int> >) [49] Graph::memsetGraph() [33] void std::vector<double, std::allocator<double> >::_M_emplace_back_aux<double>(double&&)
+   [4] PairOfDisjointPaths::addChildren(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, TreeNode*, int, int, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >&) [29] Graph::getNumberOfNodes() [13] std::vector<double, std::allocator<double> >::operator=(std::vector<double, std::allocator<double> > const&)
+  [61] PairOfDisjointPaths::averageHops(Graph) [24] Graph::getNodeAtPosition(int) [18] _ZNSt6vectorIiSaIiEE19_M_emplace_back_auxIJRKiEEEvDpOT_
+   [2] PairOfDisjointPaths::findAllPaths(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&, Graph, int, int) [38] Graph::getDegree(int) [19] std::vector<int, std::allocator<int> >::operator=(std::vector<int, std::allocator<int> > const&)
+  [28] PairOfDisjointPaths::makePathVector(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >&, std::vector<int, std::allocator<int> >&) [20] Graph::~Graph() [42] void std::__insertion_sort<__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}>(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1})
+  [34] PairOfDisjointPaths::removeUnnecessaryPaths(std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> >, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&) [16] TreeNode::addChild(TreeNode*) [40] void std::__introsort_loop<__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}>(__gnu_cxx::__normal_iterator<std::pair<int, int>*, std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > > >, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1}, int, PairOfDisjointPaths::sortDatas(std::vector<std::pair<int, int>, std::allocator<std::pair<int, int> > >&)::{lambda(std::pair<int, int> const&, std::pair<int, int> const&)#1})

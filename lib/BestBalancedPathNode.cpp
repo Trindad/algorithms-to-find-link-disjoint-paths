@@ -76,21 +76,26 @@ void BestBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target
     int sum = g.getNumberOfNodes()*2;//somatório dos caminhos mínimos encontrados pelo algoritmo
     int diff = sum+1; //iniciando com número infinito
     int a = 0, b = 0, m = 0, p = 0;
+    unsigned int n = distance.size();
 
-    for (unsigned int i = 0; i < distance.size()-1; i++)
+    for (unsigned int i = 0; i < n-1; i++)
     {
-         /**
-         * Encontrou um caminho de par disjuntos
-         * E pelo menos um dos caminhos é menor que o novo
-         */
-        if (a != b && (a != m || b != p) )
+         if ( ( a != b) && (m != p) )
         {
-            removeUnnecessaryPaths(pairOfPaths[a],pairOfPaths[b],distance);
-            m = a;
-            p = b;
+            //removeUnnecessaryPaths(pairOfPaths[a],pairOfPaths[b],distance);
+            
+            // m = a; p = b;
+            if ((int)pairOfPaths[a].size() > (int)pairOfPaths[b].size())
+            {
+                n = m;
+            }
+            else
+            {
+                n = p;
+            }
         }
 
-        for (unsigned int j = i+1; j < distance.size(); j++)
+        for (unsigned int j = i+1; j < n; j++)
         {
             int u = distance[i].first;
             int v = distance[j].first;
@@ -126,6 +131,8 @@ void BestBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target
 
                 diff = newDiff;
                 sum = s;
+
+                m = i; p = j;
             }
             else if (s == sum)
             {
@@ -136,6 +143,8 @@ void BestBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target
 
                     diff = newDiff;
                     sum = s;
+
+                    m = i; p = j;
                 }
             }
         }
