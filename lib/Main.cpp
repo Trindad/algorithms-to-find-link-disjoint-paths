@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 #include "Graph.hpp"
+#include "WorstBalancedPathNode.hpp"
+#include "WorstBalancedPathEdge.hpp"
 #include "BestBalancedPathEdge.hpp"
 #include "BestBalancedPathNode.hpp"
 #include "Suurballe.hpp"
@@ -111,7 +113,10 @@ int main(int argc, char const *argv[])
 
 		bool sobrevivente = s.execute(g2,pathFile[pathFile.size()-1]);
 
-		// cout<<"sobrevivente "<<sobrevivente<<endl;
+		if (!sobrevivente)
+		{
+			cout<<"não sobrevivente "<<sobrevivente<<endl;
+		}
 		
 		
 		BestBalancedPathEdge be;
@@ -122,13 +127,13 @@ int main(int argc, char const *argv[])
 
 		bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
 
-		WorstBalancedPathNode bn;
+		WorstBalancedPathNode wn;
 
-		bn.execute(g1,"worst_balanced_node_"+pathFile[pathFile.size()-1]);
+		wn.execute(g1,"worst_balanced_node_"+pathFile[pathFile.size()-1]);
 
-		WorstBalancedPathEdge bn;
+		WorstBalancedPathEdge we;
 
-		bn.execute(g1,"worst_balanced_edge_"+pathFile[pathFile.size()-1]);
+		we.execute(g1,"worst_balanced_edge_"+pathFile[pathFile.size()-1]);
 
 
 		file.close();
