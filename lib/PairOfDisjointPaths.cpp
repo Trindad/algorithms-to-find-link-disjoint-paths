@@ -14,6 +14,7 @@
  */
 
 #include "PairOfDisjointPaths.hpp"
+#include "Backtrack.hpp"
 
 
 PairOfDisjointPaths::PairOfDisjointPaths(){}
@@ -48,6 +49,318 @@ void PairOfDisjointPaths::removeUnnecessaryPaths(vector<int> p1,vector<int> p2, 
             break;
         }
     }
+}
+
+/**
+ * Remove todas as arestas do grafo que pertencem ao caminho
+ */
+void PairOfDisjointPaths::removePath(Graph &g, vector<int> p)
+{
+    int n = (int)p.size()-1;
+
+    for (int i = n; i > 0; i--)
+    {
+        g.removeNode(p[i],p[i-1]);
+        g.removeNode(p[i-1],p[i]);
+    }
+}
+
+
+
+void PairOfDisjointPaths::shortestPathNode(Graph g, Graph &t,vector< vector <int> > &p,int source, int target)
+{
+    t = g;//grafo temporario
+    Dijkstra dijkstra;
+
+    dijkstra.execute(t,source,target);
+
+    vector<int> temp = dijkstra.shortestPath(target);
+
+    if (temp.size() >= 2 )
+    {
+        p.push_back( temp );
+
+        removePath(t,p[0]);
+    }
+    else
+    {
+        cout<<"Topologia não sobrevivente"<<endl;
+        exit(1);
+    }
+}
+
+void PairOfDisjointPaths::shortestPathEdge(Graph g, Graph &t,vector< vector <int> > &p,int source, int target)
+{
+    // cout<<"AQUI"<<endl;
+    t = g;//grafo temporario
+    Dijkstra dijkstra;
+
+    int h =  dijkstra.execute(t,source,target);
+
+    vector<int> temp = dijkstra.shortestPath(target);
+
+    if (temp.size() >= 2 )
+    {
+        p.push_back( temp );
+
+        t.removeNode(source,p[1][1]);
+    }
+    else
+    {
+        cout<<"Topologia não sobrevivente"<<endl;
+        exit(1);
+    }
+}
+
+vector<vector<int>> PairOfDisjointPaths::shortestPaths(Graph g, vector<pair<int,int>> &distance, int source, int target)
+{
+    Dijkstra dijkstra;
+    Graph t = g;
+    int n = 0, u = 0, v = 0, h = 0, a = 0, b = 0;
+
+    vector< vector <int> > p;
+
+    shortestPathNode(g,t,p,source,target);//encontra dois caminhos minimos se existir
+    /**
+     * Encontra segundo caminho mínimo disjunto por nó
+    */
+
+    h = dijkstra.execute(t,source,target);
+
+    vector<int> temp = dijkstra.shortestPath(target);
+    
+    if (temp.size() >= 2 )
+    {
+        p.push_back( temp );
+        
+        v = (int)p[1].size();
+        u = (int)p[0].size();
+        a = 0;
+        b = 1;
+    }
+    else
+    {
+        shortestPathEdge(g,t,p,source,target);
+        
+        u = (int)p[1].size();
+
+        shortestPathNode(g,t,p,source,target);//encontra dois caminhos minimos se existir
+        /**
+         * Encontra segundo caminho mínimo disjunto por nó
+        */
+
+        h = dijkstra.execute(t,source,target);
+
+        vector<int> temp = dijkstra.shortestPath(target);
+        
+        if (temp.size() >= 2 )
+        {
+            p.push_back( temp );
+        }
+
+        v = (int)p[2].size();
+        a = 1;
+        b = 2;
+    }
+
+    /**
+     * Encontrando novos pares de caminhos minimos a partir da remoção das arestas do target
+     */
+    t = g;
+
+
+    t.removeNode(p[a][u-2], target);
+    t.removeNode(target,p[a][u-2]);
+
+    t.removeNode(p[b][1], source);
+    t.removeNode(source,p[b][1]);
+
+    h = dijkstra.execute(t,source,target);
+
+    temp = dijkstra.shortestPath(target);
+    
+    if (temp.size() >= 2 )
+    {
+        p.push_back( temp );
+    }
+    
+    /**
+     * ------------------------------------------------------
+     */
+
+    t = g;
+
+    t.removeNode(p[b][v-2], target);
+    t.removeNode(target,p[b][v-2]);
+
+    t.removeNode(p[a][1], source);
+    t.removeNode(source,p[a][1]);
+
+    h = dijkstra.execute(t,source,target);
+
+    temp = dijkstra.shortestPath(target);
+
+    if (temp.size() >= 2 )
+    {
+        p.push_back( temp );
+    }
+
+    /**
+     * ------------------------------------------------------
+     */
+    
+    t = g;
+
+    removePath(t,p[a]);
+
+    t.setEdge(p[a][0],p[a][1]);
+
+    if ((int)p[a].size() > 3)
+    {
+        t.setEdge(p[a][1],p[a][2]);
+
+        t.setWeight(p[a][1],p[a][2],1.0);
+        t.setWeight(p[a][2],p[a][1],1.0);
+    }
+    t.setWeight(p[a][0],p[a][1],1.0);
+    t.setWeight(p[a][1],p[a][0],1.0);
+
+    t.removeNode(p[b][1], source);
+    t.removeNode(source,p[b][1]);
+
+    h = dijkstra.execute(t,source,target);
+
+    temp = dijkstra.shortestPath(target);
+
+    if (temp.size() >= 2 )
+    {
+        p.push_back( temp );
+    }
+    else
+    {
+        cout<<"AQUI "<<p[a][0]<<" "<<p[a][1]<<endl;
+    }
+
+     /**
+     * ------------------------------------------------------
+     */
+    
+    t = g;
+
+    removePath(t,p[b]);
+
+    t.setEdge(p[b][0],p[b][1]);
+
+    if ((int)p[b].size() > 3)
+    {
+        t.setEdge(p[b][1],p[b][2]);
+
+        t.setWeight(p[b][1],p[b][2],1.0);
+        t.setWeight(p[b][2],p[b][1],1.0);
+    }
+
+    t.setWeight(p[b][0],p[b][1],1.0);
+    t.setWeight(p[b][1],p[b][0],1.0);
+
+    t.removeNode(p[a][1], source);
+    t.removeNode(source,p[a][1]);
+
+    h = dijkstra.execute(t,source,target);
+
+    temp = dijkstra.shortestPath(target);
+
+    if (temp.size() >= 2 )
+    {
+        p.push_back( temp );
+    }
+    else
+    {
+        cout<<"AQUI "<<p[b][0]<<" "<<p[b][1]<<endl;
+    }
+
+
+
+    /**
+     * ------------------------------------------------------
+     */
+    cout<<endl;
+    for (unsigned int i = 0; i < p.size(); i++)
+    {
+        for (unsigned int j = 0; j < p[i].size(); j++)
+        {
+            cout<<" "<<p[i][j];
+        }
+        cout<<endl;
+    }
+    
+
+    Graph graph;
+
+    graph.setUseEdgeWeight(false);
+
+    n = g.getNumberOfNodes();
+    graph.setNumberOfNodes(n);
+
+    graph.setMinimumDegree(2);
+    graph.setMaximumDegree(n -1);
+
+    n = (int)p.size();
+
+    for (int i = 0; i < n; i++)
+    {
+        int N = (int)p[i].size();
+
+        for (int j = N-1; j > 0; j--)
+        {
+            u = p[i][j];
+            v = p[i][j-1];
+
+            if (graph.getEdge(u,v) == false)
+            {
+                graph.setEdge(u,v);
+                graph.setWeight(u,v,1.0);
+                graph.setWeight(v,u,1.0);
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        int N = (int)p[i].size();
+
+        for (int j = N-1; j > 0; j--)
+        {
+            u = p[i][j];
+            v = p[i][j-1];
+
+            if (graph.getEdge(u,v) == false)
+            {
+                graph.setEdge(u,v);
+                graph.setWeight(u,v,1.0);
+                graph.setWeight(v,u,1.0);
+            }
+        }
+    }
+
+    p.clear();
+
+
+    vector<vector<int>> paths;
+
+    paths = findAllPaths(distance,graph,source,target);
+
+    // cout<<endl;
+    // for (unsigned int i = 0; i < paths.size(); i++)
+    // {
+    //     for (unsigned int j = 0; j < paths[i].size(); j++)
+    //     {
+    //         cout<<" "<<paths[i][j];
+    //     }
+    //     cout<<endl;
+    // }
+
+    return paths;
+    // return p;
 }
 
 void PairOfDisjointPaths::averageHops(Graph g)
@@ -163,6 +476,11 @@ void PairOfDisjointPaths::addChildren(vector<pair<int,int>> &distance,Graph g,Tr
                 if (!searchPath(paths,temp))
                 {
                     paths.push_back(temp);
+                    // for (unsigned int j = 0; j < temp.size(); j++)
+                    // {
+                    //     cout<<" "<<temp[j];
+                    // }
+                    // cout<<endl;
 
                     int n = (int)paths.size()-1;
                     int h = (int)temp.size();//número de hops
@@ -182,15 +500,43 @@ void PairOfDisjointPaths::addChildren(vector<pair<int,int>> &distance,Graph g,Tr
 
 vector< vector<int> > PairOfDisjointPaths::findAllPaths(vector<pair<int,int>> &distance,Graph g,int source,int target)
 {
-    vector< vector<int> > paths;
+    // vector< vector<int> > paths;
 
-    TreeNode *root = new TreeNode(source);//a raíz inicia pela origem do caminho e as folhas serão sempre o destino
+    // TreeNode *root = new TreeNode(source);//a raíz inicia pela origem do caminho e as folhas serão sempre o destino
 
-    addChildren(distance,g,root,source,target,paths);//adiciona filhos na árvore
+    // addChildren(distance,g,root,source,target,paths);//adiciona filhos na árvore
 
-    freeTree(root);
+    // freeTree(root);
+    int a[NMAX];
+    for (int p = 0; p < NMAX; p++)
+    {
+        a[p] = -1;
+    }
+    
+    Backtrack b(g,source);
+    // cout<<endl;
+    b.execute(a, source-1, target);
+    // cout << "PRINTING PAAAAATHS!!!!!!" << source << " " << target << endl;
+    // for (int i = 0; i < b.all_paths.size(); i++)
+    // {
+    //     for (int k = 0; k < b.all_paths[i].size(); k++)
+    //     {
+    //         cout << b.all_paths[i][k] << " ";
+    //     }
 
-    return paths;
+    //     cout << endl;
+    // }
+    int hops = 0;
+
+    for (int i = 0; i < b.all_paths.size(); i++)
+    {
+        hops = (int)b.all_paths[i].size();
+        distance.push_back( pair<int, int>(i,hops-1) );
+    }
+    
+    // paths = this->digraph.printAllPaths(distance,source,target);
+
+    return b.all_paths;
 } 
 
 /**
@@ -340,8 +686,9 @@ void PairOfDisjointPaths::dfs(vector<pair<int,int>> &distance,Graph &graph, int 
 void PairOfDisjointPaths::execute(Graph &graph, string file)
 {
 
-	this->datas.open(file);
-    vector<thread> t;
+    this->datas.open(file);
+    createDigraph(graph);
+    // vector<thread> t;
 
 	/**
 	 * Encontra o par de caminhos disjuntos menores e com diferença de hops menor
@@ -350,23 +697,23 @@ void PairOfDisjointPaths::execute(Graph &graph, string file)
 	for (int i = 0; i < graph.getNumberOfNodes()-1; i++)
 	{
 		
-		t.push_back(thread( [this, &graph, i] {
-            for (int j = i+1; j < graph.getNumberOfNodes(); j++)
-            { 
-                this->findPairOfBalancedPaths(graph,i,j); 
-            }
-        })); 
-        // for (int j = i+1; j < graph.getNumberOfNodes(); j++)
-        // {
+		// t.push_back(thread( [this, &graph, i] {
+  //           for (int j = i+1; j < graph.getNumberOfNodes(); j++)
+  //           { 
+  //               this->findPairOfBalancedPaths(graph,i,j); 
+  //           }
+  //       })); 
+        for (int j = i+1; j < graph.getNumberOfNodes(); j++)
+        {
             
-        //     findPairOfBalancedPaths(graph,i,j);
-        // }
+            findPairOfBalancedPaths(graph,i,j);
+        }
 	}
 
-    for (unsigned int i = 0; i < t.size(); i++)
-    {
-        t[i].join();
-    }
+    // for (unsigned int i = 0; i < t.size(); i++)
+    // {
+    //     t[i].join();
+    // }
 
     writeFile();
     averageHops(graph);
@@ -391,4 +738,29 @@ void PairOfDisjointPaths::writeFile()
         }
         this->datas<<endl;
     }
+}
+
+// Create a Digraph given in the above diagram
+void PairOfDisjointPaths::createDigraph(Graph graph)
+{
+    int nNodes = graph.getNumberOfNodes();
+
+    this->digraph.setNumberOfNodes(nNodes);
+
+    vector<int> adjacents;
+    vector<Node> node = graph.getNodes();
+
+    for (int u = 0; u < nNodes ; u++)
+    {
+        adjacents = node[u].getAdjacentsNodes();
+
+        for (int v = 0; v < (int)adjacents.size(); v++)
+        {
+            this->digraph.addEdge(u, adjacents[v]);
+            this->digraph.addEdge(adjacents[v],u);
+        }
+
+    }
+    
+    adjacents.clear();
 }

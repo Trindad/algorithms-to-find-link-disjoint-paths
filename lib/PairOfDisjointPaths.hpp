@@ -15,7 +15,9 @@
  * limitations under the License.
  */
 #include "Graph.hpp"
+#include "Digraph.hpp"
 #include "TreeNode.hpp"
+#include "Dijkstra.hpp"
 #include <thread>
 #include <mutex>
 #include <utility>
@@ -48,9 +50,15 @@ public:
 	void printPaths(vector<int>, vector<int>,Graph &);
 	void sortDatas(vector<pair<int,int>> &distance);
 	void removeUnnecessaryPaths(vector<int>,vector<int>, vector<pair<int,int>> &);
+	vector<vector<int>> shortestPaths(Graph, vector<pair<int,int>> &, int, int);
+	void removePath(Graph &, vector<int> );
+	void shortestPathEdge(Graph, Graph &, vector< vector <int> > &,int, int);
+	void shortestPathNode(Graph, Graph &,vector< vector <int> > &,int, int);
+	void createDigraph(Graph graph);
 
 	mutex m;
 	mutex ap;
+	Digraph digraph;
 	vector< vector< vector<int> > > allPaths;
 	vector< double> hopWorking;					//número de saltos(i,j) do principal
 	vector< double> hopBackup;					//número de saltos(i,j) de backup

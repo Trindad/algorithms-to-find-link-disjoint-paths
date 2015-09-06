@@ -29,6 +29,7 @@
 #include <fstream>//manipulação de arquivos
 #include <cmath>
 #include <iostream>
+#include <chrono>
 
 using namespace std;
 

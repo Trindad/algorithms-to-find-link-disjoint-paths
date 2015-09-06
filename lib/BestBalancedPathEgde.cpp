@@ -59,12 +59,23 @@ vector< vector<int> > BestBalancedPathEdge::compareWithOthers(Graph g,vector<int
 
 void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target)
 {
-   // cout<<" source "<<source<<" target "<<target<<endl;
+    // std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
+
+    // cout<<" source "<<source<<" target "<<target<<endl;
     vector< vector<int> > pairOfPaths;
     vector<pair<int,int>> distance;
     vector<int> path;
 
+
     pairOfPaths = findAllPaths(distance,g,source,target);
+    // pairOfPaths = shortestPaths(g,distance,source,target);
+    // cout<<"number := "<<(int)pairOfPaths.size();
+    // std::chrono::steady_clock::time_point end= std::chrono::steady_clock::now();
+     // cout<<"------------------------------------"<<endl;
+    // std::cout << "seconds all := " << chrono::duration_cast<chrono::seconds>(end - begin).count() <<std::endl;
+   
+   
     // Graph graph = g;
     // dfs(distance,graph,source,target,pairOfPaths,path);//encontra todos os caminhos
     // cout<<" "<<source<<" "<<target<<endl;
@@ -73,10 +84,11 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
     
     // cout<<"------------------------------------"<<endl;
     // for (unsigned int i = 0; i < distance.size(); i++)
-    // {
+    // {   
+    //     cout << "caminho: " << endl;
     //     for (unsigned int j = 0; j < pairOfPaths[distance[i].first].size(); j++)
     //     {
-    //         cout<<" "<<pairOfPaths[distance[i].first][j]+1;
+    //         cout<<" "<<pairOfPaths[distance[i].first][j];
     //     }
     //     cout<<endl;
     // }
@@ -88,13 +100,11 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
 
     unsigned int n = distance.size();
 
+    // std::chrono::steady_clock::time_point begin_ = std::chrono::steady_clock::now();
+
+
     for (unsigned int i = 0; i < n-1; i++)
     {
-        /**
-         * Encontrou um caminho de par disjuntos
-         * E pelo menos um dos caminhos é menor que o novo
-         */
-        // if(a != b && ( m != a && p != b))
         if ( ( a != b) && (m != p) )
         {
             //removeUnnecessaryPaths(pairOfPaths[a],pairOfPaths[b],distance);
@@ -109,6 +119,11 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
                 n = p;
             }
         }
+        /**
+         * Encontrou um caminho de par disjuntos
+         * E pelo menos um dos caminhos é menor que o novo
+         */
+        // if(a != b && ( m != a && p != b))
         for (unsigned int j = i+1; j < n; j++)
         {
 
@@ -164,6 +179,8 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
             }
         }
     }
+    // std::chrono::steady_clock::time_point end_= std::chrono::steady_clock::now();
+    // std::cout << "seconds = " << chrono::duration_cast<chrono::seconds>(end_ - begin_).count() <<std::endl;
     // cout<<"\n------------------------------------"<<endl;
 
     if (a != b)

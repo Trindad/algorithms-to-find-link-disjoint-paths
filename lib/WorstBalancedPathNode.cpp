@@ -168,7 +168,7 @@ void WorstBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int targe
     else
     {
         cout<<"Topologia não sobrevivente."<<" "<<source<<" "<<target<<endl;
-        exit(1);
+        // exit(1);
     }
 
     distance.clear();
