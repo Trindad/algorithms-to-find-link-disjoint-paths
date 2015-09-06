@@ -52,7 +52,7 @@ WorstBalancedPathNode::~WorstBalancedPathNode(){}
     return paths;
 }
 
-void WorstBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target)
+bool WorstBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target)
 {
     vector< vector<int> > pairOfPaths;
     vector<pair<int,int>> distance;
@@ -167,12 +167,13 @@ void WorstBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int targe
     }
     else
     {
-        cout<<"Topologia não sobrevivente."<<" "<<source<<" "<<target<<endl;
-        // exit(1);
+        return false;
     }
 
     distance.clear();
     pairOfPaths.clear();
+
+    return true;
 }
                                      
 

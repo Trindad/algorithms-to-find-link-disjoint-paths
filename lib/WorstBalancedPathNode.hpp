@@ -26,6 +26,6 @@ public:
 	/**
 	 * Métodos para encontrar caminhos balanceados
 	 */
-	void findPairOfBalancedPaths(Graph,int,int);									//grafo construído a partir dos caminhos mínimos encontrados pelo algoritmo de BalancedSuurballe, e a origem e destino
+	bool findPairOfBalancedPaths(Graph,int,int);									//grafo construído a partir dos caminhos mínimos encontrados pelo algoritmo de BalancedSuurballe, e a origem e destino
 	vector< vector<int> > compareWithOthers(Graph g,vector<int> &, vector<int> &);	//compara dois caminhos, verificando se existe arestas iguais
 };

@@ -683,11 +683,11 @@ void PairOfDisjointPaths::dfs(vector<pair<int,int>> &distance,Graph &graph, int 
 }
 
 
-void PairOfDisjointPaths::execute(Graph &graph, string file)
+bool PairOfDisjointPaths::execute(Graph &graph, string file)
 {
 
     this->datas.open(file);
-    createDigraph(graph);
+    // createDigraph(graph);
     // vector<thread> t;
 
 	/**
@@ -706,7 +706,12 @@ void PairOfDisjointPaths::execute(Graph &graph, string file)
         for (int j = i+1; j < graph.getNumberOfNodes(); j++)
         {
             
-            findPairOfBalancedPaths(graph,i,j);
+            bool survivor = findPairOfBalancedPaths(graph,i,j);
+
+            if (survivor == false)
+            {
+                return false;
+            }
         }
 	}
 
@@ -717,6 +722,8 @@ void PairOfDisjointPaths::execute(Graph &graph, string file)
 
     writeFile();
     averageHops(graph);
+
+    return true;
 }
 
 void PairOfDisjointPaths::writeFile()
@@ -740,27 +747,27 @@ void PairOfDisjointPaths::writeFile()
     }
 }
 
-// Create a Digraph given in the above diagram
-void PairOfDisjointPaths::createDigraph(Graph graph)
-{
-    int nNodes = graph.getNumberOfNodes();
+// // Create a Digraph given in the above diagram
+// void PairOfDisjointPaths::createDigraph(Graph graph)
+// {
+//     int nNodes = graph.getNumberOfNodes();
 
-    this->digraph.setNumberOfNodes(nNodes);
+//     this->digraph.setNumberOfNodes(nNodes);
 
-    vector<int> adjacents;
-    vector<Node> node = graph.getNodes();
+//     vector<int> adjacents;
+//     vector<Node> node = graph.getNodes();
 
-    for (int u = 0; u < nNodes ; u++)
-    {
-        adjacents = node[u].getAdjacentsNodes();
+//     for (int u = 0; u < nNodes ; u++)
+//     {
+//         adjacents = node[u].getAdjacentsNodes();
 
-        for (int v = 0; v < (int)adjacents.size(); v++)
-        {
-            this->digraph.addEdge(u, adjacents[v]);
-            this->digraph.addEdge(adjacents[v],u);
-        }
+//         for (int v = 0; v < (int)adjacents.size(); v++)
+//         {
+//             this->digraph.addEdge(u, adjacents[v]);
+//             this->digraph.addEdge(adjacents[v],u);
+//         }
 
-    }
+//     }
     
-    adjacents.clear();
-}
+//     adjacents.clear();
+// }

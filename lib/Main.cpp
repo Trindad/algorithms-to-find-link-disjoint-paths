@@ -25,10 +25,9 @@ vector<string> &split(const string &s, char delim, vector<string> &elems);
 
 vector<string> split(const string &s, char delim);
 
-Digraph createDigraph(Graph graph);
 
 /**
- * Compilar : g++ *.cpp  -o b -g -std=c++11 -pthread -Wall
+ * Compilar : g++ *.cpp  -o b -g -std=c++11 -pthread 
  * Executar : ./b <arquivo>
  */
 int main(int argc, char const *argv[])
@@ -112,9 +111,9 @@ int main(int argc, char const *argv[])
 
 		// cout<<"sobrevivente "<<sobrevivente<<"\n\n"<<endl;
 
-		// Suurballe s;
+		Suurballe s;
 
-		// bool sobrevivente = s.execute(g2,pathFile[pathFile.size()-1]);
+		bool survivor = s.execute(g2,pathFile[pathFile.size()-1]);
 
 		// if (!sobrevivente)
 		// {
@@ -134,21 +133,19 @@ int main(int argc, char const *argv[])
 		
 		BestBalancedPathEdge be;
 
-		be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
-		// Digraph g = createDigraph(g1);
-		// g.printAllPaths(0,1);
+		survivor = be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
 
-		// BestBalancedPathNode bn;
+		BestBalancedPathNode bn;
 
-		// bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
+		survivor = bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
 
-		// WorstBalancedPathNode wn;
+		WorstBalancedPathNode wn;
 
-		// wn.execute(g1,"worst_balanced_node_"+pathFile[pathFile.size()-1]);
+		survivor = wn.execute(g1,"worst_balanced_node_"+pathFile[pathFile.size()-1]);
 
-		// WorstBalancedPathEdge we;
+		WorstBalancedPathEdge we;
 
-		// we.execute(g1,"worst_balanced_edge_"+pathFile[pathFile.size()-1]);
+		survivor = we.execute(g1,"worst_balanced_edge_"+pathFile[pathFile.size()-1]);
 
 
 		file.close();

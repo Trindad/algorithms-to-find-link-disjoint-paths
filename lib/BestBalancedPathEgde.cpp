@@ -57,7 +57,7 @@ vector< vector<int> > BestBalancedPathEdge::compareWithOthers(Graph g,vector<int
     return paths;
 }
 
-void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target)
+bool BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target)
 {
     // std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
@@ -193,12 +193,13 @@ void BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
     }
     else
     {
-        cout<<"Topologia não sobrevivente."<<endl;
-        exit(1);
+       return false;
     }
 
     distance.clear();
     pairOfPaths.clear();
+
+    return true;
 }
                                      
 
