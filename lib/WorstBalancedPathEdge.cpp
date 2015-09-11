@@ -40,7 +40,7 @@ vector< vector<int> > WorstBalancedPathEdge::compareWithOthers(Graph g,vector<in
             //exclui arestas em comum mas invertidas
             if (path1[u] == path2[v+1] && path1[u+1] == path2[v])
             {
-                discardCommonEdge(path1,path2,u,v);
+               return paths;
             }
 
             if (path1[u] == path2[v] && path1[u+1] == path2[v+1])
