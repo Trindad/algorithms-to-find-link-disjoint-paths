@@ -39,7 +39,7 @@ public:
 	 */
 	bool searchPath(vector< vector<int> >, vector<int> );
 	virtual bool findPairOfBalancedPaths(Graph,int,int) = 0;		//grafo construído a partir dos caminhos mínimos encontrados pelo algoritmo de BalancedSuurballe, e a origem e destino
-	vector< vector<int> > findAllPaths(vector<pair<int,int>> &,Graph,int,int);					//retorna todos os caminhos encontrados da origem ao destino
+	vector< vector<int> > findAllPaths(vector<pair<int,int>> &,Graph,int,int,int);					//retorna todos os caminhos encontrados da origem ao destino
 	vector<int> returnPath(TreeNode *);									//retorna novo caminho, sobe do filho até o pai construindo o caminho
 	bool isNodeInPath(TreeNode *,int);									//verifica se o nó já existe em um caminho
 	void addChildren(vector<pair<int,int>> &,Graph,TreeNode *,int,int,vector< vector<int> > &); //Adiciona recursivamente os filhos do nó root passado como parâmetro
@@ -51,9 +51,6 @@ public:
 	void removeUnnecessaryPaths(vector<int>,vector<int>, vector<pair<int,int>> &);
 	vector<vector<int>> shortestPaths(Graph, vector<pair<int,int>> &, int, int);
 	void removePath(Graph &, vector<int> );
-	void shortestPathEdge(Graph, Graph &, vector< vector <int> > &,int, int);
-	void shortestPathNode(Graph, Graph &,vector< vector <int> > &,int, int);
-	// void createDigraph(Graph graph);
 
 	mutex m;
 	mutex ap;

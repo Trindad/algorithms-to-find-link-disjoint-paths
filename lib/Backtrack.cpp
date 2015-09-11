@@ -28,61 +28,116 @@ http://www.amazon.com/exec/obidos/ASIN/0387001638/thealgorithmrepo/
 #include "Backtrack.hpp"
 
 Backtrack::Backtrack(Graph &graph, int s) {
+    
     this->source = s;
     finished = false;
     g = graph;
+
+    this->limitNodesInPath = 50;
+    this->nPaths = 0;
+
+    this->solution_count = 0;
 }
 
 Backtrack::~Backtrack() {
 }
 
-void Backtrack::execute(int a[], int k, int input)
+void Backtrack::remove(int a[], int c[])
 {
-    // cout<<"source "<<k<<" target "<<input<<endl;
-    int c[MAXCANDIDATES];           /* candidates for next position */
-    int ncandidates;                /* next position candidate count */
-    int i;                          /* counter */
+    for (int i = 0; i < NMAX ; i++) a[i] = -1;
 
-    if (is_a_solution(a,k,input))
+    for (int i = 0; i < MAXCANDIDATES ; i++) c[i] = -1;
+
+
+    int n = (int)this->adjacentsSource.size();
+
+    for (int i = 0; i < n; i++)
     {
-        // cout << "WTF" << endl;
+        if (this->adjacentsSource[i] >= 0)
+        {
+            
+            c[0] = this->source;
+            c[1] = this->adjacentsSource[i];
+
+            a[0] = this->source;
+            a[1] = c[1];
+
+            return;
+        }
+    }
+
+    this->finished = true;
+}
+
+bool Backtrack::adjacentsInPaths()
+{
+    int n = (int)this->adjacentsSource.size();
+
+    for (int i = 0; i < n; i++)
+    {
+        if (this->adjacentsSource[i] >= 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void Backtrack::execute(int a[], int k, int input, int limit)
+{
+    int c[MAXCANDIDATES];           /* candidates for next position */
+    int ncandidates = 0;                /* next position candidate count */
+    int i = 0;                          /* counter */
+
+    bool found = is_a_solution(a,k,input);
+    
+    if ( found )
+    {
         process_solution(a,k,input);
+
     }
     else 
     {
+
+        if (k > limit)
+        {
+            return;
+        }
         k = k+1;
-        // cout<<"-----------------------"<<endl;
+
         construct_candidates(a,k,input,c,&ncandidates);
-        // cout<<"-----------------------"<<endl;
+
         for (i = 0; i < ncandidates; i++) {
             a[k] = c[i];
-            execute(a,k,input);
-            if (finished) return;   /* terminate early */
+            
+            execute(a,k,input,limit);
+
+            if (this->finished) return;   /* terminate early */
+
         }
     }
 }
 
 void Backtrack::process_solution(int a[], int k, int t)
 {
-    int i;              /* counter */
-
-    solution_count++;
+    int i = 0;              /* counter */
     vector<int> path;
-    
-    // cout<<"source "<<this->source<<" target "<<t<<endl;
-    // printf("{");
+
+   // printf("{");
     for (i = this->source; i <= k; i++) {
-        // printf(" %d",a[i]);
+       // printf(" %d",a[i]);
         path.push_back(a[i]);
     }
-    // printf(" }\n");
 
+    // printf(" }\n");
     all_paths.push_back(path);
 }
 
 bool Backtrack::is_a_solution(int a[], int k, int t)
 {
-    return (a[k] == t);
+
+    return ( ( k >= 0 ) && (a[k] == t) );
 }
 
 
@@ -90,6 +145,7 @@ bool Backtrack::is_a_solution(int a[], int k, int t)
 */
 void Backtrack::construct_candidates(int a[], int k, int n, int c[], int *ncandidates)
 {
+
     int i;              /* counters */
     bool in_sol[NMAX];  /* what's already in the solution? */
     int last;           /* last vertex on current path */
@@ -102,11 +158,11 @@ void Backtrack::construct_candidates(int a[], int k, int n, int c[], int *ncandi
     for (i = 0; i < k; i++) 
     {
         in_sol[ a[i] ] = true;
-        // cout<<" "<<a[i];
     }
-    // cout<<endl;
-    if ( k == this->source) {         /* always start from vertex 1 */
-        // cout<<"ENTROU "<<endl;
+
+    /* always start from vertex source */
+    if ( k == this->source) 
+    {   
         c[0] = this->source;
         *ncandidates = 1;
     }
@@ -114,24 +170,22 @@ void Backtrack::construct_candidates(int a[], int k, int n, int c[], int *ncandi
     {
         *ncandidates = 0;
         last = a[k-1];
-        // cout<<"LAST "<<last<<" "<<k<<endl;
 
         vector<int> adjacents;
         Node node = this->g.getNodeAtPosition(last);
 
         adjacents = node.getAdjacentsNodes();
 
-        for (int w = 0; w < (int)adjacents.size(); w++)
+        int n = (int)adjacents.size();
+        sort(adjacents.begin(),adjacents.end());
+
+        for (int w = 0; w < n; w++)
         {
-            
             if (in_sol[ adjacents[w] ] == false) 
             {
-                // cout<<" "<<last<<" "<<adjacents[w]<<endl;
-
                 c[*ncandidates] = adjacents[w];
                 *ncandidates = *ncandidates + 1;
             }
         }
-        // cout<<endl;
     }
 }

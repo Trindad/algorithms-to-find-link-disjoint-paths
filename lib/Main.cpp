@@ -21,9 +21,20 @@
 #include "Suurballe.hpp"
 #include <sstream>
 
+vector<bool> used = vector<bool> (100,false);
+int limit = 20; // max path len
+vector<int> path = vector<int> (100,-1);
+vector<int> c;
+int tail;
+
 vector<string> &split(const string &s, char delim, vector<string> &elems);
 
 vector<string> split(const string &s, char delim);
+
+void print_path();
+void dfs(int v, int target, int depth, Graph &g) ;
+void return_path(int target);
+void delete_tail(int source);
 
 
 /**
@@ -66,7 +77,6 @@ int main(int argc, char const *argv[])
 		g2.setMinimumDegree(2);
 		g2.setMaximumDegree(n-1);
 
-		// cout<<"Número de nós: "<<n<<endl;
 		vector<string> nodes;
 
 		while( getline (file,line) )
@@ -85,7 +95,18 @@ int main(int argc, char const *argv[])
 			g2.setWeight(u,v,1.0);
 			g2.setWeight(v,u,1.0);
 		}
+
+		// used[0] = true;
 		
+		// dfs(22,23,0, g1) ;
+
+		// for (int v = 0; v < g1.getNumberOfNodes(); v++)
+		// {
+		// 	cout<<" "<<v<<endl;
+		// 	g1.printAdjacents(v);
+		// 	cout<<"----------------------------"<<endl;
+		// }
+
 		// g.setWeightEdgeDirected(1-1,8-1,2.0f);
 		// g.setWeightEdgeDirected(1-1,7-1,8.0f);
 		// g.setWeightEdgeDirected(1-1,2-1,3.0f);
@@ -111,9 +132,9 @@ int main(int argc, char const *argv[])
 
 		// cout<<"sobrevivente "<<sobrevivente<<"\n\n"<<endl;
 
-		Suurballe s;
+		// Suurballe s;
 
-		bool survivor = s.execute(g2,pathFile[pathFile.size()-1]);
+		// bool survivor = s.execute(g2,pathFile[pathFile.size()-1]);
 
 		// if (!sobrevivente)
 		// {
@@ -133,19 +154,22 @@ int main(int argc, char const *argv[])
 		
 		BestBalancedPathEdge be;
 
-		survivor = be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
+		bool survivor = be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
+		if (!survivor)
+		{
+			cout<<"não sobrevivente "<<survivor<<endl;
+		}
+		// BestBalancedPathNode bn;
 
-		BestBalancedPathNode bn;
+		// survivor = bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
 
-		survivor = bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
+		// WorstBalancedPathNode wn;
 
-		WorstBalancedPathNode wn;
+		// survivor = wn.execute(g1,"worst_balanced_node_"+pathFile[pathFile.size()-1]);
 
-		survivor = wn.execute(g1,"worst_balanced_node_"+pathFile[pathFile.size()-1]);
+		// WorstBalancedPathEdge we;
 
-		WorstBalancedPathEdge we;
-
-		survivor = we.execute(g1,"worst_balanced_edge_"+pathFile[pathFile.size()-1]);
+		// survivor = we.execute(g1,"worst_balanced_edge_"+pathFile[pathFile.size()-1]);
 
 
 		file.close();
@@ -209,4 +233,80 @@ vector<string> split(const string &s, char delim) {
    vector<string> elems;
     split(s, delim, elems);
     return elems;
+}
+
+
+
+void return_path(int target)
+{
+    vector<int> p;
+
+    int u = target;
+
+    p.push_back( target );
+
+    while( path[u] != -1 )
+    {
+        p.push_back( path[u]);
+        u = path[u];
+    }
+    reverse( p.begin(),p.end() );//inverte caminho
+
+
+    for (int i = 0; i < p.size() ; i++)
+    {
+        cout<<" "<<p[i];
+    }
+    cout<<endl;
+}
+
+void delete_tail(int tail)
+{
+    path[tail] = -1;
+}
+void print_path()
+{
+	// return_path(1);
+	for (int i = 0; i < (int)c.size(); i++)
+	{
+		cout<<" "<<c[i];
+	}
+	cout<<endl;
+}
+
+
+void dfs(int v, int target, int depth, Graph &g) 
+{
+	c.push_back(v);
+
+    if (v == target) 
+    {
+       print_path();
+       // return;
+    } 
+  	else
+    {
+      // cout << "depth: " << depth << endl;
+      if (depth > 5) {
+      	return;
+      }
+	  Node node = g.getNodeAtPosition(v);
+	  vector<int > adjacents = node.getAdjacentsNodes();
+
+	  for(int u = 0; u < (int)adjacents.size();u++) 
+	  {
+	    if (used[adjacents[u]]) 
+	    {
+	      continue;
+	    }
+
+	    used[adjacents[u]] = true;
+
+	    dfs(adjacents[u], target,depth + 1,g);
+	   	// cout<<" "<<c[(int)c.size()-1]<<endl;
+	    c.pop_back();
+
+	    used[adjacents[u]] = false;
+	  }
+    }
 }

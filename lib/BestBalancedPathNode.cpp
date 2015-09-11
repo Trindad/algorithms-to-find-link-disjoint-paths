@@ -58,7 +58,7 @@ bool BestBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target
     vector<pair<int,int>> distance;
     
 
-    pairOfPaths = findAllPaths(distance,g,source,target);
+    pairOfPaths = findAllPaths(distance,g,source,target,0);
 
     // cout<<"------------------------------------"<<endl;
     // for (unsigned int i = 0; i < pairOfPaths.size(); i++)

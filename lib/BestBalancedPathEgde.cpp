@@ -40,7 +40,7 @@ vector< vector<int> > BestBalancedPathEdge::compareWithOthers(Graph g,vector<int
             //exclui arestas em comum mas invertidas
             if (path1[u] == path2[v+1] && path1[u+1] == path2[v])
             {
-                discardCommonEdge(path1,path2,u,v);
+                return paths;
             }
 
             if (path1[u] == path2[v] && path1[u+1] == path2[v+1])
@@ -59,145 +59,134 @@ vector< vector<int> > BestBalancedPathEdge::compareWithOthers(Graph g,vector<int
 
 bool BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target)
 {
-    // std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-
-
     // cout<<" source "<<source<<" target "<<target<<endl;
     vector< vector<int> > pairOfPaths;
     vector<pair<int,int>> distance;
     vector<int> path;
 
-
-    pairOfPaths = findAllPaths(distance,g,source,target);
-    // pairOfPaths = shortestPaths(g,distance,source,target);
-    // cout<<"number := "<<(int)pairOfPaths.size();
-    // std::chrono::steady_clock::time_point end= std::chrono::steady_clock::now();
-     // cout<<"------------------------------------"<<endl;
-    // std::cout << "seconds all := " << chrono::duration_cast<chrono::seconds>(end - begin).count() <<std::endl;
-   
-   
-    // Graph graph = g;
-    // dfs(distance,graph,source,target,pairOfPaths,path);//encontra todos os caminhos
-    // cout<<" "<<source<<" "<<target<<endl;
-
-    sortDatas(distance);//ordena vetor de pares
-    
-    // cout<<"------------------------------------"<<endl;
-    // for (unsigned int i = 0; i < distance.size(); i++)
-    // {   
-    //     cout << "caminho: " << endl;
-    //     for (unsigned int j = 0; j < pairOfPaths[distance[i].first].size(); j++)
-    //     {
-    //         cout<<" "<<pairOfPaths[distance[i].first][j];
-    //     }
-    //     cout<<endl;
-    // }
-    // cout<<"\n------------------------------------"<<endl;
-    
     int sum = g.getNumberOfNodes()+1;//somatório dos caminhos mínimos encontrados pelo algoritmo
     int diff = sum+1; //iniciando com número infinito
     int a = 0, b = 0, m = 0, p = 0;
 
-    unsigned int n = distance.size();
+   int limit = 2; //inicia limit com dois nós para tamanho máximo do caminho, ou seja, com 1 hop
 
-    // std::chrono::steady_clock::time_point begin_ = std::chrono::steady_clock::now();
+   while(limit <= g.getNumberOfNodes() )
+   {
+        pairOfPaths = findAllPaths(distance,g,source,target,limit);
 
-
-    for (unsigned int i = 0; i < n-1; i++)
-    {
-        if ( ( a != b) && (m != p) )
+        if ( (int) pairOfPaths.size() <= 1  )
         {
-            //removeUnnecessaryPaths(pairOfPaths[a],pairOfPaths[b],distance);
-            
-            // m = a; p = b;
-            if ((int)pairOfPaths[a].size() > (int)pairOfPaths[b].size())
-            {
-                n = m;
-            }
-            else
-            {
-                n = p;
-            }
+            limit++;
+            distance.clear();
+            pairOfPaths.clear();
+            continue;
         }
-        /**
-         * Encontrou um caminho de par disjuntos
-         * E pelo menos um dos caminhos é menor que o novo
-         */
-        // if(a != b && ( m != a && p != b))
-        for (unsigned int j = i+1; j < n; j++)
+      
+        sortDatas(distance);//ordena vetor de pares
+
+        sum = g.getNumberOfNodes()+1;//somatório dos caminhos mínimos encontrados pelo algoritmo
+        diff = sum+1; //iniciando com número infinito
+        a = 0, b = 0, m = 0, p = 0;
+
+        unsigned int n = distance.size();
+
+        for (unsigned int i = 0; i < n-1; i++)
         {
-
-            int u = distance[i].first;
-            int v = distance[j].first;
-
-            if (pairOfPaths[u][1] == pairOfPaths[v][1])
+            if ( ( a != b) && (m != p) )
             {
-                continue;
-            }
-
-            if (pairOfPaths[u][(int)pairOfPaths[u].size()-2] == pairOfPaths[v][(int)pairOfPaths[v].size()-2])
-            {
-                continue;
-            }
-            
-            vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[u],pairOfPaths[v]);
-            
-            if ((int)paths.size() <= 0)
-            {
-               continue;
-            }
-
-            int newDiff = abs( (int)paths[0].size() - (int)paths[1].size() );
-            int s = ( (int)paths[0].size() + (int)paths[1].size() )/2;
-            
-            if ( s > sum && (a != b) )
-            {
-                break;
-            }
-            else if ( s < sum )
-            {  
-                a = u;
-                b = v;
-
-                diff = newDiff;
-                sum = s;
-
-                m = i; p = j;
-            }
-            else if (s == sum)
-            {
-                if (newDiff < diff)
+                if ((int)pairOfPaths[a].size() > (int)pairOfPaths[b].size())
                 {
+                    n = m;
+                }
+                else
+                {
+                    n = p;
+                }
+            }
+            /**
+             * Encontrou um caminho de par disjuntos
+             * E pelo menos um dos caminhos é menor que o novo
+             */
+            for (unsigned int j = i+1; j < n; j++)
+            {
 
+                int u = distance[i].first;
+                int v = distance[j].first;
+
+                if (pairOfPaths[u][1] == pairOfPaths[v][1])
+                {
+                    continue;
+                }
+
+                if (pairOfPaths[u][(int)pairOfPaths[u].size()-2] == pairOfPaths[v][(int)pairOfPaths[v].size()-2])
+                {
+                    continue;
+                }
+                
+                vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[u],pairOfPaths[v]);
+                
+                if ((int)paths.size() <= 0)
+                {
+                   continue;
+                }
+
+                int newDiff = abs( (int)paths[0].size() - (int)paths[1].size() );
+                int s = ( (int)paths[0].size() + (int)paths[1].size() )/2;
+                
+                if ( s > sum && (a != b) )
+                {
+                    break;
+                }
+                else if ( s < sum )
+                {  
                     a = u;
                     b = v;
 
                     diff = newDiff;
                     sum = s;
+
                     m = i; p = j;
+                }
+                else if (s == sum)
+                {
+                    if (newDiff < diff)
+                    {
+
+                        a = u;
+                        b = v;
+
+                        diff = newDiff;
+                        sum = s;
+                        m = i; p = j;
+                    }
                 }
             }
         }
-    }
-    // std::chrono::steady_clock::time_point end_= std::chrono::steady_clock::now();
-    // std::cout << "seconds = " << chrono::duration_cast<chrono::seconds>(end_ - begin_).count() <<std::endl;
-    // cout<<"\n------------------------------------"<<endl;
 
-    if (a != b)
+        //encontrou dois nós
+        if (a != b)
+        {
+            vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[a],pairOfPaths[b]);
+
+        	printPaths(paths[0],paths[1], g);
+
+            paths[0].clear();paths[1].clear();paths.clear();
+            
+            break;
+        }
+        else
+        {
+            distance.clear();
+            pairOfPaths.clear();
+
+            limit++;
+        }
+    }
+
+    if (a == b)
     {
-        vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[a],pairOfPaths[b]);
-
-    	printPaths(paths[0],paths[1], g);
-
-        paths[0].clear();paths[1].clear();paths.clear();
+        return false;
     }
-    else
-    {
-       return false;
-    }
-
-    distance.clear();
-    pairOfPaths.clear();
 
     return true;
 }
@@ -206,11 +195,11 @@ bool BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
 void BestBalancedPathEdge::discardCommonEdge(vector<int> &p1, vector<int> &p2, int x, int y)
 {
     vector<int> t1, t2;
-    unsigned int u = 0;
+    int u = 0;
   
-    for (u = 0; u < p1.size(); u += 2)
+    for (u = 0; u < (int)p1.size(); u += 2)
     {
-        if( (int)u == x )
+        if( u == x )
         {
             break;
         }
@@ -219,9 +208,9 @@ void BestBalancedPathEdge::discardCommonEdge(vector<int> &p1, vector<int> &p2, i
         t1.push_back(p1[u+1]);
     }
    
-    for (u = 0; u < p2.size(); u += 2)
+    for (u = 0; u < (int)p2.size(); u += 2)
     {
-        if( (int)u == y ) {
+        if( u == y ) {
             break;
         }
         
@@ -229,12 +218,12 @@ void BestBalancedPathEdge::discardCommonEdge(vector<int> &p1, vector<int> &p2, i
         t2.push_back(p2[u+1]);
     }
 
-    for (u = y+2; u < p2.size(); u += 2)
+    for (u = y+2; u < (int)p2.size(); u += 2)
     {
-        if (p2[u] == t1[t1.size() - 1] && p2[u+1] == t1[t1.size() - 2])
+        if (p2[u] == t1[(int)t1.size() - 1] && p2[u+1] == t1[(int)t1.size() - 2])
         {
-            t1.erase( t2.begin() + t1.size() - 1 );
-            t1.erase( t2.begin() + t1.size() - 1 );
+            t1.erase( t2.begin() + (int)t1.size() - 1 );
+            t1.erase( t2.begin() + (int)t1.size() - 1 );
             continue;
         }
 
@@ -242,12 +231,12 @@ void BestBalancedPathEdge::discardCommonEdge(vector<int> &p1, vector<int> &p2, i
         t1.push_back(p2[u+1]);
     }
   
-    for (u = x+2; u < p1.size(); u += 2)
+    for (u = x+2; u < (int)p1.size(); u += 2)
     {
-        if (p1[u] == t2[t2.size() - 1] && p1[u+1] == t2[t2.size() - 2])
+        if (p1[u] == t2[(int)t2.size() - 1] && p1[u+1] == t2[(int)t2.size() - 2])
         {
-            t2.erase( t2.begin() + t2.size() - 1 );
-            t2.erase( t2.begin() + t2.size() - 1 );
+            t2.erase( t2.begin() + (int)t2.size() - 1 );
+            t2.erase( t2.begin() + (int)t2.size() - 1 );
             continue;
         }
 
@@ -258,12 +247,12 @@ void BestBalancedPathEdge::discardCommonEdge(vector<int> &p1, vector<int> &p2, i
     p1.clear();
     p2.clear();
 
-    for (u = 0; u < t1.size(); u++)
+    for (u = 0; u < (int)t1.size(); u++)
     {
         p1.push_back(t1[u]);
     }
 
-    for (u = 0; u < t2.size(); u++)
+    for (u = 0; u < (int)t2.size(); u++)
     {
         p2.push_back(t2[u]);
     }

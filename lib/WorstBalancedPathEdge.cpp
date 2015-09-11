@@ -64,7 +64,7 @@ bool WorstBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int targe
     vector<pair<int,int>> distance;
     vector<int> path;
 
-    pairOfPaths = findAllPaths(distance,g,source,target);
+    pairOfPaths = findAllPaths(distance,g,source,target,0);
     // Graph graph = g;
     // dfs(distance,graph,source,target,pairOfPaths,path);//encontra todos os caminhos
     // cout<<" "<<source<<" "<<target<<endl;
