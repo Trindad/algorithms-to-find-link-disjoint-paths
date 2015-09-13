@@ -28,7 +28,8 @@ public:
 	PairOfDisjointPaths();
 	~PairOfDisjointPaths();
 
-
+	void setDiameter(int);
+	int getDiameter();
 	bool execute(Graph &,string);
 	void averageHops(Graph);
 	void dfs(vector<pair<int,int>> &,Graph &, int, int, vector< vector<int> > &, vector<int> &);
@@ -51,10 +52,11 @@ public:
 	void removeUnnecessaryPaths(vector<int>,vector<int>, vector<pair<int,int>> &);
 	vector<vector<int>> shortestPaths(Graph, vector<pair<int,int>> &, int, int);
 	void removePath(Graph &, vector<int> );
+	void graphDiameter(Graph);//calcula diâmetro do grafo
 
 	mutex m;
 	mutex ap;
-	// Digraph digraph;
+	int diameter;//diametro do grafo
 	vector< vector< vector<int> > > allPaths;
 	vector< double> hopWorking;					//número de saltos(i,j) do principal
 	vector< double> hopBackup;					//número de saltos(i,j) de backup

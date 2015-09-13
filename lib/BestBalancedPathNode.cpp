@@ -119,6 +119,7 @@ int BestBalancedPathNode::limitNumberOfNodesInPath(Graph g, int source,int targe
     return sum;
 }
 
+
 bool BestBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target)
 {
     // cout<<" source "<<source<<" target "<<target<<endl;
@@ -134,10 +135,9 @@ bool BestBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target
    int limit = 2; //inicia limit com dois nós para tamanho máximo do caminho, ou seja, com 1 hop
 
    int maximumNodes = limitNumberOfNodesInPath(g,source,target);
-
-   // printf("maximum %d\n", maximumNodes);
-
-   while(limit <= maximumNodes )
+   int diameterGraph = getDiameter();
+   
+   while(limit <= diameterGraph )
    {
        pairOfPaths = findAllPaths(distance,g,source,target,limit);
 

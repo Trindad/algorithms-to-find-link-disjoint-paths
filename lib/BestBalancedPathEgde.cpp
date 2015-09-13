@@ -69,8 +69,9 @@ bool BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
     int a = 0, b = 0, m = 0, p = 0;
 
    int limit = 2; //inicia limit com dois nós para tamanho máximo do caminho, ou seja, com 1 hop
-
-   while(limit <= g.getNumberOfNodes() )
+   int diameterGraph = getDiameter();
+   
+   while(limit <= diameterGraph )
    {
         pairOfPaths = findAllPaths(distance,g,source,target,limit);
 

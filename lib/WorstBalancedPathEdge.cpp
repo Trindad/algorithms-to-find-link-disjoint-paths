@@ -69,14 +69,12 @@ bool WorstBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int targe
     int a = 0, b = 0, m = 0, p = 0, w = 0, z = 0;
     vector<vector<int>> pairTemp;
 
-   int limit = 2, nNodes = g.getNumberOfNodes(); //inicia limit com dois nós para tamanho máximo do caminho, ou seja, com 1 hop
-   int c = 0;
-
-   while(limit <= nNodes && c <= 1 )
+   int limit = 2; //inicia limit com dois nós para tamanho máximo do caminho, ou seja, com 1 hop
+   int diameterGraph = getDiameter();
+   
+   while(limit <= diameterGraph )
    {
         pairOfPaths = findAllPaths(distance,g,source,target,limit);
-
-        // printf("n = %d l = %d p = %d\n",nNodes,limit,pairOfPaths.size());
 
         if ( (int) pairOfPaths.size() <= 1  )
         {
@@ -175,28 +173,13 @@ bool WorstBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int targe
         {
             w = a, z = b;
                 
-            int s1 = (int)pairOfPaths[w].size();
-            int s2 = (int)pairOfPaths[z].size();
-
             if ((int)pairTemp.size() >= 2)
             {
                 pairTemp.clear();
             }
 
-            pairTemp.push_back(pairOfPaths[w]);
-            pairTemp.push_back(pairOfPaths[z]);
-
-            nNodes = (s1+s2)-2;
-
-            // printf("n = %d l = %d %d %d\n",nNodes,limit,s1,s2);
-
-            limit = nNodes;
-            c++;
-
-            distance.clear();
-            pairOfPaths.clear();
-
-            continue;
+            pairTemp.push_back(pairOfPaths[a]);
+            pairTemp.push_back(pairOfPaths[b]);
         }
 
         distance.clear();
@@ -209,8 +192,7 @@ bool WorstBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int targe
     {
         return false;
     }
-    // printf("p1 = %d p2 = %d limit = %d\n",pairTemp[0].size(),pairTemp[1].size(),limit);
-
+ 
     vector< vector<int> > paths = compareWithOthers(g,pairTemp[0],pairTemp[1]);
 
     printPaths(paths[0],paths[1], g);

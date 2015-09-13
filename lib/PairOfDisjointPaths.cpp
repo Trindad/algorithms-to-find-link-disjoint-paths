@@ -385,27 +385,39 @@ void PairOfDisjointPaths::writeFile()
     }
 }
 
-// // Create a Digraph given in the above diagram
-// void PairOfDisjointPaths::createDigraph(Graph graph)
-// {
-//     int nNodes = graph.getNumberOfNodes();
+/**
+ * Calcula o diâmetro do grafo
+ */
+void PairOfDisjointPaths::graphDiameter(Graph g)
+{
+    int n = g.getNumberOfNodes(), d = 0, newDiameter = 0;
+    Dijkstra dijkstra;
+    vector<int> p;
 
-//     this->digraph.setNumberOfNodes(nNodes);
+    for (int u = 0; u < n-1; u++)
+    {
+        for (int v = u; v < n; v++)
+        {
+            dijkstra.execute(g,u,v);
+            p = dijkstra.shortestPath(v);
+            newDiameter = (int)p.size();
 
-//     vector<int> adjacents;
-//     vector<Node> node = graph.getNodes();
+            if (d < newDiameter)
+            {
+                d = newDiameter;
+            }
+        }
+    }
 
-//     for (int u = 0; u < nNodes ; u++)
-//     {
-//         adjacents = node[u].getAdjacentsNodes();
+    this->diameter = d;
+}
 
-//         for (int v = 0; v < (int)adjacents.size(); v++)
-//         {
-//             this->digraph.addEdge(u, adjacents[v]);
-//             this->digraph.addEdge(adjacents[v],u);
-//         }
+void PairOfDisjointPaths::setDiameter(int d)
+{
+    this->diameter = d;
+}
 
-//     }
-    
-//     adjacents.clear();
-// }
+int PairOfDisjointPaths::getDiameter()
+{
+    return this->diameter;
+}
