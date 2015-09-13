@@ -33,9 +33,9 @@ vector< vector<int> > WorstBalancedPathEdge::compareWithOthers(Graph g,vector<in
      * Remover arestas invertidas
      * Dos caminhos mínimos p1 e p2
      */
-    for ( unsigned int u = 0; u < path1.size()-1; u+=2)
+    for (int u = 0; u < (int)path1.size()-1; u+=2)
     {
-        for (unsigned int v = 0; v < path2.size()-1; v+=2)
+        for (int v = 0; v < (int)path2.size()-1; v+=2)
         {
             //exclui arestas em comum mas invertidas
             if (path1[u] == path2[v+1] && path1[u+1] == path2[v])
@@ -59,128 +59,167 @@ vector< vector<int> > WorstBalancedPathEdge::compareWithOthers(Graph g,vector<in
 
 bool WorstBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target)
 {
-   // cout<<" source "<<source<<" target "<<target<<endl;
+    // cout<<" source "<<source<<" target "<<target<<endl;
     vector< vector<int> > pairOfPaths;
     vector<pair<int,int>> distance;
     vector<int> path;
 
-    pairOfPaths = findAllPaths(distance,g,source,target,0);
-    // Graph graph = g;
-    // dfs(distance,graph,source,target,pairOfPaths,path);//encontra todos os caminhos
-    // cout<<" "<<source<<" "<<target<<endl;
-
-    sortDatas(distance);//ordena vetor de pares
-    
-    // cout<<"------------------------------------"<<endl;
-    // for (unsigned int i = 0; i < distance.size(); i++)
-    // {
-    //     for (unsigned int j = 0; j < pairOfPaths[distance[i].first].size(); j++)
-    //     {
-    //         cout<<" "<<pairOfPaths[distance[i].first][j]+1;
-    //     }
-    //     cout<<endl;
-    // }
-    // cout<<"\n------------------------------------"<<endl;
-    
     int sum = g.getNumberOfNodes()+1;//somatório dos caminhos mínimos encontrados pelo algoritmo
     int diff = sum+1; //iniciando com número infinito
-    int a = 0, b = 0, m = 0, p = 0;
+    int a = 0, b = 0, m = 0, p = 0, w = 0, z = 0;
+    vector<vector<int>> pairTemp;
 
-    unsigned int n = distance.size();
+   int limit = 2, nNodes = g.getNumberOfNodes(); //inicia limit com dois nós para tamanho máximo do caminho, ou seja, com 1 hop
+   int c = 0;
 
-    for (unsigned int i = 0; i < n-1; i++)
-    {
-        /**
-         * Encontrou um caminho de par disjuntos
-         * E pelo menos um dos caminhos é menor que o novo
-         */
-        // if(a != b && ( m != a && p != b))
-        if ( ( a != b) && (m != p) )
+   while(limit <= nNodes && c <= 1 )
+   {
+        pairOfPaths = findAllPaths(distance,g,source,target,limit);
+
+        // printf("n = %d l = %d p = %d\n",nNodes,limit,pairOfPaths.size());
+
+        if ( (int) pairOfPaths.size() <= 1  )
         {
-            //removeUnnecessaryPaths(pairOfPaths[a],pairOfPaths[b],distance);
-            
-            // m = a; p = b;
-            if ((int)pairOfPaths[a].size() > (int)pairOfPaths[b].size())
-            {
-                n = m;
-            }
-            else
-            {
-                n = p;
-            }
+            limit++;
+
+            distance.clear();
+            pairOfPaths.clear();
+
+            continue;
         }
-        for (unsigned int j = i+1; j < n; j++)
+      
+        sortDatas(distance);//ordena vetor de pares
+
+        sum = g.getNumberOfNodes()+1;//somatório dos caminhos mínimos encontrados pelo algoritmo
+        diff = sum+1; //iniciando com número infinito
+        a = 0, b = 0, m = 0, p = 0;
+
+        unsigned int n = distance.size();
+
+        for (unsigned int i = 0; i < n-1; i++)
         {
-
-            int u = distance[i].first;
-            int v = distance[j].first;
-
-            if (pairOfPaths[u][1] == pairOfPaths[v][1])
+            if ( ( a != b) && (m != p) )
             {
-                continue;
+                if ((int)pairOfPaths[a].size() > (int)pairOfPaths[b].size())
+                {
+                    n = m;
+                }
+                else
+                {
+                    n = p;
+                }
             }
-
-            if (pairOfPaths[u][(int)pairOfPaths[u].size()-2] == pairOfPaths[v][(int)pairOfPaths[v].size()-2])
+            /**
+             * Encontrou um caminho de par disjuntos
+             * E pelo menos um dos caminhos é menor que o novo
+             */
+            for (unsigned int j = i+1; j < n; j++)
             {
-                continue;
-            }
-            
-            vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[u],pairOfPaths[v]);
-            
-            if ((int)paths.size() <= 0)
-            {
-               continue;
-            }
 
-            int newDiff = abs( (int)paths[0].size() - (int)paths[1].size() );
-            int s = ( (int)paths[0].size() + (int)paths[1].size() )/2;
-            
-            if ( s > sum && (a != b) )
-            {
-                break;
-            }
-            else if ( s < sum )
-            {  
-                a = u;
-                b = v;
+                int u = distance[i].first;
+                int v = distance[j].first;
 
-                diff = newDiff;
-                sum = s;
-
-                m = i; p = j;
-            }
-            else if (s == sum)
-            {
-                if (newDiff > diff)
+                if (pairOfPaths[u][1] == pairOfPaths[v][1])
                 {
 
+                    continue;
+                }
+
+                if (pairOfPaths[u][(int)pairOfPaths[u].size()-2] == pairOfPaths[v][(int)pairOfPaths[v].size()-2])
+                {
+                    continue;
+                }
+                
+                vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[u],pairOfPaths[v]);
+                
+                if ((int)paths.size() <= 0)
+                {
+                   continue;
+                }
+
+                int newDiff = abs( (int)paths[0].size() - (int)paths[1].size() );
+                int s = (int)( (double)paths[0].size() + (double)paths[1].size() )/2;
+                
+                if ( s > sum && (a != b) )
+                {
+                    break;
+                }
+                else if ( s < sum )
+                {  
                     a = u;
                     b = v;
 
                     diff = newDiff;
                     sum = s;
+
                     m = i; p = j;
+                }
+                else if (s == sum)
+                {
+                    if (newDiff > diff)
+                    {
+
+                        a = u;
+                        b = v;
+
+                        diff = newDiff;
+                        sum = s;
+                        m = i; p = j;
+                    }
                 }
             }
         }
+
+        //encontrou dois nós
+        if (a != b )
+        {
+            w = a, z = b;
+                
+            int s1 = (int)pairOfPaths[w].size();
+            int s2 = (int)pairOfPaths[z].size();
+
+            if ((int)pairTemp.size() >= 2)
+            {
+                pairTemp.clear();
+            }
+
+            pairTemp.push_back(pairOfPaths[w]);
+            pairTemp.push_back(pairOfPaths[z]);
+
+            nNodes = (s1+s2)-2;
+
+            // printf("n = %d l = %d %d %d\n",nNodes,limit,s1,s2);
+
+            limit = nNodes;
+            c++;
+
+            distance.clear();
+            pairOfPaths.clear();
+
+            continue;
+        }
+
+        distance.clear();
+        pairOfPaths.clear();
+        
+        limit++;
     }
-    // cout<<"\n------------------------------------"<<endl;
 
-    if (a != b)
-    {
-        vector< vector<int> > paths = compareWithOthers(g,pairOfPaths[a],pairOfPaths[b]);
-
-    	printPaths(paths[0],paths[1], g);
-
-        paths[0].clear();paths[1].clear();paths.clear();
-    }
-    else
+    if (w == z)
     {
         return false;
     }
+    // printf("p1 = %d p2 = %d limit = %d\n",pairTemp[0].size(),pairTemp[1].size(),limit);
+
+    vector< vector<int> > paths = compareWithOthers(g,pairTemp[0],pairTemp[1]);
+
+    printPaths(paths[0],paths[1], g);
+
+    paths[0].clear();paths[1].clear();paths.clear();
 
     distance.clear();
     pairOfPaths.clear();
+
 
     return true;
 }

@@ -202,49 +202,13 @@ void PairOfDisjointPaths::addChildren(vector<pair<int,int>> &distance,Graph g,Tr
 
 vector< vector<int> > PairOfDisjointPaths::findAllPaths(vector<pair<int,int>> &distance,Graph g,int source,int target, int limit)
 {
-    // vector< vector<int> > paths;
-
-    // TreeNode *root = new TreeNode(source);//a raíz inicia pela origem do caminho e as folhas serão sempre o destino
-
-    // addChildren(distance,g,root,source,target,paths);//adiciona filhos na árvore
-
-    // freeTree(root);
-    // int a[NMAX];
-    
-    // for (int p = 0; p < NMAX; p++)
-    // {
-    //     a[p] = -1;
-    // }
-    
-    // Backtrack b(g,source);
-
-    // b.execute(a, source-1, target, limit);
-    // // cout << "PRINTING PAAAAATHS!!!!!!" << source << " " << target << endl;
-    // for (int i = 0; i < (int)b.all_paths.size(); i++)
-    // {
-    //     for (int k = 0; k < (int)b.all_paths[i].size(); k++)
-    //     {
-    //         cout << b.all_paths[i][k] << " ";
-    //     }
-
-    //     cout << endl;
-    // }
-    // // cout<<"-----------------------------------------"<<endl;
-    // int hops = 0;
-
-    // for (int i = 0; i < (int)b.all_paths.size(); i++)
-    // {
-    //     hops = (int)b.all_paths[i].size();
-    //     distance.push_back( pair<int, int>(i,hops-1) );
-    // }
-
-    // return b.all_paths;
     
     int n = g.getNumberOfNodes(),hops = 0;
    
     DFS d(n);
 
     vector<vector<int>> paths;
+    
     d.execute(source,target,0,g,limit,paths); 
 
     for (int i = 0; i < (int)paths.size(); i++)

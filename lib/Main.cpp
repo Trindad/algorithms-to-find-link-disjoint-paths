@@ -132,45 +132,50 @@ int main(int argc, char const *argv[])
 
 		// cout<<"sobrevivente "<<sobrevivente<<"\n\n"<<endl;
 
-		// Suurballe s;
+		Suurballe s;
 
-		// bool survivor = s.execute(g2,pathFile[pathFile.size()-1]);
+		bool survivor = s.execute(g2,pathFile[pathFile.size()-1]);
 
-		// if (!sobrevivente)
-		// {
-		// 	cout<<"não sobrevivente "<<sobrevivente<<endl;
-		// }
-
-		// BalancedSuurballe bs;
-
-		// bool survivor = bs.execute(g2,pathFile[pathFile.size()-1]);
-
-		// if (!survivor)
-		// {
-		// 	cout<<"não sobrevivente "<<sobrevivente<<endl;
-		// }
-		
-		// cout<<"------------------------------------"<<endl;
-		
-		BestBalancedPathEdge be;
-
-		bool survivor = be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
 		if (!survivor)
 		{
 			cout<<"não sobrevivente "<<survivor<<endl;
 		}
-		// BestBalancedPathNode bn;
+		
+		BestBalancedPathEdge be;
 
-		// survivor = bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
+		survivor = be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
+		
+		if (!survivor)
+		{
+			cout<<"não sobrevivente "<<survivor<<endl;
+		}
+		
+		BestBalancedPathNode bn;
 
-		// WorstBalancedPathNode wn;
+		survivor = bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
 
-		// survivor = wn.execute(g1,"worst_balanced_node_"+pathFile[pathFile.size()-1]);
+		if (!survivor)
+		{
+			cout<<"não sobrevivente "<<survivor<<endl;
+		}
 
-		// WorstBalancedPathEdge we;
+		WorstBalancedPathNode wn;
 
-		// survivor = we.execute(g1,"worst_balanced_edge_"+pathFile[pathFile.size()-1]);
+		survivor = wn.execute(g1,"worst_balanced_node_"+pathFile[pathFile.size()-1]);
 
+		if (!survivor)
+		{
+			cout<<"não sobrevivente "<<survivor<<endl;
+		}
+
+		WorstBalancedPathEdge we;
+
+		survivor = we.execute(g2,"worst_balanced_edge_"+pathFile[pathFile.size()-1]);
+
+		if (!survivor)
+		{
+			cout<<"não sobrevivente "<<survivor<<endl;
+		}
 
 		file.close();
 	}
