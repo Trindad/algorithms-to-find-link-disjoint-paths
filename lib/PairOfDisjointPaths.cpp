@@ -412,6 +412,34 @@ void PairOfDisjointPaths::graphDiameter(Graph g)
     this->diameter = d;
 }
 
+/**
+ * Calcula o diâmetro do grafo
+ */
+void PairOfDisjointPaths::graphMaximumDistance(Graph g)
+{
+    int n = g.getNumberOfNodes(), d = 0, newDiameter = 0;
+    Dijkstra dijkstra;
+    vector<int> p;
+
+    for (int u = 0; u < n-1; u++)
+    {
+        for (int v = u; v < n; v++)
+        {
+            dijkstra.executeMaximum(g,u,v);
+            p = dijkstra.shortestPath(v);
+            newDiameter = (int)p.size();
+            printf("%d\n",newDiameter );
+            
+            if (d < newDiameter)
+            {
+                d = newDiameter;
+            }
+        }
+    }
+
+    this->diameter = d;
+}
+
 void PairOfDisjointPaths::setDiameter(int d)
 {
     this->diameter = d;

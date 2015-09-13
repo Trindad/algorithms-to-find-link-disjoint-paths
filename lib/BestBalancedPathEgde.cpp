@@ -69,8 +69,8 @@ bool BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
     int a = 0, b = 0, m = 0, p = 0;
 
    int limit = 2; //inicia limit com dois nós para tamanho máximo do caminho, ou seja, com 1 hop
-   int diameterGraph = getDiameter();
-   
+   int diameterGraph = g.getNumberOfNodes();
+
    while(limit <= diameterGraph )
    {
         pairOfPaths = findAllPaths(distance,g,source,target,limit);
@@ -186,6 +186,8 @@ bool BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
 
     if (a == b)
     {
+        printf("Topologia não sobrevivente de %d-%d\n",source,target );
+        
         return false;
     }
 

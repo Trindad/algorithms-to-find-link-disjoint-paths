@@ -132,28 +132,21 @@ int main(int argc, char const *argv[])
 
 		// cout<<"sobrevivente "<<sobrevivente<<"\n\n"<<endl;
 
-		Suurballe s;
+		// Suurballe s;
 
-		bool survivor = s.execute(g2,pathFile[pathFile.size()-1]);
+		// bool survivor = s.execute(g2,pathFile[pathFile.size()-1]);
 
-		if (!survivor)
-		{
-			cout<<"não sobrevivente "<<survivor<<endl;
-		}
+		// if (!survivor)
+		// {
+		// 	cout<<"não sobrevivente "<<survivor<<endl;
+		// }
 		
 		/**
 		 * Calcula diâmetro do grafo para limitar 
 		 */
-
-
-
 		BestBalancedPathEdge be;
 		
-		be.graphDiameter(g1);
-
-		int d = be.getDiameter();
-
-		survivor = be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
+		bool survivor = be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
 		
 		if (!survivor)
 		{
@@ -161,8 +154,6 @@ int main(int argc, char const *argv[])
 		}
 		
 		BestBalancedPathNode bn;
-
-		bn.setDiameter(d);
 
 		survivor = bn.execute(g1,"best_balanced_node_"+pathFile[pathFile.size()-1]);
 
@@ -172,8 +163,7 @@ int main(int argc, char const *argv[])
 		}
 
 		WorstBalancedPathNode wn;
-		wn.setDiameter(d);
-		
+
 		survivor = wn.execute(g1,"worst_balanced_node_"+pathFile[pathFile.size()-1]);
 
 		if (!survivor)
@@ -182,7 +172,6 @@ int main(int argc, char const *argv[])
 		}
 
 		WorstBalancedPathEdge we;
-		we.setDiameter(d);
 
 		survivor = we.execute(g2,"worst_balanced_edge_"+pathFile[pathFile.size()-1]);
 

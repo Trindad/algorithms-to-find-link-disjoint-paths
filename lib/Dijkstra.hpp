@@ -26,6 +26,7 @@ public:
 	~Dijkstra();
 
 	int execute( Graph, int, int );
+	int executeMaximum( Graph, int, int );
 	vector<int> shortestPath(int);
 
 private:

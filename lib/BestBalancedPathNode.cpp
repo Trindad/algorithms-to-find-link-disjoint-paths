@@ -135,7 +135,7 @@ bool BestBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int target
    int limit = 2; //inicia limit com dois nós para tamanho máximo do caminho, ou seja, com 1 hop
 
    int maximumNodes = limitNumberOfNodesInPath(g,source,target);
-   int diameterGraph = getDiameter();
+   int diameterGraph = g.getNumberOfNodes();
    
    while(limit <= diameterGraph )
    {

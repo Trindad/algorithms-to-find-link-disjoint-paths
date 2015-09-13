@@ -53,10 +53,12 @@ public:
 	vector<vector<int>> shortestPaths(Graph, vector<pair<int,int>> &, int, int);
 	void removePath(Graph &, vector<int> );
 	void graphDiameter(Graph);//calcula diâmetro do grafo
+	void graphMaximumDistance(Graph);//calcula a maior distância entre as maiores do grafo
 
 	mutex m;
 	mutex ap;
 	int diameter;//diametro do grafo
+	int maximumDistance;
 	vector< vector< vector<int> > > allPaths;
 	vector< double> hopWorking;					//número de saltos(i,j) do principal
 	vector< double> hopBackup;					//número de saltos(i,j) de backup

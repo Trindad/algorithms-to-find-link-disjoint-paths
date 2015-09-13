@@ -126,13 +126,13 @@ bool WorstBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int targe
 
     int sum = g.getNumberOfNodes()+1;//somatório dos caminhos mínimos encontrados pelo algoritmo
     int diff = sum+1; //iniciando com número infinito
-    int a = 0, b = 0, m = 0, p = 0, w = 0, z = 0;
+    int a = 0, b = 0, m = 0, p = 0, w = 0, z = 0, c = 0;
     vector<vector<int>> pairTemp;
 
    int limit = 2, nNodes = limitNumberOfNodesInPath(g,source,target); //inicia limit com dois nós para tamanho máximo do caminho, ou seja, com 1 hop
-   int diameterGraph = getDiameter();
+   int diameterGraph = g.getNumberOfNodes();
    
-   while(limit <= diameterGraph )
+   while(limit <= diameterGraph && c <= 1)
    {
         pairOfPaths = findAllPaths(distance,g,source,target,limit);
 
@@ -242,6 +242,10 @@ bool WorstBalancedPathNode::findPairOfBalancedPaths(Graph g,int source,int targe
 
             pairTemp.push_back(pairOfPaths[w]);
             pairTemp.push_back(pairOfPaths[z]);
+
+            diameterGraph = (int)pairTemp[0].size() + (int)pairTemp[1].size();
+
+            c++;
         }
 
         distance.clear();
