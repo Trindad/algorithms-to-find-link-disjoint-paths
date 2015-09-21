@@ -131,22 +131,22 @@ int main(int argc, char const *argv[])
 		// }
 
 		// cout<<"sobrevivente "<<sobrevivente<<"\n\n"<<endl;
+		bool survivor = false;
+		Suurballe s;
 
-		// Suurballe s;
+		survivor = s.execute(g2,pathFile[pathFile.size()-1]);
 
-		// bool survivor = s.execute(g2,pathFile[pathFile.size()-1]);
-
-		// if (!survivor)
-		// {
-		// 	cout<<"não sobrevivente "<<survivor<<endl;
-		// }
+		if (!survivor)
+		{
+			cout<<"não sobrevivente "<<survivor<<endl;
+		}
 		
 		/**
 		 * Calcula diâmetro do grafo para limitar 
 		 */
 		BestBalancedPathEdge be;
 		
-		bool survivor = be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
+		survivor = be.execute(g1,"best_balanced_edge_"+pathFile[pathFile.size()-1]);
 		
 		if (!survivor)
 		{

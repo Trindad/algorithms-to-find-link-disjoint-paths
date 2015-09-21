@@ -22,7 +22,7 @@ public:
 	~BestBalancedPathEdge();
 
 	void discardCommonEdge(vector<int> &, vector<int> &, int, int);	//gera dois novos caminhos excluindo os enlaces em comum
-	
+	int limitNumberOfNodesInPath(Graph, int,int);
 	/**
 	 * Métodos para encontrar caminhos balanceados
 	 */

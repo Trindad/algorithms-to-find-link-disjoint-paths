@@ -54,6 +54,7 @@ BestBalancedPathNode::~BestBalancedPathNode(){}
     return paths;
 }
 
+
 /**
  * Encontra dois caminhos disjuntos usando Dijkstra
  * A partir deles calcula o limit para o número de hops 

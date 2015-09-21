@@ -57,6 +57,61 @@ vector< vector<int> > BestBalancedPathEdge::compareWithOthers(Graph g,vector<int
     return paths;
 }
 
+/**
+ * Encontra dois caminhos disjuntos usando Dijkstra
+ * A partir deles calcula o limit para o número de hops 
+ */
+int BestBalancedPathEdge::limitNumberOfNodesInPath(Graph g, int source,int target)
+{
+    Graph s = g;//grafo auxiliar
+
+    Dijkstra d;
+
+    d.execute(s,source,target);
+
+    vector<int> p1;
+
+    p1 = d.shortestPath(target);
+
+    if ((int)p1.size() <= 1)
+    {
+        return 0;
+    }
+
+    /**
+     * Remove arestas do grafo
+     */
+    int sum = (int)p1.size();
+    vector<int> adjcents;
+    Node node;
+
+
+    int u = 0;
+
+    for ( u = 0; u < (int)p1.size()-1; u++)
+    {
+        s.removeNode(p1[u],p1[u+1]);
+        s.removeNode(p1[u+1],p1[u]);
+    }
+
+    p1.clear();
+
+    d.execute(s,source,target);
+
+    p1 = d.shortestPath(target);
+
+    if ((int)p1.size() <= 1 )
+    {
+        return 0;
+    }
+
+    sum = sum + (int) p1.size();
+
+    p1.clear();
+
+    return sum;
+}
+
 bool BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target)
 {
     // cout<<" source "<<source<<" target "<<target<<endl;
@@ -70,6 +125,7 @@ bool BestBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target
 
    int limit = 2; //inicia limit com dois nós para tamanho máximo do caminho, ou seja, com 1 hop
    int diameterGraph = g.getNumberOfNodes();
+   // printf("diametro  %d\n",diameterGraph);
 
    while(limit <= diameterGraph )
    {

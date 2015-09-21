@@ -57,6 +57,62 @@ vector< vector<int> > WorstBalancedPathEdge::compareWithOthers(Graph g,vector<in
     return paths;
 }
 
+
+/**
+ * Encontra dois caminhos disjuntos usando Dijkstra
+ * A partir deles calcula o limit para o número de hops 
+ */
+int WorstBalancedPathEdge::limitNumberOfNodesInPath(Graph g, int source,int target)
+{
+    Graph s = g;//grafo auxiliar
+
+    Dijkstra d;
+
+    d.execute(s,source,target);
+
+    vector<int> p1;
+
+    p1 = d.shortestPath(target);
+
+    if ((int)p1.size() <= 1)
+    {
+        return 0;
+    }
+
+    /**
+     * Remove arestas do grafo
+     */
+    int sum = (int)p1.size();
+    vector<int> adjcents;
+    Node node;
+
+
+    int u = 0;
+
+    for ( u = 0; u < (int)p1.size()-1; u++)
+    {
+        s.removeNode(p1[u],p1[u+1]);
+        s.removeNode(p1[u+1],p1[u]);
+    }
+
+    p1.clear();
+
+    d.execute(s,source,target);
+
+    p1 = d.shortestPath(target);
+
+    if ((int)p1.size() <= 1 )
+    {
+        return 0;
+    }
+
+    sum = sum + (int) p1.size();
+
+    p1.clear();
+
+    return sum;
+}
+
 bool WorstBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int target)
 {
     // cout<<" source "<<source<<" target "<<target<<endl;
@@ -181,8 +237,8 @@ bool WorstBalancedPathEdge::findPairOfBalancedPaths(Graph g,int source,int targe
             pairTemp.push_back(pairOfPaths[a]);
             pairTemp.push_back(pairOfPaths[b]);
 
-            diameterGraph = (int)pairTemp[0].size() + (int)pairTemp[1].size();
-
+            diameterGraph = (int)pairTemp[0].size()+(int)pairTemp[1].size();
+           
             c++;
         }
 
